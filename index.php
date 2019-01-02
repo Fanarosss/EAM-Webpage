@@ -46,8 +46,14 @@
     border:none;
     width:200px;
     height:200px;
-
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
   }
+  .myButton:hover {
+    background:url(./images/but.png) no-repeat;
+    background-color: grey;
+    color: white;
+}
   .myButton:active {
     background:url(./images/but.png) no-repeat;
     background-color:grey;
