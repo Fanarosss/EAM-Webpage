@@ -50,16 +50,6 @@
           box-sizing: border-box;
 }
 
-
-.logo {
-    float: left;
-}
-.mynav {
-    float: left;
-    margin-top: 71.62px;
-}
-
-
 html {
   font-family: sans-serif;
   line-height: 1.15;
