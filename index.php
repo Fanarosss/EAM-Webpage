@@ -8,16 +8,6 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 </head>
 
-<style>
-  div.logo: {
-    float: left;
-  }
-
-  div.mynav: {
-    margin-left: 100px;
-  }
-</style>
-
 <body>
   <div class="logo">
     <a href="index.php"><img src="images/eudoxus.png"/></a>
@@ -51,9 +41,6 @@
       </div>
     </nav>
   </div>
-  <?php
-    echo "Project 3";
-    ?>
 
 </body>
 </html>
