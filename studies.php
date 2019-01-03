@@ -56,7 +56,16 @@
         </ol>
       </div>
       <!-- Item 3 on grid -->
-
+      <div class="selection" style="padding-right:70%">
+        <div class="form-group">
+          <select class="custom-select">
+            <option selected="">--Select University--</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 </body>
