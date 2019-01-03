@@ -91,3 +91,10 @@
 .dropdown:hover .dropbtn {
   background-color: #grey;
 }
+.search-container {
+  
+}
+.search-bn-container {
+  padding-left: 40%;
+  padding-right: 40%;
+}
