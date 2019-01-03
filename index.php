@@ -59,8 +59,8 @@
     background-color:grey;
 }
 .nav-item {
-  margin-left: 40px;
-  font-size: 110%
+  margin-right: 50px;
+  font-size: 120%
 }
 .mydropdown {
   position: relative;
@@ -114,10 +114,6 @@
       <!-- Item 1 on grid -->
       <div class="bs-item1">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
