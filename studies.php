@@ -28,7 +28,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="http://localhost/book_database.php">Book Database</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="http://localhost/studies.php">Studies</a>
               </li>
               <li class="nav-item">
@@ -56,7 +56,7 @@
         </ol>
       </div>
       <!-- Item 3 on grid -->
-      
+
     </div>
   </div>
 </body>

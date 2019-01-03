@@ -51,7 +51,7 @@
       <!-- Item 2 on grid -->
       <div class="bs-item2">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
           <li class="breadcrumb-item active">Contact</li>
         </ol>
       </div>
