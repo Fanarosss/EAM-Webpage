@@ -23,17 +23,17 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="http://localhost/announcements.php">Announcements</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Book Database</a>
+                <a class="nav-link" href="http://localhost/book_database.php">Book Database</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Studies</a>
+                <a class="nav-link" href="http://localhost/studies.php">Studies</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="http://localhost/contact.php">Contact</a>
               </li>
             </ul>
             <div class="mydropdown">
