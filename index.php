@@ -38,7 +38,7 @@
 
 .button-row{
   font-size: large;
-  grid-template-columns: 25% 25% 25% 25%
+  grid-template-columns: 20% 20% 20% 20% 20%
 }
 .myButton{
     background:url(./images/but.png) no-repeat;
@@ -48,19 +48,59 @@
     height:200px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
-  }
-  .myButton:hover {
+}
+.myButton:hover {
     background:url(./images/but.png) no-repeat;
     background-color: grey;
     color: white;
 }
-  .myButton:active {
+.myButton:active {
     background:url(./images/but.png) no-repeat;
     background-color:grey;
-  }
+}
 .nav-item {
   margin-left: 40px;
   font-size: 110%
+}
+.mydropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropbtn {
+  background-color: #9FD3DF;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+.mydropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 60px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.mydropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.mydropdown-content a:hover {
+  background-color: #A9B6B9;
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+}
+.mydropdown:hover .mydropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #grey;
 }
 </style>
 
@@ -93,10 +133,16 @@
                 <a class="nav-link" href="#">Contact</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search">
-              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <div class="mydropdown">
+              <button class="dropbtn">Login</button>
+              <div class="mydropdown-content">
+                <a href="#">Student</a>
+                <a href="#">Publisher</a>
+                <a href="#">Secretary</a>
+                <a href="#">Distributor</a>
+                <a href="#">Professor</a>
+              </div>
+            </div>
           </div>
         </nav>
       </div>
@@ -118,12 +164,13 @@
           </p>
         </div>
       </div>
-      <!-- Item 3 on grid -->
+      <!-- Item 4 on grid -->
       <h2>Are you?</h2>
       <div class="button-row">
           <input class="myButton" type="submit" value="Student">
           <input class="myButton" type="submit" value="Publisher">
           <input class="myButton" type="submit" value="Secretary">
+          <input class="myButton" type="submit" value="Distributor">
           <input class="myButton" type="submit" value="Professor">
       </div>
     </div>
