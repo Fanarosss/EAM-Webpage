@@ -38,11 +38,11 @@
             <div class="mydropdown">
               <button class="dropbtn">Login</button>
               <div class="mydropdown-content">
-                <a href="#">Student</a>
-                <a href="#">Publisher</a>
-                <a href="#">Secretary</a>
-                <a href="#">Distributor</a>
-                <a href="#">Professor</a>
+                <a href="http://localhost/login.php?id=1">Student</a>
+                <a href="http://localhost/login.php?id=2">Publisher</a>
+                <a href="http://localhost/login.php?id=3">Secretary</a>
+                <a href="http://localhost/login.php?id=4">Distributor</a>
+                <a href="http://localhost/login.php?id=5">Professor</a>
               </div>
             </div>
           </div>
@@ -65,17 +65,48 @@
       ?>
       <!-- Item 4 on grid -->
       <div class="container">
-        <div class="form-group">
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search">
-          <small id="emailHelp" class="form-text text-muted">For advanced search use commas (,) for different keys.</small>
-          <small id="emailHelp" class="form-text text-muted">Example search: Algorithms, Kleidarithmos.</small>
-        </div>
-        <div class="search-bn-container">
-          <button type="button" class="btn btn-primary btn-lg">Search</button>
-        </div>
+        <form action="book_database.php" method="POST">
+          <div class="form-group">
+            <input type="text" name="search" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search">
+            <small id="emailHelp" class="form-text text-muted">For advanced search use commas (,) for different keys.</small>
+            <small id="emailHelp" class="form-text text-muted">Example search: Algorithms, Kleidarithmos.</small>
+          </div>
+          <div class="search-bn-container">
+            <button type="submit" name="submit-search" class="btn btn-primary btn-lg">Search</button>
+          </div>
+        </form>
       </div>
       <!-- Item 5 on grid -->
-
+      <div class="results-container">
+        <?php
+        if (isset($_POST['submit-search'])){
+          $search = mysqli_real_escape_string($conn, $_POST['search']);
+          $query = "SELECT * FROM book WHERE Title LIKE '%$search%' OR Author LIKE '%$search'
+                    OR ISBN LIKE '%$search' OR Publications LIKE '%$search'";
+          $result = $conn->query($query);
+          if ($result){
+            echo '<h1>Results</h1>';
+            echo '<div class="button-row">';
+            while($row = $result->fetch_assoc()){
+              echo '<input class="myButton" type="submit" value="'.$row['Title'].'">';
+            }
+            echo '</div>';
+          }else{
+            echo "<h1>There are no results matching your search.</h1>";
+          }
+        } else {
+          $query = "SELECT * FROM book";
+          $result = $conn->query($query);
+          if (!$result) die($conn->error);
+          echo '<h1>All books</h1>';
+          echo '<div class="button-row">';
+          while($row = $result->fetch_assoc()){
+            echo '<input class="myButton" type="submit" value="'.$row['Title'].'">';
+          }
+          echo '</div>';
+        }
+        ?>
+      </div>
     </div>
   </div>
 </body>
