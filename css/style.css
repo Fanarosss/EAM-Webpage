@@ -130,14 +130,14 @@
 }
 .bs1-grid {
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 191px auto;
 }
 .bs1-grid > div {
   padding: 1em;
 }
 .bs2-grid {
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 191px auto;
 }
 
 .bs2-grid > div {
