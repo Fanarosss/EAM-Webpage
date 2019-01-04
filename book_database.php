@@ -57,6 +57,12 @@
       </div>
       <!-- Item 3 on grid -->
       <h1 style="text-align:center">Search for book in Eudoxus database</h1>
+      <!-- Connect to database -->
+      <?php
+      require_once './src/login.php';
+      $conn = new mysqli($hn, $usernm, $passwrd, $db);
+      if ($conn->connect_error) die($conn->connect_error)
+      ?>
       <!-- Item 4 on grid -->
       <div class="container">
         <div class="form-group">
@@ -69,7 +75,7 @@
         </div>
       </div>
       <!-- Item 5 on grid -->
-      
+
     </div>
   </div>
 </body>
