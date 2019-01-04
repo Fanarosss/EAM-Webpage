@@ -28,7 +28,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="http://localhost/book_database.php">Book Database</a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="http://localhost/studies.php">Studies</a>
               </li>
               <li class="nav-item">
@@ -52,21 +52,45 @@
       <div class="bs-item2">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
-          <li class="breadcrumb-item active">Studies</li>
+          <li class="breadcrumb-item active">Log In</li>
         </ol>
       </div>
       <!-- Item 3 on grid -->
-      <div class="selection" style="padding-right:70%">
-        <div class="form-group">
-          <select class="custom-select">
-            <option selected="">--Select University--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+      <div class="bs-item3">
+        <div class="jumbotron">
+          <form>
+            <h1 class="display-3">Log In</h1>
+            <?php
+              $id = $_GET['id'];
+              if ($id == 1){
+                echo "For Students";
+              }else if ($id == 2){
+                echo "For Publishers";
+              }else if ($id == 3){
+                echo "For Secretaries";
+              }else if ($id == 4){
+                echo "For Distributors";
+              }else if ($id == 5){
+                echo "For Professors";
+              }
+             ?>
+            <hr class="my-2">
+            <div class="form-group">
+              <label for="Username">Username</label>
+              <input type="text" class="form-control" id="Username">
+            </div>
+            <div class="form-group">
+              <label for="Password">Password</label>
+              <input type="password" class="form-control" id="Password">
+            </div>
+            <hr class="my-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="http://localhost/index.php">
+               <input type="button" class="btn btn-primary" style="background-color: red;" value="Cancel" />
+            </a>
+        </form>
         </div>
       </div>
     </div>
   </div>
 </body>
-</html>

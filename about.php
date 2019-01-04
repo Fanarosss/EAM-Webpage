@@ -41,11 +41,11 @@
             <div class="mydropdown">
               <button class="dropbtn">Login</button>
               <div class="mydropdown-content">
-                <a href="#">Student</a>
-                <a href="#">Publisher</a>
-                <a href="#">Secretary</a>
-                <a href="#">Distributor</a>
-                <a href="#">Professor</a>
+                <a href="http://localhost/login.php?id=1">Student</a>
+                <a href="http://localhost/login.php?id=2">Publisher</a>
+                <a href="http://localhost/login.php?id=3">Secretary</a>
+                <a href="http://localhost/login.php?id=4">Distributor</a>
+                <a href="http://localhost/login.php?id=5">Professor</a>
               </div>
             </div>
           </div>
