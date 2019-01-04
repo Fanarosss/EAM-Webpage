@@ -106,3 +106,25 @@
   padding-left: 40%;
   padding-right: 40%;
 }
+
+.book-row > div {
+  padding-right: 5%;
+}
+.myBook {
+    background:url(./images/but.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:200px;
+    height:200px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.myBook:hover {
+    background:url(./images/but.png) no-repeat;
+    background-color: grey;
+    color: white;
+}
+.myBook:active {
+    background:url(./images/but.png) no-repeat;
+    background-color:grey;
+}

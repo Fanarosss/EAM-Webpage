@@ -86,9 +86,11 @@
           $result = $conn->query($query);
           if ($result){
             echo '<h1>Results</h1>';
-            echo '<div class="button-row">';
+            echo '<div class="book-row">';
             while($row = $result->fetch_assoc()){
+              echo '<div class="btn">';
               echo '<input class="myButton" type="submit" value="'.$row['Title'].'">';
+              echo '</div>';
             }
             echo '</div>';
           }else{
@@ -99,9 +101,11 @@
           $result = $conn->query($query);
           if (!$result) die($conn->error);
           echo '<h1>All books</h1>';
-          echo '<div class="button-row">';
+          echo '<div class="book-row">';
           while($row = $result->fetch_assoc()){
+            echo '<div class="btn">';
             echo '<input class="myButton" type="submit" value="'.$row['Title'].'">';
+            echo '</div>';
           }
           echo '</div>';
         }
