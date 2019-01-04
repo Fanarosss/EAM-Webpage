@@ -67,13 +67,13 @@
         <a class="nav-link active" href="http://localhost/student_book_sel.php">Book selection</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="#">Book List</a>
+        <a class="nav-link" href="http://localhost/student_book_list.php">Book List</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="#">FAQ</a>
+        <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="#">Manual</a>
+        <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf">Manual</a>
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
