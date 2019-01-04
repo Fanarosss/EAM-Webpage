@@ -58,37 +58,64 @@
       <!-- Item 3 on grid -->
       <div class="bs-item3">
         <div class="jumbotron">
-          <form>
-            <h1 class="display-3">Log In</h1>
-            <?php
-              $id = $_GET['id'];
-              if ($id == 1){
-                echo "For Students";
-              }else if ($id == 2){
-                echo "For Publishers";
-              }else if ($id == 3){
-                echo "For Secretaries";
-              }else if ($id == 4){
-                echo "For Distributors";
-              }else if ($id == 5){
-                echo "For Professors";
-              }
-             ?>
+          <h1 class="display-3">Log In</h1>
+          <?php
+            $id = $_GET['id'];
+            if ($id == 1){
+              echo "For Students";
+            }else if ($id == 2){
+              echo "For Publishers";
+            }else if ($id == 3){
+              echo "For Secretaries";
+            }else if ($id == 4){
+              echo "For Distributors";
+            }else if ($id == 5){
+              echo "For Professors";
+            }
+          ?>
+          <form action="" method="POST">
             <hr class="my-2">
             <div class="form-group">
               <label for="Username">Username</label>
-              <input type="text" class="form-control" id="Username">
+              <input type="text" class="form-control" name="Username" id="Username" required>
             </div>
             <div class="form-group">
               <label for="Password">Password</label>
-              <input type="password" class="form-control" id="Password">
+              <input type="password" class="form-control" name="Password" id="Password" required>
             </div>
             <hr class="my-4">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" name="Login" class="btn btn-primary">Submit</button>
             <a href="http://localhost/index.php">
                <input type="button" class="btn btn-primary" style="background-color: red;" value="Cancel" />
             </a>
-        </form>
+          </form>
+          <?php
+            include('./src/config.php');
+            session_start();
+            if ($_SERVER["REQUEST_METHOD"] == "POST"){
+              $user = mysqli_real_escape_string($conn, $_POST['Username']);
+              $pass = mysqli_real_escape_string($conn, $_POST['Password']);
+              $query = "SELECT * FROM user WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
+              $result = $conn->query($query);
+              if (mysqli_num_rows($result) == 1) {
+                $_SESSION['login_user'] = $user;
+                if ($id == 1){
+                  header("location: student_home.php");
+                }else if ($id == 2){
+                  header("location: publisher_home.php");                       //not exists
+                }else if ($id == 3){
+                  header("location: secretary_home.php");                       //not exists
+                }else if ($id == 4){
+                  header("location: distributor_home.php");                     //not exists
+                }else if ($id == 5){
+                  header("location: professor_home.php");                       //not exists
+                }
+              } else {                                                          //create better messages
+                $error = "Your Login Name or Password is invalid";
+              }
+            }
+          ?>
+          <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
         </div>
       </div>
     </div>
