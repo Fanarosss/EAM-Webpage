@@ -69,11 +69,21 @@
       <!-- Item 4 on grid -->
       <h2>Are you?</h2>
       <div class="button-row">
+        <a href="http://localhost/login.php?id=1">
           <input class="myButton" type="submit" value="Student">
+        </a>
+        <a href="http://localhost/login.php?id=2">
           <input class="myButton" type="submit" value="Publisher">
+        </a>
+        <a href="http://localhost/login.php?id=3">
           <input class="myButton" type="submit" value="Secretary">
+        </a>
+        <a href="http://localhost/login.php?id=4">
           <input class="myButton" type="submit" value="Distributor">
+        </a>
+        <a href="http://localhost/login.php?id=5">
           <input class="myButton" type="submit" value="Professor">
+        </a>
       </div>
     </div>
   </div>
