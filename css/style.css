@@ -128,3 +128,7 @@
     background:url(./images/but.png) no-repeat;
     background-color:grey;
 }
+.bs2-grid {
+  display: grid;
+  grid-template-columns: 14% 86%;
+}

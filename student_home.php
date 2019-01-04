@@ -55,10 +55,35 @@
           <li class="breadcrumb-item active">Student</li>
         </ol>
       </div>
-      <!-- Item 3 on grid -->
-
-      <!-- Item 4 on grid -->
-
+    </div>
+  </div>
+  <div class="bs2-grid">
+    <!-- item 1 on bs2 grid - side bar -->
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item" style="padding-bottom:2em">
+        <a class="nav-link active" href="http://localhost/student_home.php">Home</a>
+      </li>
+      <li class="nav-item" style="padding-bottom:2em">
+        <a class="nav-link" href="#">Books</a>
+      </li>
+      <li class="nav-item" style="padding-bottom:2em">
+        <a class="nav-link" href="#">FAQ</a>
+      </li>
+      <li class="nav-item" style="padding-bottom:2em">
+        <a class="nav-link" href="#">Tutorial</a>
+      </li>
+    </ul>
+    <!-- item2 on bs2 grid-->
+    <div class="bs-item3">
+      <div class="jumbotron">
+        <h1 class="display-3">Book distribution!</h1>
+        <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
+        <hr class="my-4">
+        <p>Appropriate management and fast distribution throughout greece.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="http://localhost/about.php" role="button">Learn more</a>
+        </p>
+      </div>
     </div>
   </div>
 </body>
