@@ -77,7 +77,7 @@
             <hr class="my-2">
             <div class="form-group">
               <label for="Username">Username</label>
-              <input type="text" class="form-control" name="Username" id="Username" required>
+              <input type="text" class="form-control" name="Username" id="Username" value="<?php echo htmlspecialchars($_POST['Username']); ?>" required>
             </div>
             <div class="form-group">
               <label for="Password">Password</label>
