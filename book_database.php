@@ -72,7 +72,7 @@
       <div class="container">
         <form action="book_database.php" method="POST">
           <div class="form-group">
-            <input type="text" name="search" class="form-control" id="search" aria-describedby="search" placeholder="Search" value="<?php echo htmlspecialchars($_POST['search']); ?>">
+            <input type="text" name="search" class="form-control" id="search" aria-describedby="search">
             <small id="emailHelp" class="form-text text-muted">For advanced search use commas (,) for different keys.</small>
             <small id="emailHelp" class="form-text text-muted">Example search: Algorithms, Kleidarithmos.</small>
           </div>
