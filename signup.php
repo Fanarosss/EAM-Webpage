@@ -39,8 +39,8 @@
               </li>
             </ul>
             <div class="mydropdown">
-              <button class="dropbtn">Login</button>
-              <div class="mydropdown-content">
+              <button class="dropbtn" style="width: 110px;">Login</button>
+              <div class="mydropdown-content" style="width: 110px;">
                 <a href="http://localhost/login.php?id=1">Student</a>
                 <a href="http://localhost/login.php?id=2">Publisher</a>
                 <a href="http://localhost/login.php?id=3">Secretary</a>
@@ -48,6 +48,9 @@
                 <a href="http://localhost/login.php?id=5">Professor</a>
               </div>
             </div>
+            <a href="http://localhost/signup.php">
+              <button class="dropbtn" style="margin-left: 10px; width: 110px;">Sign Up</button>
+            </a>
           </div>
         </nav>
       </div>
@@ -55,27 +58,13 @@
       <div class="bs-item2">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
-          <li class="breadcrumb-item active">Log In</li>
+          <li class="breadcrumb-item active">Sign Up</li>
         </ol>
       </div>
       <!-- Item 3 on grid -->
       <div class="bs-item3">
         <div class="jumbotron">
-          <h1 class="display-3">Log In</h1>
-          <?php
-            $id = $_GET['id'];
-            if ($id == 1){
-              echo "For Students";
-            }else if ($id == 2){
-              echo "For Publishers";
-            }else if ($id == 3){
-              echo "For Secretaries";
-            }else if ($id == 4){
-              echo "For Distributors";
-            }else if ($id == 5){
-              echo "For Professors";
-            }
-          ?>
+          <h1 class="display-3">Sign Up</h1>
           <form action="" method="POST">
             <hr class="my-2">
             <div class="form-group">
@@ -85,6 +74,18 @@
             <div class="form-group">
               <label for="Password">Password</label>
               <input type="password" class="form-control" name="Password" id="Password" required>
+            </div>
+            <div class="form-group">
+              <label for="FullName">Full Name</label>
+              <input type="text" class="form-control" name="FullName" id="FullName" required>
+            </div>
+            <div class="form-group">
+              <label for="Email">Email Address</label>
+              <input type="email" class="form-control" id="Email" required>
+            </div>
+            <div class="form-group">
+              <label for="University">University</label>
+              <input type="text" class="form-control" id="University">
             </div>
             <hr class="my-4">
             <button type="submit" name="Login" class="btn btn-primary">Submit</button>
@@ -97,15 +98,10 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST"){
               $user = mysqli_real_escape_string($conn, $_POST['Username']);
               $pass = mysqli_real_escape_string($conn, $_POST['Password']);
-              $query = "SELECT FullName, Email, University FROM user WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
+              $query = "SELECT * FROM user WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
               $result = $conn->query($query);
               if (mysqli_num_rows($result) == 1) {
-                $row = mysqli_fetch_assoc($result);
-                $_SESSION['Id'] = $id;
-                $_SESSION['Username'] = $user;
-                $_SESSION['FullName'] = $row["FullName"];
-                $_SESSION['Email'] = $row["Email"];
-                $_SESSION['University'] = $row["University"];
+                $_SESSION['login_user'] = $user;
                 if ($id == 1){
                   header("location: student_home.php");
                 }else if ($id == 2){
