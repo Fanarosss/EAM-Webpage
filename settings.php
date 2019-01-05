@@ -49,7 +49,8 @@
       <div class="bs-item2">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
-          <li class="breadcrumb-item active">Student</li>
+          <li class="breadcrumb-item"><a href="http://localhost/student_home.php">Student</a></li>
+          <li class="breadcrumb-item active">Settings</li>
         </ol>
       </div>
     </div>
@@ -75,34 +76,7 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="bs-item3">
-      <div class="jumbotron2">
-        <div class="separator" style="margin-bottom:2em">
-          <div class="Headers">
-            <h2 style="margin-bottom:1em;">Full Name</h2>
-            <h5>E-mail</h5>
-            <h5>Register ID</h5>
-            <h5>University</h5>
-          </div>
-          <div class="Info">
-            <h2 style="margin-bottom:1em;"><?php echo $_SESSION['FullName'];?></h2>
-            <h5><?php echo $_SESSION['Email'];?></h5>
-            <h5><?php echo $_SESSION['Username'];?></h5>
-            <h5><?php echo $_SESSION['University'];?></h5>
-          </div>
-          <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Book selection Deadline</div>
-            <div class="card-body">
-              <h4 class="card-title">21/01/19</h4>
-              <p class="card-text">Students have until then to select and pick all books.</p>
-            </div>
-          </div>
-        </div>
-        <hr class="my-4">
-        <p>If you wish to change any of your info.</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="http://localhost/settings.php" role="button"><i class="fas fa-cogs"></i> Settings</a>
-        </p>
-      </div>
+      
     </div>
   </div>
 </body>

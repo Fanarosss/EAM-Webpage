@@ -141,14 +141,33 @@
 }
 
 .bs2-grid > div {
-  padding: 1em;
+
 }
 
 .separator {
   display: grid;
-  grid-template-columns: 70% 30%
+  grid-template-columns: 20% 60% 20%
 }
 
 .Info > div {
   padding: 2em;
+}
+
+.jumbotron2 {
+  padding: 2rem 2rem;
+  margin-bottom: 2rem;
+  background-color: #eee;
+  border-radius: 0;
+}
+
+@media (min-width: 576px) {
+  .jumbotron2 {
+    padding: 4rem 4rem;
+  }
+}
+
+.jumbotron2-fluid {
+  padding-right: 0;
+  padding-left: 0;
+  border-radius: 0;
 }
