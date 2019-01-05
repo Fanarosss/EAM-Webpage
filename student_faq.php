@@ -1,6 +1,3 @@
-<?php
-   include('./src/session.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,9 +35,16 @@
                 <a class="nav-link" href="http://localhost/contact.php">Contact</a>
               </li>
             </ul>
-            <a href="http://localhost/logout.php">
-              <button class="dropbtn">Logout</button>
-            </a>
+            <div class="mydropdown">
+              <button class="dropbtn">Login</button>
+              <div class="mydropdown-content">
+                <a href="http://localhost/login.php?id=1">Student</a>
+                <a href="http://localhost/login.php?id=2">Publisher</a>
+                <a href="http://localhost/login.php?id=3">Secretary</a>
+                <a href="http://localhost/login.php?id=4">Distributor</a>
+                <a href="http://localhost/login.php?id=5">Professor</a>
+              </div>
+            </div>
           </div>
         </nav>
       </div>
@@ -57,7 +61,7 @@
     <!-- item 1 on bs2 grid - side bar -->
     <ul class="nav nav-pills flex-column">
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link active" href="http://localhost/student_home.php">Home</a>
+        <a class="nav-link" href="http://localhost/student_home.php">Home</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
         <a class="nav-link" href="http://localhost/student_book_sel.php">Book selection</a>
@@ -66,7 +70,7 @@
         <a class="nav-link" href="http://localhost/student_book_list.php">Book List</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
+        <a class="nav-link active" href="http://localhost/student_faq.php">FAQ</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
         <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf">Manual</a>
