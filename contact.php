@@ -86,7 +86,7 @@
             <div class="form-group">
               <label for="Type">User Type</label>
               <select class="form-control" id="Type">
-                <option>-- Choose Type --</option>
+                <option disabled selected value>-- Choose Type --</option>
                 <option>Student</option>
                 <option>Publisher</option>
                 <option>Secretary</option>

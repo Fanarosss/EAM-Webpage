@@ -68,12 +68,34 @@
           <form action="" method="POST">
             <hr class="my-2">
             <div class="form-group">
+              <label for="Type">User Type</label>
+              <select class="form-control" id="Type" type="button"  required>
+                <option disabled selected value>-- Choose Type --</option>
+                <option>Student</option>
+                <option>Publisher</option>
+                <option>Secretary</option>
+                <option>Distributor</option>
+                <option>Professor</option>
+              </select>
+            </div>
+            <div title="select number">
+                <select id="select">
+                    <option>one</option>
+                    <option>two</option>
+                    <option>three</option>
+                </select>
+            </div>
+            <div class="form-group">
               <label for="Username">Username</label>
               <input type="text" class="form-control" name="Username" id="Username" required>
             </div>
             <div class="form-group">
               <label for="Password">Password</label>
               <input type="password" class="form-control" name="Password" id="Password" required>
+            </div>
+            <div class="form-group">
+              <label for="CPassword"> Confirm Password</label>
+              <input type="password" class="form-control" name="CPassword" id="CPassword" required>
             </div>
             <div class="form-group">
               <label for="FullName">Full Name</label>
