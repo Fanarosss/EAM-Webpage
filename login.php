@@ -94,7 +94,6 @@
           </form>
           <?php
             include('./src/config.php');
-            session_start();
             if ($_SERVER["REQUEST_METHOD"] == "POST"){
               $user = mysqli_real_escape_string($conn, $_POST['Username']);
               $pass = mysqli_real_escape_string($conn, $_POST['Password']);
@@ -114,11 +113,10 @@
                   header("location: professor_home.php");                       //not exists
                 }
               } else {                                                          //create better messages
-                $error = "Your Login Name or Password is invalid";
+                echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">"Your Login Name or Password is invalid"</div>';
               }
             }
           ?>
-          <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
         </div>
       </div>
     </div>
