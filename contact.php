@@ -85,7 +85,7 @@
             </div>
             <div class="form-group">
               <label for="Type">User Type</label>
-              <select class="form-control" id="Type">
+              <select class="form-control" id="Type" required>
                 <option disabled selected value>-- Choose Type --</option>
                 <option>Student</option>
                 <option>Publisher</option>

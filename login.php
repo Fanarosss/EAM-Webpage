@@ -118,7 +118,7 @@
                   header("location: professor_home.php");                       //not exists
                 }
               } else {                                                          //create better messages
-                echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">"Your Login Name or Password is invalid"</div>';
+                echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Your Login Name or Password is invalid</div>';
               }
             }
           ?>

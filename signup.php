@@ -69,25 +69,18 @@
             <hr class="my-2">
             <div class="form-group">
               <label for="Type">User Type</label>
-              <select class="form-control" id="Type" type="button"  required>
+              <select class="form-control" id="Type" name="Type" value="<?php echo isset($_POST['Type']) ? $_POST['Type'] : '' ?>" required>
                 <option disabled selected value>-- Choose Type --</option>
-                <option>Student</option>
-                <option>Publisher</option>
-                <option>Secretary</option>
-                <option>Distributor</option>
-                <option>Professor</option>
+                <option value='1' <?php if($_POST['Type']=='1') echo 'selected="selected"';?>>Student</option>
+                <option value='2' <?php if($_POST['Type']=='2') echo 'selected="selected"';?>>Publisher</option>
+                <option value='3' <?php if($_POST['Type']=='3') echo 'selected="selected"';?>>Secretary</option>
+                <option value='4' <?php if($_POST['Type']=='4') echo 'selected="selected"';?>>Distributor</option>
+                <option value='5' <?php if($_POST['Type']=='5') echo 'selected="selected"';?>>Professor</option>
               </select>
-            </div>
-            <div title="select number">
-                <select id="select">
-                    <option>one</option>
-                    <option>two</option>
-                    <option>three</option>
-                </select>
             </div>
             <div class="form-group">
               <label for="Username">Username</label>
-              <input type="text" class="form-control" name="Username" id="Username" required>
+              <input type="text" class="form-control" name="Username" id="Username" value="<?php echo isset($_POST['Username']) ? $_POST['Username'] : '' ?>" required>
             </div>
             <div class="form-group">
               <label for="Password">Password</label>
@@ -99,18 +92,18 @@
             </div>
             <div class="form-group">
               <label for="FullName">Full Name</label>
-              <input type="text" class="form-control" name="FullName" id="FullName" required>
+              <input type="text" class="form-control" name="FullName" id="FullName" value="<?php echo isset($_POST['FullName']) ? $_POST['FullName'] : '' ?>"required>
             </div>
             <div class="form-group">
               <label for="Email">Email Address</label>
-              <input type="email" class="form-control" id="Email" required>
+              <input type="email" class="form-control" name="Email" id="Email" value="<?php echo isset($_POST['Email']) ? $_POST['Email'] : '' ?>" required>
             </div>
             <div class="form-group">
               <label for="University">University</label>
-              <input type="text" class="form-control" id="University">
+              <input type="text" class="form-control" name="University" id="University" value="<?php echo isset($_POST['University']) ? $_POST['University'] : '' ?>">
             </div>
             <hr class="my-4">
-            <button type="submit" name="Login" class="btn btn-primary">Submit</button>
+            <button type="submit" name="SignUp" class="btn btn-primary">Submit</button>
             <a href="http://localhost/index.php">
                <input type="button" class="btn btn-primary" style="background-color: red;" value="Cancel" />
             </a>
@@ -118,26 +111,33 @@
           <?php
             include('./src/config.php');
             if ($_SERVER["REQUEST_METHOD"] == "POST"){
+              $type = mysqli_real_escape_string($conn, $_POST['Type']);
               $user = mysqli_real_escape_string($conn, $_POST['Username']);
               $pass = mysqli_real_escape_string($conn, $_POST['Password']);
-              $query = "SELECT * FROM user WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
-              $result = $conn->query($query);
-              if (mysqli_num_rows($result) == 1) {
-                $_SESSION['login_user'] = $user;
-                if ($id == 1){
-                  header("location: student_home.php");
-                }else if ($id == 2){
-                  header("location: publisher_home.php");                       //not exists
-                }else if ($id == 3){
-                  header("location: secretary_home.php");                       //not exists
-                }else if ($id == 4){
-                  header("location: distributor_home.php");                     //not exists
-                }else if ($id == 5){
-                  header("location: professor_home.php");                       //not exists
-                }
-              } else {                                                          //create better messages
-                echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">"Your Login Name or Password is invalid"</div>';
+              $cpass = mysqli_real_escape_string($conn, $_POST['CPassword']);
+              $fname = mysqli_real_escape_string($conn, $_POST['FullName']);
+              $email = mysqli_real_escape_string($conn, $_POST['Email']);
+              $univ = mysqli_real_escape_string($conn, $_POST['University']);
+              if ($pass != $cpass) {
+              	echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Your Passwords do not match!</div>';
+                exit();
               }
+              $user_check_query = "SELECT * FROM user WHERE Username='$user' OR Email='$email' LIMIT 1";
+              $result = $conn->query($user_check_query);
+              $check = mysqli_fetch_assoc($result);
+              if ($check) {
+                if ($check['Username'] === $user) {
+                  echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Username already exists!</div>';
+                  exit();
+                }
+                if ($check['Email'] === $email) {
+                  echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Email Address already exists!</div>';
+                  exit();
+                }
+              }
+              $user_insert_query = "INSERT INTO user VALUES('$type', '$user', '$pass', '$fname', '$email', '$univ')";
+            	$conn->query($user_insert_query);
+            	header("location: index.php");
             }
           ?>
         </div>
