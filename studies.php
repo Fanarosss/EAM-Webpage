@@ -58,13 +58,21 @@
       <!-- Item 3 on grid -->
       <div class="selection" style="padding-right:70%">
         <div class="form-group">
-          <select class="custom-select">
+          <select class="custom-select" style="margin-bottom:30px">
             <option selected="">--Select University--</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select>
+          <select class="custom-select">
+            <option selected="">--Select Degree--</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
         </div>
+        <h1>Curriculum for your Degree: </h1>
+        <p style="color:grey">Not selected degree and university</p>
       </div>
     </div>
   </div>

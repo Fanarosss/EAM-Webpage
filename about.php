@@ -61,55 +61,80 @@
 
         <div class="timeline-item">
           <div class="timeline-icon">
-            <span class="fas fa-sort-numeric-down" style="padding:17px"></span>
+            <span class="fas fa-anchor" style="padding:17px"></span>
           </div>
           <div class="timeline-content">
-            <p class="timeline-content-date">2008</h2>
-            <p>The ZURB Style Guide is created to help us speed up our work. It’s a handy collection of HTML, CSS and Javascript that we use on every client project. The ideas of ZURB Style Guide evolve over the years and form the basis for a new framework, Foundation.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-icon">
-            <span class="fas fa-sort-numeric-down" style="padding:17px"></span>
-          </div>
-          <div class="timeline-content right">
             <p class="timeline-content-date">2010</h2>
-            <p>ZURB style guide was solidified and named Foundation. It is being used internally on all client projects and ZURB sites and apps.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-icon">
-            <span class="fas fa-sort-numeric-down" style="padding:17px"></span>
-          </div>
-          <div class="timeline-content">
-            <p class="timeline-content-date">2011</h2>
             <p>
-              <a href="http://foundation.zurb.com/sites/docs/v/2.2.1/" target="_blank">Foundation 2.0</a> is released to the public as an open source project! Foundation is the first responsive front-end framework and helps lead the charge for RWD across the web.
-            </p>
+              <a href="http://localhost/index.php" target="_blank">Eudoxus</a>
+              is launched and now all students can now benefit from this tool. Gathered information for all books and all classes. Both AEI and TEI can use and benefit from Eudoxus.</p>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-icon">
-            <span class="fas fa-sort-numeric-down" style="padding:17px"></span>
+            <span class="fas fa-book-reader" style="padding:17px"></span>
           </div>
           <div class="timeline-content right">
-            <p class="timeline-content-date">2012</h2>
+            <p class="timeline-content-date">Students</h2>
+            <p>All students that are before their n+2 year of their studies, can have up to 40 free books for their classes.
+              They can choose a book from the selections of the teacher, using all information necesary (front page, author, title, publications).
+              They can only choose book for the classes that they actually attend this semester. In case They don't want a new book, or they don't have enough points
+              they can always trade a book with another colleague. For more info click <a href="https://eudoxus.gr/Files/Terms_and_Conditions_Plus.pdf" target="_blank">here</a>.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <span class="fas fa-book" style="padding:17px"></span>
+          </div>
+          <div class="timeline-content">
+            <p class="timeline-content-date">Publishers</h2>
             <p>
-              <a href="http://foundation.zurb.com/sites/docs/v/3.2.5/" target="_blank">Foundation 3.0</a> is released! This version comes with Sass and is the first framework to use mixins and Sass partials.
+               Every publisher in order to use the platform must sign up first and get authentication from our team.
+               Then he will be able to upload in our database all of his books, so that the universities can pick them as choices for their students.
+               Also, additional to the books, publisher will have to add all of their distributors (if any). Every book should have at least one point of distribution,
+               even the publications themselves. For more info click <a href="https://eudoxus.gr/Files/Terms_and_Conditions_v1.pdf" target="_blank">here</a>.
             </p>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-icon">
-            <span class="fas fa-check-double" style="padding:17px"></span>
+            <span class="fas fa-building" style="padding:17px"></span>
+          </div>
+          <div class="timeline-content right">
+            <p class="timeline-content-date">Distributors</h2>
+            <p>
+              Distribution point must be signed up, so that they can make deals with the publisher and distribute their books.
+              The distributors are those who take the books from the publications and then the students go and pick them up from there.
+              The position of the distribution points on map are very important!
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <span class="fas fa-feather-alt" style="padding:17px"></span>
           </div>
           <div class="timeline-content">
-            <p class="timeline-content-date">2013 - <span class="timeline-content-month">february</span></p>
-            <p>This year saw not one, but three releases to Foundation! <a href="http://foundation.zurb.com/sites/docs/v/4.3.2/index.html" target="_blank">Version 4</a> went <a href="http://zurb.com/word/mobile-first" target="_blank">mobile first</a>, added many new components, and came with a visual update. Our responsive image plugin called <a href="http://foundation.zurb.com/sites/docs/v/4.3.2/components/interchange.html" target="_blank">Interchange</a> was added to Foundation to make sites built with it load even faster.</p>
+            <p class="timeline-content-date">Secretaries</p>
+            <p>
+              For every university and department the secretary must be signed up and authenticated to Eudoxus platform, so that they can pick
+              the books for their students, provide the carriculations. For every semester the book selection must be repeated.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <span class="fas fa-file-pdf" style="padding:17px"></span>
+          </div>
+          <div class="timeline-content right">
+            <p class="timeline-content-date">Professors</h2>
+            <p>
+              For those who provide with free books and tips there is a place here to upload them. Sign up is obligatory.
+            </p>
           </div>
         </div>
       </div>
