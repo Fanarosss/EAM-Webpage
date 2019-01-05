@@ -69,7 +69,7 @@
         <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf">Manual</a>
+        <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
       </li>
     </ul>
     <!-- item2 on bs2 grid-->

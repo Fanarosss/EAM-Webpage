@@ -1,3 +1,6 @@
+<?php
+   include('./src/session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,16 +38,9 @@
                 <a class="nav-link" href="http://localhost/contact.php">Contact</a>
               </li>
             </ul>
-            <div class="mydropdown">
-              <button class="dropbtn">Login</button>
-              <div class="mydropdown-content">
-                <a href="http://localhost/login.php?id=1">Student</a>
-                <a href="http://localhost/login.php?id=2">Publisher</a>
-                <a href="http://localhost/login.php?id=3">Secretary</a>
-                <a href="http://localhost/login.php?id=4">Distributor</a>
-                <a href="http://localhost/login.php?id=5">Professor</a>
-              </div>
-            </div>
+            <a href="http://localhost/logout.php">
+              <button class="dropbtn">Logout</button>
+            </a>
           </div>
         </nav>
       </div>
@@ -73,7 +69,7 @@
         <a class="nav-link active" href="http://localhost/student_faq.php">FAQ</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf">Manual</a>
+        <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
