@@ -1,3 +1,6 @@
+<?php
+   include('./src/session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,16 +39,24 @@
                 <a class="nav-link" href="http://localhost/contact.php">Contact</a>
               </li>
             </ul>
-            <div class="mydropdown">
-              <button class="dropbtn">Login</button>
-              <div class="mydropdown-content">
-                <a href="http://localhost/login.php?id=1">Student</a>
-                <a href="http://localhost/login.php?id=2">Publisher</a>
-                <a href="http://localhost/login.php?id=3">Secretary</a>
-                <a href="http://localhost/login.php?id=4">Distributor</a>
-                <a href="http://localhost/login.php?id=5">Professor</a>
-              </div>
-            </div>
+            <?php
+              if(!isset($_SESSION['login_user'])) {
+                echo '<div class="mydropdown">';
+                  echo '<button class="dropbtn">Login</button>';
+                  echo '<div class="mydropdown-content">';
+                    echo '<a href="http://localhost/login.php?id=1">Student</a>';
+                    echo '<a href="http://localhost/login.php?id=2">Publisher</a>';
+                    echo '<a href="http://localhost/login.php?id=3">Secretary</a>';
+                    echo '<a href="http://localhost/login.php?id=4">Distributor</a>';
+                    echo '<a href="http://localhost/login.php?id=5">Professor</a>';
+                  echo '</div>';
+                echo '</div>';
+              }else{
+                echo '<a href="http://localhost/logout.php">';
+                  echo '<button class="dropbtn">Logout</button>';
+                echo '</a>';
+              }
+            ?>
           </div>
         </nav>
       </div>
