@@ -59,7 +59,7 @@
     <!-- item 1 on bs2 grid - side bar -->
     <ul class="nav nav-pills flex-column">
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link active" href="http://localhost/student_home.php">Home</a>
+        <a class="nav-link" href="http://localhost/student_home.php">Home</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
         <a class="nav-link" href="http://localhost/student_book_sel.php">Book selection</a>
@@ -75,8 +75,58 @@
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
-    <div class="bs-item3">
-      
+    <div class="settings-sep">
+      <div class="sett-sep-item1">
+        <div class="Settfield">
+          <h4><b>Username</b></h4>
+          <div class="form-group">
+            <fieldset disabled="">
+              <font size="2" style="color: red;">You cannot change your username</font>
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['Username'];?>" disabled="">
+            </fieldset>
+          </div>
+        </div>
+        <div class="Settfield">
+          <h4><b>Email</b></h4>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="<?php echo $_SESSION['Email'];?>" id="inputDefault">
+          </div>
+        </div>
+        <div class="Settfield" style="margin-bottom: 2em;">
+          <h4><b>Password</b></h4>
+          <div class="form-group">
+            <font size="2">Type old password</font>
+            <input type="text" class="form-control" placeholder="*******" id="inputDefault">
+          </div>
+          <font size="2">In case you forgot your password click <a href="#">HERE</a> and we will send you an E-mail</br></br></font>
+          <font size="2">Type new password</font>
+          <input type="text" class="form-control" placeholder="" id="inputDefault">
+          <font size="2">Confirm new password</font>
+          <input type="text" class="form-control" placeholder="" id="inputDefault">
+        </div>
+        <div class="Settfield">
+          <h4><b>Full Name</b></h4>
+          <div class="form-group">
+            <fieldset disabled="">
+              <font size="2" style="color: red;">You cannot change your full name</font>
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['FullName'];?>" disabled="">
+            </fieldset>
+          </div>
+        </div>
+        <div class="Settfield">
+          <h4><b>University</b></h4>
+          <div class="form-group">
+            <fieldset disabled="">
+              <font size="2" style="color: red;">You cannot change your university</font>
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['University'];?>" disabled="">
+            </fieldset>
+          </div>
+        </div>
+        <div class="alert alert-dismissible alert-warning">
+          <h4 class="alert-heading">Warning!</h4>
+          <p class="mb-0">The areas that you can't edit are managed by the secretary of your university.</p>
+        </div>
+      </div>
     </div>
   </div>
 </body>

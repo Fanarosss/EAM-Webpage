@@ -141,7 +141,7 @@
 }
 
 .bs2-grid > div {
-
+  padding: 1em;
 }
 
 .separator {
@@ -170,4 +170,9 @@
   padding-right: 0;
   padding-left: 0;
   border-radius: 0;
+}
+
+.settings-sep {
+  display:grid;
+  grid-template-columns: 40% auto;
 }
