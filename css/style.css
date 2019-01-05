@@ -143,3 +143,12 @@
 .bs2-grid > div {
   padding: 1em;
 }
+
+.separator {
+  display: grid;
+  grid-template-columns: 70% 30%
+}
+
+.Info > div {
+  padding: 2em;
+}

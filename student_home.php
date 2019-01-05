@@ -75,12 +75,25 @@
     <!-- item2 on bs2 grid-->
     <div class="bs-item3">
       <div class="jumbotron">
-        <h1 class="display-3">Book distribution!</h1>
-        <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
+        <div class="separator">
+          <div class="Info">
+            <h2>Full Name</h2>
+            <h5>E-mail</h5>
+            <h5>Register ID</h5>
+            <h5>University</h5>
+          </div>
+          <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Book selection Deadline</div>
+            <div class="card-body">
+              <h4 class="card-title">21/01/19</h4>
+              <p class="card-text">Students have until then to select and pick all books.</p>
+            </div>
+          </div>
+        </div>
         <hr class="my-4">
-        <p>Appropriate management and fast distribution throughout greece.</p>
+        <p>If you wish to change any of your info.</p>
         <p class="lead">
-          <a class="btn btn-primary btn-lg" href="http://localhost/about.php" role="button">Learn more</a>
+          <a class="btn btn-primary btn-lg" href="http://localhost/settings.php" role="button">Settings</a>
         </p>
       </div>
     </div>
