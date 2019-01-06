@@ -18,7 +18,9 @@
   <?php
   include('./src/config.php');
   $emailErr = "";
+  $passErr = "";
   $emailSuccess = 0;
+  $passwordSuccess = 0;
   $email = "";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (!empty($_POST['Email'])){
@@ -33,6 +35,23 @@
         }else{
           $emailErr = '<font size="2" style="color: red">Incorrect email format</font>';
         }
+        unset($_POST['Email']);
+      }
+
+      if (!empty($_POST['Password'])){
+        $password = test_input($_POST['Password']);
+        $cpassword = test_input($_POST['CPassword']);
+        if ($password == $cpassword) {
+          $password = mysqli_real_escape_string($conn, $_POST['Password']);
+          $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
+          $query = "UPDATE user SET Password='$password' WHERE Username='$username'";
+          $conn->query($query);
+          $passwordSuccess = 1;
+        }else{
+          $passErr = '<font size="2" style="color: red">Not matching passwords</font>';
+        }
+        unset($_POST['Password']);
+        unset($_POST['CPassword']);
       }
   }
 
@@ -129,11 +148,12 @@
             <input type="text" class="form-control" placeholder="*******" id="inputDefault">
           </div>
           <font size="2">In case you forgot your password click <a href="#">HERE</a> and we will send you an E-mail</br></br></font>
+          <span class="error"><?php echo $passErr;?></br></span>
           <font size="2">Type new password</font>
-          <input type="text" class="form-control" placeholder="" id="inputDefault">
+          <input type="text" class="form-control" placeholder="" id="Password" name="Password">
           <font size="2">Confirm new password</font>
-          <input type="text" class="form-control" placeholder="" id="inputDefault">
-          <button type="save" name="save-email" class="btn btn-primary btn">Save</button></b>
+          <input type="text" class="form-control" placeholder="" id="CPassword" name="CPassword">
+          <button type="save" name="save-pass" class="btn btn-primary btn">Save</button></b>
         </div>
         <div class="Settfield">
           <h4><b>Full Name</b></h4>
@@ -166,6 +186,15 @@
                     <strong>Well done!</strong> You successfully changed your E-mail.
                   </div>';
             $emailSuccess = 0;
+          }
+        }
+
+        if (isset($passwordSuccess)){
+          if ($passwordSuccess==1){
+            echo '<div class="alert alert-dismissible alert-success">
+                    <strong>Well done!</strong> You successfully changed your password.
+                  </div>';
+            $passwordSuccess = 0;
           }
         }
         ?>
