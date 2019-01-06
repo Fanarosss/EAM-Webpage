@@ -15,6 +15,34 @@
 </head>
 
 <body>
+  <?php
+  include('./src/config.php');
+  $emailErr = "";
+  $emailSuccess = 0;
+  $email = "";
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      if (!empty($_POST['Email'])){
+        $email = test_input($_POST['Email']);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          $email = mysqli_real_escape_string($conn, $_POST['Email']);
+          $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
+          $query = "UPDATE user SET Email='$email' WHERE Username='$username'";
+          $conn->query($query);
+          $emailSuccess = 1;
+          $_SESSION['Email'] = $email;
+        }else{
+          $emailErr = '<font size="2" style="color: red">Incorrect email format</font>';
+        }
+      }
+  }
+
+  function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+  }
+  ?>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -76,7 +104,7 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="settings-sep">
-      <div class="sett-sep-item1">
+      <form method="POST" action="">
         <div class="Settfield">
           <h4><b>Username</b></h4>
           <div class="form-group">
@@ -87,9 +115,11 @@
           </div>
         </div>
         <div class="Settfield">
-          <h4><b>Email</b></h4>
+          <h4><b>Email</h4>
+          <span class="error"><?php echo $emailErr;?></span>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="<?php echo $_SESSION['Email'];?>" id="inputDefault">
+            <input type="text" class="form-control" placeholder="<?php echo $_SESSION['Email'];?>" name="Email" id="Email">
+            <button type="save" name="save-email" class="btn btn-primary btn">Save</button></b>
           </div>
         </div>
         <div class="Settfield" style="margin-bottom: 2em;">
@@ -103,6 +133,7 @@
           <input type="text" class="form-control" placeholder="" id="inputDefault">
           <font size="2">Confirm new password</font>
           <input type="text" class="form-control" placeholder="" id="inputDefault">
+          <button type="save" name="save-email" class="btn btn-primary btn">Save</button></b>
         </div>
         <div class="Settfield">
           <h4><b>Full Name</b></h4>
@@ -126,6 +157,18 @@
           <h4 class="alert-heading">Warning!</h4>
           <p class="mb-0">The areas that you can't edit are managed by the secretary of your university.</p>
         </div>
+      </form>
+      <div class="mymessages" style="margin: 50px">
+        <?php
+        if (isset($emailSuccess)){
+          if ($emailSuccess==1){
+            echo '<div class="alert alert-dismissible alert-success">
+                    <strong>Well done!</strong> You successfully changed your E-mail.
+                  </div>';
+            $emailSuccess = 0;
+          }
+        }
+        ?>
       </div>
     </div>
   </div>
