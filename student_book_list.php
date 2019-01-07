@@ -48,7 +48,8 @@
       <div class="bs-item2">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
-          <li class="breadcrumb-item active">Student</li>
+          <li class="breadcrumb-item"><a href="http://localhost/student_home.php">Student</a></li>
+          <li class="breadcrumb-item active">LIST</li>
         </ol>
       </div>
     </div>

@@ -38,7 +38,7 @@
         unset($_POST['Email']);
       }
 
-      if (!empty($_POST['Password'])){
+      if (!empty($_POST['Password']) && !empty($_POST['CPassword'])){
         $password = test_input($_POST['Password']);
         $cpassword = test_input($_POST['CPassword']);
         if ($password == $cpassword) {
@@ -143,16 +143,12 @@
         </div>
         <div class="Settfield" style="margin-bottom: 2em;">
           <h4><b>Password</b></h4>
-          <div class="form-group">
-            <font size="2">Type old password</font>
-            <input type="text" class="form-control" placeholder="*******" id="OldPass" name="OldPass">
-          </div>
-          <font size="2">In case you forgot your password click <a href="#">HERE</a> and we will send you an E-mail</br></br></font>
+          <font size="2">In case you forgot your password click <a href="#">HERE</a> and we will send you an E-mail</br></font>
           <span class="error"><?php echo $passErr;?></br></span>
           <font size="2">Type new password</font>
-          <input type="text" class="form-control" placeholder="" id="Password" name="Password">
+          <input type="password" class="form-control" placeholder="" id="Password" name="Password">
           <font size="2">Confirm new password</font>
-          <input type="text" class="form-control" placeholder="" id="CPassword" name="CPassword">
+          <input type="password" class="form-control" placeholder="" id="CPassword" name="CPassword">
           <button type="save" name="save-pass" class="btn btn-primary btn">Save</button></b>
         </div>
         <div class="Settfield">

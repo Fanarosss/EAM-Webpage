@@ -103,7 +103,7 @@
           <?php
           if ($success == 1) {
             echo '<div class="alert alert-dismissible alert-success">
-              <strong> You successfully signed up!</strong>You can now <a href="http://localhost/login.php" class="alert-link">log in</a> or go to <a href="http://localhost/index.php" class="alert-link">home page</a>.
+              <strong> You successfully signed up!</strong>You can now log in from <a href="http://localhost/index.php" class="alert-link">home page</a>.
             </div>';
           }
           ?>
