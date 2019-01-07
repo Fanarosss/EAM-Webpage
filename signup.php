@@ -27,9 +27,8 @@
       $cpass = mysqli_real_escape_string($conn, $_POST['CPassword']);
       $fname = mysqli_real_escape_string($conn, $_POST['FullName']);
       $email = mysqli_real_escape_string($conn, $_POST['Email']);
-      $univ = mysqli_real_escape_string($conn, $_POST['University']);
+      $phone = mysqli_real_escape_string($conn, $_POST['Phone']);
       if ($pass != $cpass) {
-        echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Your Passwords do not match!</div>';
         $passwordErr = 1;
       }
       $user_check_query = "SELECT * FROM user WHERE Username='$user' OR Email='$email' LIMIT 1";
@@ -44,7 +43,7 @@
         }
       }
       if ($emailErr == 0 && $passwordErr == 0 && $usernameErr == 0) {
-        $user_insert_query = "INSERT INTO user VALUES('$type', '$user', '$pass', '$fname', '$email', '$univ')";
+        $user_insert_query = "INSERT INTO user VALUES('$type', '$user', '$pass', '$fname', '$email', '$phone')";
         $conn->query($user_insert_query);
         $success = 1;
       }
@@ -157,7 +156,7 @@
             </div>
             <div class="form-group">
               <label for="FullName">Full Name</label>
-              <input type="text" class="form-control" name="FullName" id="FullName" value="<?php echo isset($_POST['FullName']) ? $_POST['FullName'] : '' ?>"required>
+              <input type="text" class="form-control" name="FullName" id="FullName" value="<?php echo isset($_POST['FullName']) ? $_POST['FullName'] : '' ?>" required>
             </div>
             <div class="form-group">
               <label for="Email">Email Address</label>
@@ -177,8 +176,8 @@
               ?>
             </div>
             <div class="form-group">
-              <label for="University">University</label>
-              <input type="text" class="form-control" name="University" id="University" value="<?php echo isset($_POST['University']) ? $_POST['University'] : '' ?>">
+              <label for="Phone">Phone Number</label>
+              <input type="tel" class="form-control" id="Phone" value="<?php echo isset($_POST['Phone']) ? $_POST['Phone'] : '' ?>"required>
             </div>
             <hr class="my-4">
             <button type="submit" name="SignUp" class="btn btn-primary">Submit</button>

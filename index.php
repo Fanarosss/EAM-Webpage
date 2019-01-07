@@ -39,7 +39,7 @@
               </li>
             </ul>
             <?php
-              if(!isset($_SESSION['login_user'])) {
+              if(!isset($_SESSION['Id'])) {
                 echo '<div class="mydropdown">';
                   echo '<button class="dropbtn" style="width: 110px;">Login</button>';
                   echo '<div class="mydropdown-content" style="width: 110px;">';

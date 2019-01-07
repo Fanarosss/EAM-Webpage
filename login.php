@@ -97,7 +97,7 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST"){
               $user = mysqli_real_escape_string($conn, $_POST['Username']);
               $pass = mysqli_real_escape_string($conn, $_POST['Password']);
-              $query = "SELECT FullName, Email, University FROM user WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
+              $query = "SELECT FullName, Email, Phone FROM user WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
               $result = $conn->query($query);
               if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_assoc($result);
@@ -105,7 +105,7 @@
                 $_SESSION['Username'] = $user;
                 $_SESSION['FullName'] = $row["FullName"];
                 $_SESSION['Email'] = $row["Email"];
-                $_SESSION['University'] = $row["University"];
+                $_SESSION['Phone'] = $row["Phone"];
                 if ($id == 1){
                   header("location: student_home.php");
                 }else if ($id == 2){

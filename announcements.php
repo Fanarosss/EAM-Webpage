@@ -40,10 +40,10 @@
               </li>
             </ul>
             <?php
-              if(!isset($_SESSION['login_user'])) {
+              if(!isset($_SESSION['Id'])) {
                 echo '<div class="mydropdown">';
-                  echo '<button class="dropbtn">Login</button>';
-                  echo '<div class="mydropdown-content">';
+                  echo '<button class="dropbtn" style="width: 110px;">Login</button>';
+                  echo '<div class="mydropdown-content" style="width: 110px;">';
                     echo '<a href="http://localhost/login.php?id=1">Student</a>';
                     echo '<a href="http://localhost/login.php?id=2">Publisher</a>';
                     echo '<a href="http://localhost/login.php?id=3">Secretary</a>';
@@ -51,6 +51,9 @@
                     echo '<a href="http://localhost/login.php?id=5">Professor</a>';
                   echo '</div>';
                 echo '</div>';
+                echo '<a href="http://localhost/signup.php">';
+                  echo '<button class="dropbtn" style="margin-left: 10px; width: 110px;">Sign Up</button>';
+                echo '</a>';
               }else{
                 echo '<a href="http://localhost/logout.php">';
                   echo '<button class="dropbtn">Logout</button>';

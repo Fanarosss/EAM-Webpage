@@ -1,3 +1,6 @@
+<?php
+   include('./src/session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,16 +41,27 @@
                 <a class="nav-link" href="http://localhost/contact.php">Contact</a>
               </li>
             </ul>
-            <div class="mydropdown">
-              <button class="dropbtn">Login</button>
-              <div class="mydropdown-content">
-                <a href="http://localhost/login.php?id=1">Student</a>
-                <a href="http://localhost/login.php?id=2">Publisher</a>
-                <a href="http://localhost/login.php?id=3">Secretary</a>
-                <a href="http://localhost/login.php?id=4">Distributor</a>
-                <a href="http://localhost/login.php?id=5">Professor</a>
-              </div>
-            </div>
+            <?php
+              if(!isset($_SESSION['Id'])) {
+                echo '<div class="mydropdown">';
+                  echo '<button class="dropbtn" style="width: 110px;">Login</button>';
+                  echo '<div class="mydropdown-content" style="width: 110px;">';
+                    echo '<a href="http://localhost/login.php?id=1">Student</a>';
+                    echo '<a href="http://localhost/login.php?id=2">Publisher</a>';
+                    echo '<a href="http://localhost/login.php?id=3">Secretary</a>';
+                    echo '<a href="http://localhost/login.php?id=4">Distributor</a>';
+                    echo '<a href="http://localhost/login.php?id=5">Professor</a>';
+                  echo '</div>';
+                echo '</div>';
+                echo '<a href="http://localhost/signup.php">';
+                  echo '<button class="dropbtn" style="margin-left: 10px; width: 110px;">Sign Up</button>';
+                echo '</a>';
+              }else{
+                echo '<a href="http://localhost/logout.php">';
+                  echo '<button class="dropbtn">Logout</button>';
+                echo '</a>';
+              }
+            ?>
           </div>
         </nav>
       </div>
