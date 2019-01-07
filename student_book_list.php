@@ -74,16 +74,13 @@
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
-    <div class="bs-item3">
-      <div class="jumbotron">
-        <h1 class="display-3">Book distribution!</h1>
-        <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
-        <hr class="my-4">
-        <p>Appropriate management and fast distribution throughout greece.</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="http://localhost/about.php" role="button">Learn more</a>
-        </p>
-      </div>
+    <div class="book-list-grid">
+      <h2>All classes for: <b><?php echo $_SESSION['University'];?></b></h2>
+      <hr class="my-4">
+      <?php
+      $query = "SELECT book.Title FROM user, user_has, book WHERE user.Id = user_has.User_Id AND user_has.Book_id = book.Id"
+      $result = $conn->query($query);
+      ?>
     </div>
   </div>
 </body>

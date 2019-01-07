@@ -165,7 +165,7 @@
           <div class="form-group">
             <fieldset disabled="">
               <font size="2" style="color: red;">You cannot change your university</font>
-              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['University'];?>" disabled="">
+              <input class="form-control" id="disabledInput" type="text" placeholder="Univeristy..." disabled="">
             </fieldset>
           </div>
         </div>
