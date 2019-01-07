@@ -76,42 +76,42 @@
     <!-- item2 on bs2 grid-->
     <div class="faq-grid">
       <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
+        <div class="card-header">Selecting Books</div>
         <div class="card-body">
           <h4 class="card-title">Primary card title</h4>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
       </div>
       <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
+        <div class="card-header">How to change Information</div>
         <div class="card-body">
           <h4 class="card-title">Primary card title</h4>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
       </div>
       <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
+        <div class="card-header">How to review my library?</div>
         <div class="card-body">
           <h4 class="card-title">Primary card title</h4>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
       </div>
       <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
+        <div class="card-header">Can I exchange my books?</div>
         <div class="card-body">
           <h4 class="card-title">Primary card title</h4>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
       </div>
       <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
+        <div class="card-header">How to select distribution point?</div>
         <div class="card-body">
           <h4 class="card-title">Primary card title</h4>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
       </div>
       <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Header</div>
+        <div class="card-header">How can I get help?</div>
         <div class="card-body">
           <h4 class="card-title">Primary card title</h4>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
