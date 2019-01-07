@@ -145,7 +145,7 @@
           <h4><b>Password</b></h4>
           <div class="form-group">
             <font size="2">Type old password</font>
-            <input type="text" class="form-control" placeholder="*******" id="inputDefault">
+            <input type="text" class="form-control" placeholder="*******" id="OldPass" name="OldPass">
           </div>
           <font size="2">In case you forgot your password click <a href="#">HERE</a> and we will send you an E-mail</br></br></font>
           <span class="error"><?php echo $passErr;?></br></span>

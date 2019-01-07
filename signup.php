@@ -14,6 +14,42 @@
 </head>
 
 <body>
+  <?php
+    include('./src/config.php');
+    $passwordErr = 0;
+    $usernameErr = 0;
+    $emailErr = 0;
+    $success = 0;
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+      $type = mysqli_real_escape_string($conn, $_POST['Type']);
+      $user = mysqli_real_escape_string($conn, $_POST['Username']);
+      $pass = mysqli_real_escape_string($conn, $_POST['Password']);
+      $cpass = mysqli_real_escape_string($conn, $_POST['CPassword']);
+      $fname = mysqli_real_escape_string($conn, $_POST['FullName']);
+      $email = mysqli_real_escape_string($conn, $_POST['Email']);
+      $univ = mysqli_real_escape_string($conn, $_POST['University']);
+      if ($pass != $cpass) {
+        echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Your Passwords do not match!</div>';
+        $passwordErr = 1;
+      }
+      $user_check_query = "SELECT * FROM user WHERE Username='$user' OR Email='$email' LIMIT 1";
+      $result = $conn->query($user_check_query);
+      $check = mysqli_fetch_assoc($result);
+      if ($check) {
+        if ($check['Username'] == $user) {
+          $usernameErr = 1;
+        }
+        if ($check['Email'] == $email) {
+          $emailErr = 1;
+        }
+      }
+      if ($emailErr == 0 && $passwordErr == 0 && $usernameErr == 0) {
+        $user_insert_query = "INSERT INTO user VALUES('$type', '$user', '$pass', '$fname', '$email', '$univ')";
+        $conn->query($user_insert_query);
+        $success = 1;
+      }
+    }
+  ?>
   <!-- grid class containing all items -->
   <div class="grid">
     <div class="logo">
@@ -64,6 +100,13 @@
       <!-- Item 3 on grid -->
       <div class="bs-item3">
         <div class="jumbotron">
+          <?php
+          if ($success == 1) {
+            echo '<div class="alert alert-dismissible alert-success">
+              <strong> You successfully signed up!</strong>You can now <a href="http://localhost/login.php" class="alert-link">log in</a> or go to <a href="http://localhost/index.php" class="alert-link">home page</a>.
+            </div>';
+          }
+          ?>
           <h1 class="display-3">Sign Up</h1>
           <form action="" method="POST">
             <hr class="my-2">
@@ -71,20 +114,42 @@
               <label for="Type">User Type</label>
               <select class="form-control" id="Type" name="Type" value="<?php echo isset($_POST['Type']) ? $_POST['Type'] : '' ?>" required>
                 <option disabled selected value>-- Choose Type --</option>
-                <option value='1' <?php if($_POST['Type']=='1') echo 'selected="selected"';?>>Student</option>
-                <option value='2' <?php if($_POST['Type']=='2') echo 'selected="selected"';?>>Publisher</option>
-                <option value='3' <?php if($_POST['Type']=='3') echo 'selected="selected"';?>>Secretary</option>
-                <option value='4' <?php if($_POST['Type']=='4') echo 'selected="selected"';?>>Distributor</option>
-                <option value='5' <?php if($_POST['Type']=='5') echo 'selected="selected"';?>>Professor</option>
+                <option value='1' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='1') echo 'selected="selected"';}?>>Student</option>
+                <option value='2' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='2') echo 'selected="selected"';}?>>Publisher</option>
+                <option value='3' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='3') echo 'selected="selected"';}?>>Secretary</option>
+                <option value='4' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='4') echo 'selected="selected"';}?>>Distributor</option>
+                <option value='5' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='5') echo 'selected="selected"';}?>>Professor</option>
               </select>
             </div>
             <div class="form-group">
               <label for="Username">Username</label>
-              <input type="text" class="form-control" name="Username" id="Username" value="<?php echo isset($_POST['Username']) ? $_POST['Username'] : '' ?>" required>
+              <?php
+              if ($usernameErr == 0){
+                echo '<div class="form-group">
+                <input type="text" class="form-control" name="Username" id="Username" value="';
+                echo isset($_POST['Username']) ? $_POST['Username'] : '';
+                echo '" required>';
+              }else{
+                echo '<div class="form-group has-danger">
+                <input type="text" class="form-control is-invalid" name="Username" id="Username" value="';
+                echo isset($_POST['Username']) ? $_POST['Username'] : '';
+                echo '" required>';
+                echo '<font size="2" class="invalid-feedback">Sorry, that username is taken. Try another?</font>';
+              }
+              ?>
             </div>
             <div class="form-group">
               <label for="Password">Password</label>
-              <input type="password" class="form-control" name="Password" id="Password" required>
+              <?php
+              if ($passwordErr == 0){
+                echo '<div class="form-group">
+                <input type="password" class="form-control" name="Password" id="Password" value="" required>';
+              }else{
+                echo '<div class="form-group has-danger">
+                <input type="password" class="form-control is-invalid" name="Password" id="Password" value="" required>';
+                echo '<font size="2" class="invalid-feedback">Passwords do not match!</font>';
+              }
+              ?>
             </div>
             <div class="form-group">
               <label for="CPassword"> Confirm Password</label>
@@ -96,7 +161,20 @@
             </div>
             <div class="form-group">
               <label for="Email">Email Address</label>
-              <input type="email" class="form-control" name="Email" id="Email" value="<?php echo isset($_POST['Email']) ? $_POST['Email'] : '' ?>" required>
+              <?php
+              if ($emailErr == 0){
+                echo '<div class="form-group">
+                <input type="text" class="form-control" name="Email" id="Email" value="';
+                echo isset($_POST['Email']) ? $_POST['Email'] : '';
+                echo '" required>';
+              }else{
+                echo '<div class="form-group has-danger">
+                <input type="text" class="form-control is-invalid" name="Email" id="Email" value="';
+                echo isset($_POST['Email']) ? $_POST['Email'] : '';
+                echo '" required>';
+                echo '<font size="2" class="invalid-feedback">Sorry, that e-mail is already being used. Already have an account?</font>';
+              }
+              ?>
             </div>
             <div class="form-group">
               <label for="University">University</label>
@@ -108,38 +186,6 @@
                <input type="button" class="btn btn-primary" style="background-color: red;" value="Cancel" />
             </a>
           </form>
-          <?php
-            include('./src/config.php');
-            if ($_SERVER["REQUEST_METHOD"] == "POST"){
-              $type = mysqli_real_escape_string($conn, $_POST['Type']);
-              $user = mysqli_real_escape_string($conn, $_POST['Username']);
-              $pass = mysqli_real_escape_string($conn, $_POST['Password']);
-              $cpass = mysqli_real_escape_string($conn, $_POST['CPassword']);
-              $fname = mysqli_real_escape_string($conn, $_POST['FullName']);
-              $email = mysqli_real_escape_string($conn, $_POST['Email']);
-              $univ = mysqli_real_escape_string($conn, $_POST['University']);
-              if ($pass != $cpass) {
-              	echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Your Passwords do not match!</div>';
-                exit();
-              }
-              $user_check_query = "SELECT * FROM user WHERE Username='$user' OR Email='$email' LIMIT 1";
-              $result = $conn->query($user_check_query);
-              $check = mysqli_fetch_assoc($result);
-              if ($check) {
-                if ($check['Username'] === $user) {
-                  echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Username already exists!</div>';
-                  exit();
-                }
-                if ($check['Email'] === $email) {
-                  echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">Email Address already exists!</div>';
-                  exit();
-                }
-              }
-              $user_insert_query = "INSERT INTO user VALUES('$type', '$user', '$pass', '$fname', '$email', '$univ')";
-            	$conn->query($user_insert_query);
-            	header("location: index.php");
-            }
-          ?>
         </div>
       </div>
     </div>
