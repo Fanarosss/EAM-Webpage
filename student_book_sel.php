@@ -74,15 +74,44 @@
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
-    <div class="bs-item3">
-      <div class="jumbotron">
-        <h1 class="display-3">Book distribution!</h1>
-        <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
-        <hr class="my-4">
-        <p>Appropriate management and fast distribution throughout greece.</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="http://localhost/about.php" role="button">Learn more</a>
-        </p>
+    <div class="Book-Selection-Forms">
+      <div class="CurrForm">
+        <h5 style="margin-bottom: 0.5em;"><b>Current Semester Form:</b></h5>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Book Selection for Semester.</h5>
+            <small>Last Edit.</small>
+          </div>
+          <p class="mb-1">Book Selection for Semester.</p>
+          <small>Click here to create or modify your choices.</small>
+        </a>
+      </div>
+      <div class="OldForm">
+        <h5 style="margin-bottom: 0.5em;"><b>Old Semester Forms:</b></h5>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Semester.</h5>
+            <small class="text-muted">Cannot be edited.</small>
+          </div>
+          <p class="mb-1">Book selection.</p>
+          <small class="text-muted">Click here to review.</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Semester.</h5>
+            <small class="text-muted">Cannot be edited.</small>
+          </div>
+          <p class="mb-1">Book selection.</p>
+          <small class="text-muted">Click here to review.</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Semester.</h5>
+            <small class="text-muted">Cannot be edited.</small>
+          </div>
+          <p class="mb-1">Book selection.</p>
+          <small class="text-muted">Click here to review.</small>
+        </a>
       </div>
     </div>
   </div>
