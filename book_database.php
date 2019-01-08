@@ -143,8 +143,8 @@
         include './src/config.php';
         if (isset($_POST['submit-search'])){
           $search = mysqli_real_escape_string($conn, $_POST['search']);
-          $query = "SELECT * FROM book WHERE Title LIKE '%$search%' OR Author LIKE '%$search'
-                    OR ISBN LIKE '%$search' OR Publications LIKE '%$search'";
+          $query = "SELECT * FROM book WHERE Title LIKE '%$search%' OR Author LIKE '%$search%'
+                    OR ISBN LIKE '%$search%' OR Publications LIKE '%$search%'";
           $result = $conn->query($query);
           if ($result){
             echo '<h1>Results</h1>';
