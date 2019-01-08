@@ -90,6 +90,34 @@
           <a class="nav-link" data-toggle="tab" href="#home" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
       </ul>
+      <div class="class-select">
+        <?php
+        include('./src/config.php');
+        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id";
+        $result = $conn->query($query);
+        if (!$result) die($conn->error);
+        if (mysqli_num_rows($result) > 0) {
+          while($row = $result->fetch_assoc()){
+            echo '<h3><b><u>'.$row['Name'].'</b></u></br></h3>';
+            $query2 = "SELECT * FROM class,class_has_choice,book WHERE class.Id = '".$row['Id']."' AND class_has_choice.Class_id = class.Id
+            AND class_has_choice.Book_id = book.Id";
+            $result2 = $conn->query($query2);
+            if (!$result2) die($conn->error);
+            if (mysqli_num_rows($result2) > 0) {
+              while($row2 = $result2->fetch_assoc()){
+                echo '<div class="btn">';
+                echo '<input class="myButton" type="submit" value="'.$row2['Title'].'">';
+                echo '</div>';
+              }
+            }else{
+              echo 'No books available.';
+            }
+          }
+        }else{
+          echo 'No classes available.';
+        }
+        ?>
+      </div>
     </div>
   </div>
 </body>

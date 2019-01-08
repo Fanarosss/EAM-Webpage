@@ -120,12 +120,13 @@
                 $_SESSION['Email'] = $row["Email"];
                 $_SESSION['Phone'] = $row["Phone"];
                 if ($id == 1){
-                  $query2 = "SELECT University, Department, RegDate FROM student WHERE Username = '".$user."'";
+                  $query2 = "SELECT university.name, department.name, student.RegDate FROM student,department,university WHERE student.Username = '".$user."'
+                  AND student.Department_id = department.Id AND university.Id = department.University_id";
                   $result2 = $conn->query($query2);
                   $row = mysqli_fetch_assoc($result2);
-                  $_SESSION['University'] = $row["University"];
-                  $_SESSION['Department'] = $row["Department"];
-                  $_SESSION['Date'] = $row["RegDate"];
+                  $_SESSION['University'] = $row["university.name"];
+                  $_SESSION['Department'] = $row["department.name"];
+                  $_SESSION['Date'] = $row["student.RegDate"];
                   header("location: student_home.php");
                 }else if ($id == 2){
                   $query2 = "SELECT Address, DateAdded FROM publisher WHERE Username = '".$user."'";
