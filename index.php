@@ -15,7 +15,7 @@
 
 <body>
   <!-- grid class containing all items -->
-  <div class="grid">
+  <div class="bs1-grid">
     <div class="logo">
       <a href="index.php"><img src="images/eudoxus.png"/></a>
     </div>
@@ -68,7 +68,39 @@
           <li class="breadcrumb-item active">Home</li>
         </ol>
       </div>
-      <!-- Item 3 on grid -->
+    </div>
+  </div>
+  <div class="bs2-grid">
+    <!-- Item 1 on grid2 -->
+    <?php
+    if (isset($_SESSION['Id'])){
+      echo '
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item" style="padding-bottom:2em">
+          <a class="nav-link" href="http://localhost/student_home.php">Home</a>
+        </li>
+        <li class="nav-item" style="padding-bottom:2em">
+          <a class="nav-link" href="http://localhost/student_book_sel.php">Book selection</a>
+        </li>
+        <li class="nav-item" style="padding-bottom:2em">
+          <a class="nav-link" href="http://localhost/student_book_list.php">Book List</a>
+        </li>
+        <li class="nav-item" style="padding-bottom:2em">
+          <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
+        </li>
+        <li class="nav-item" style="padding-bottom:2em">
+          <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
+        </li>
+      </ul>';
+    }else{
+      echo '
+      <ul class="nav nav-pills flex-column">
+      </ul>';
+    }
+    ?>
+    <!-- Item 2 on grid2 -->
+    <div class="bs-grid">
+      <!-- Item 1 on grid -->
       <div class="bs-item3">
         <div class="jumbotron">
           <h1 class="display-3">Book distribution!</h1>
@@ -80,7 +112,7 @@
           </p>
         </div>
       </div>
-      <!-- Item 4 on grid -->
+      <!-- Item 2 on grid -->
       <h2>Are you?</h2>
       <div class="button-row">
         <a href="http://localhost/login.php?id=1">

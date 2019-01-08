@@ -76,7 +76,7 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="book-list-grid">
-      <h2>All classes for: <b><?php echo $_SESSION['University'];?></b></h2>
+      <h2>All books for: <b><?php echo $_SESSION['Department'],'  ',$_SESSION['University'];?></b></h2>
       <hr class="my-4">
       <?php
       $query = "SELECT * FROM user,user_has,book WHERE user.Username = '".$_SESSION['Username']."' AND user.Username = user_has.User_id AND user_has.Book_id = book.Id";
