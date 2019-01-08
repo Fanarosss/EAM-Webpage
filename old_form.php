@@ -1,5 +1,6 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +77,41 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="Old-Form">
+      <?php
+      $formid = $_GET['id'];
+      $query = "SELECT * FROM form WHERE form.Id = '".$formid."'";
+      $result = $conn->query($query);
+      if (!$result) die($conn->error);
+      $row = mysqli_fetch_assoc($result);
+      echo '<h2><u><b>'.$row['Semester'].' '.$row['Year'].'</b></u></h2>';
+      echo '<table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Class</th>
+                <th scope="col">Professor</th>
+                <th scope="col">Class Code</th>
+                <th scope="col">Book Title</th>
+                <th scope="col">Book Code</th>
+              </tr>
+            </thead>
+            <tbody>';
+      $query = "SELECT class.Name, class.Professor, class.Id AS cId, book.Id AS bId, book.Title  FROM form, book, class, form_has_book
+                WHERE form.Id = '".$formid."' AND form.Id = form_has_book.Form_id AND class.Id = form_has_book.Class_id
+                AND book.Id = form_has_book.Book_id ORDER BY class.Name ASC";
+      $result = $conn->query($query);
+      if (!$result) die($conn->error);
+      while($row = $result->fetch_assoc()){
+        echo '<tr>
+                <th scope="row">'.$row['Name'].'</th>
+                <td>'.$row['Professor'].'</td>
+                <td>'.$row['cId'].'</td>
+                <td>'.$row['Title'].'</td>
+                <td>'.$row['bId'].'</td>
+              </tr>';
+      }
+      echo  '</tbody>
+            </table>';
+      ?>
 
     </div>
   </div>

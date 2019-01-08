@@ -88,30 +88,26 @@
       </div>
       <div class="OldForm">
         <h5 style="margin-bottom: 0.5em;"><b>Old Semester Forms:</b></h5>
-        <a href="http://localhost/old_form.php#formid" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Semester.</h5>
-            <small class="text-muted">Cannot be edited.</small>
-          </div>
-          <p class="mb-1">Book selection.</p>
-          <small class="text-muted">Click here to review.</small>
-        </a>
-        <a href="http://localhost/old_form.php#formid" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Semester.</h5>
-            <small class="text-muted">Cannot be edited.</small>
-          </div>
-          <p class="mb-1">Book selection.</p>
-          <small class="text-muted">Click here to review.</small>
-        </a>
-        <a href="http://localhost/old_form.php#formid" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Semester.</h5>
-            <small class="text-muted">Cannot be edited.</small>
-          </div>
-          <p class="mb-1">Book selection.</p>
-          <small class="text-muted">Click here to review.</small>
-        </a>
+        <?php
+        include('./src/config.php');
+        $query = "SELECT form.Id, form.Semester, form.Year FROM user, form WHERE user.Username = '".$_SESSION['Username']."' AND user.Username = form.User_id AND form.Ended = 1 ORDER BY form.Id DESC";
+        $result = $conn->query($query);
+        if (!$result) die($conn->error);
+        if (mysqli_num_rows($result) > 0) {
+          while($row = $result->fetch_assoc()){
+            echo '<a href="http://localhost/old_form.php?id='.$row['Id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">'.$row['Semester'].' '.$row['Year'].'</h5>
+                  <small class="text-muted">Cannot be edited.</small>
+                  </div>
+                  <p class="mb-1">Book selection.</p>
+                  <small class="text-muted">Click here to review.</small>
+                  </a>';
+          }
+        }else{
+          echo 'This is your first semester on the platform.';
+        }
+        ?>
       </div>
     </div>
   </div>

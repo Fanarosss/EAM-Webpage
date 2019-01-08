@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -76,18 +79,40 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="book-list-grid">
-      <h2>All books for: <b><?php echo $_SESSION['Department'],'  ',$_SESSION['University'];?></b></h2>
+      <h2>Books you have through <b>Eudoxus:</b> </h2>
       <hr class="my-4">
       <?php
-      $query = "SELECT * FROM user,user_has,book WHERE user.Username = '".$_SESSION['Username']."' AND user.Username = user_has.User_id AND user_has.Book_id = book.Id";
+      $query = "SELECT * FROM user,user_has,book WHERE user.Username = '".$_SESSION['Username']."' AND user.Username = user_has.User_id
+                AND user_has.Book_id = book.Id";
       $result = $conn->query($query);
       if (!$result) die($conn->error);
       if (mysqli_num_rows($result) > 0) {
         echo '<div class="book-row">';
         while($row = $result->fetch_assoc()){
           echo '<div class="btn">';
-          echo '<input class="myButton" type="submit" value="'.$row['Title'].'">';
+          echo '<input class="myButton" type="submit" data-toggle="modal" data-target="#myModal" value="'.$row['Title'].'">';
           echo '</div>';
+          echo '<!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">'.$row['Title'].'</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Author: '.$row['Author'].'.</p>
+                        <p>Publications: '.$row['Publications'].'.</p>
+                        <p>ISBN: '.$row['ISBN'].'.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>';
         }
         echo '</div>';
       }else{
