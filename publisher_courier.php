@@ -49,7 +49,8 @@
       <div class="bs-item2">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
-          <li class="breadcrumb-item active">Student</li>
+          <li class="breadcrumb-item"><a href="http://localhost/publisher_home.php">Publisher</a></li>
+          <li class="breadcrumb-item active">Courier Service</li>
         </ol>
       </div>
     </div>
@@ -58,58 +59,21 @@
     <!-- item 1 on bs2 grid - side bar -->
     <ul class="nav nav-pills flex-column">
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link active" href="http://localhost/student_home.php">Home</a>
+        <a class="nav-link" href="http://localhost/publisher_home.php">Home</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/student_book_sel.php">Book selection</a>
+        <a class="nav-link" href="http://localhost/publisher_book_man.php">Book Management</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/student_book_list.php">Book List</a>
+        <a class="nav-link active" href="http://localhost/publisher_courier.php">Courier Service</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
+        <a class="nav-link" href="http://localhost/publisher_faq.php">FAQ</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
+        <a class="nav-link" href="https://eudoxus.gr/files/ManualPublishersUpdateBooks.pdf" target="_blank">Manual</a>
       </li>
     </ul>
-    <!-- item2 on bs2 grid-->
-    <div class="bs-item3">
-      <div class="jumbotron2">
-        <div class="separator" style="margin-bottom:2em">
-          <div class="Headers">
-            <h2 style="margin-bottom:1em;">Full Name</h2>
-            <h5>E-mail</h5>
-            <h5>Register ID</h5>
-            <h5>University</h5>
-            <h5>Department</h5>
-            <h5>Since</h5>
-            <h5>Phone</h5>
-          </div>
-          <div class="Info">
-            <h2 style="margin-bottom:1em;"><?php echo $_SESSION['FullName'];?></h2>
-            <h5><?php echo $_SESSION['Email'];?></h5>
-            <h5><?php echo $_SESSION['Username'];?></h5>
-            <h5><?php echo $_SESSION['University'];?></h5>
-            <h5><?php echo $_SESSION['Department'];?></h5>
-            <h5><?php echo $_SESSION['Date'];?></h5>
-            <h5><?php echo $_SESSION['Phone'];?></h5>
-          </div>
-          <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Book selection Deadline</div>
-            <div class="card-body">
-              <h4 class="card-title">21/01/19</h4>
-              <p class="card-text">Students have until then to select and pick all books.</p>
-            </div>
-          </div>
-        </div>
-        <hr class="my-4">
-        <p>If you wish to change any of your info.</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="http://localhost/student_settings.php" role="button"><i class="fas fa-cogs"></i> Settings</a>
-        </p>
-      </div>
-    </div>
   </div>
 </body>
 </html>

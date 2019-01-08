@@ -49,7 +49,7 @@
       <div class="bs-item2">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
-          <li class="breadcrumb-item active">Student</li>
+          <li class="breadcrumb-item active">Publisher</li>
         </ol>
       </div>
     </div>
@@ -58,19 +58,19 @@
     <!-- item 1 on bs2 grid - side bar -->
     <ul class="nav nav-pills flex-column">
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link active" href="http://localhost/student_home.php">Home</a>
+        <a class="nav-link active" href="http://localhost/publisher_home.php">Home</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/student_book_sel.php">Book selection</a>
+        <a class="nav-link" href="http://localhost/publisher_book_man.php">Book Management</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/student_book_list.php">Book List</a>
+        <a class="nav-link" href="http://localhost/publisher_courier.php">Courier Service</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
+        <a class="nav-link" href="http://localhost/publisher_faq.php">FAQ</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
+        <a class="nav-link" href="https://eudoxus.gr/files/ManualPublishersUpdateBooks.pdf" target="_blank">Manual</a>
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
@@ -79,34 +79,55 @@
         <div class="separator" style="margin-bottom:2em">
           <div class="Headers">
             <h2 style="margin-bottom:1em;">Full Name</h2>
-            <h5>E-mail</h5>
             <h5>Register ID</h5>
-            <h5>University</h5>
-            <h5>Department</h5>
-            <h5>Since</h5>
+            <h5>Address</h5>
+            <h5>E-mail</h5>
             <h5>Phone</h5>
+            <h5>Since</h5>
           </div>
           <div class="Info">
             <h2 style="margin-bottom:1em;"><?php echo $_SESSION['FullName'];?></h2>
-            <h5><?php echo $_SESSION['Email'];?></h5>
             <h5><?php echo $_SESSION['Username'];?></h5>
-            <h5><?php echo $_SESSION['University'];?></h5>
-            <h5><?php echo $_SESSION['Department'];?></h5>
-            <h5><?php echo $_SESSION['Date'];?></h5>
+            <h5><?php echo $_SESSION['Address'];?></h5>
+            <h5><?php echo $_SESSION['Email'];?></h5>
             <h5><?php echo $_SESSION['Phone'];?></h5>
+            <h5><?php echo $_SESSION['Date'];?></h5>
           </div>
           <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Book selection Deadline</div>
-            <div class="card-body">
-              <h4 class="card-title">21/01/19</h4>
-              <p class="card-text">Students have until then to select and pick all books.</p>
+            <div class="card-header">Collaboration with Eudoxus</div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox" style="text-align: center; margin-top:10px">
+                <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
+                <label class="custom-control-label" for="customCheck1">2018-2019</label>
+              </div>
+              <hr class="my-2">
+              <div class="custom-control custom-checkbox" style="text-align: center">
+                <input type="checkbox" class="custom-control-input" disabled="" checked>
+                <label class="custom-control-label">2017-2018</label>
+              </div>
+              <div class="custom-control custom-checkbox" style="text-align: center">
+                <input type="checkbox" class="custom-control-input" disabled="" checked>
+                <label class="custom-control-label">2016-2017</label>
+              </div>
+              <div class="custom-control custom-checkbox" style="text-align: center">
+                <input type="checkbox" class="custom-control-input" disabled="">
+                <label class="custom-control-label">2015-2016</label>
+              </div>
+              <div class="custom-control custom-checkbox" style="text-align: center">
+                <input type="checkbox" class="custom-control-input" disabled="">
+                <label class="custom-control-label">2014-2015</label>
+              </div>
+              <div class="custom-control custom-checkbox" style="text-align: center">
+                <input type="checkbox" class="custom-control-input" disabled="" checked>
+                <label class="custom-control-label">2013-2014</label>
+              </div>
             </div>
           </div>
         </div>
         <hr class="my-4">
         <p>If you wish to change any of your info.</p>
         <p class="lead">
-          <a class="btn btn-primary btn-lg" href="http://localhost/student_settings.php" role="button"><i class="fas fa-cogs"></i> Settings</a>
+          <a class="btn btn-primary btn-lg" href="http://localhost/publisher_settings.php" role="button"><i class="fas fa-cogs"></i> Settings</a>
         </p>
       </div>
     </div>

@@ -78,24 +78,45 @@
     <!-- Item 1 on grid2 -->
     <?php
     if (isset($_SESSION['Id'])){
-      echo '
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item" style="padding-bottom:2em">
-          <a class="nav-link" href="http://localhost/student_home.php">Home</a>
-        </li>
-        <li class="nav-item" style="padding-bottom:2em">
-          <a class="nav-link" href="http://localhost/student_book_sel.php">Book selection</a>
-        </li>
-        <li class="nav-item" style="padding-bottom:2em">
-          <a class="nav-link" href="http://localhost/student_book_list.php">Book List</a>
-        </li>
-        <li class="nav-item" style="padding-bottom:2em">
-          <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
-        </li>
-        <li class="nav-item" style="padding-bottom:2em">
-          <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
-        </li>
-      </ul>';
+      if ($_SESSION['Id'] == 1){
+        echo '
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/student_home.php">Home</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/student_book_sel.php">Book Selection</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/student_book_list.php">Book List</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
+          </li>
+        </ul>';
+      }else if ($_SESSION['Id'] == 2){
+        echo '
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/publisher_home.php">Home</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/publisher_book_man.php">Book Management</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/publisher_courier.php">Courier Service</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="http://localhost/publisher_faq.php">FAQ</a>
+          </li>
+          <li class="nav-item" style="padding-bottom:2em">
+            <a class="nav-link" href="https://eudoxus.gr/files/ManualPublishersUpdateBooks.pdf" target="_blank">Manual</a>
+          </li>
+        </ul>';
+      }
     }else{
       echo '
       <ul class="nav nav-pills flex-column">
