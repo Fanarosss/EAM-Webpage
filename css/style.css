@@ -74,6 +74,9 @@
   border: none;
   cursor: pointer;
 }
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2ea0c9;
+}
 .mydropdown-content {
   display: none;
   position: absolute;
