@@ -49,7 +49,8 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
           <li class="breadcrumb-item"><a href="http://localhost/student_home.php">Student</a></li>
-          <li class="breadcrumb-item active">SELECT</li>
+          <li class="breadcrumb-item"><a href="http://localhost/student_book_sel.php">Select</a></li>
+          <li class="breadcrumb-item active">Old Form</li>
         </ol>
       </div>
     </div>
@@ -74,45 +75,8 @@
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
-    <div class="Book-Selection-Forms">
-      <div class="CurrForm">
-        <h5 style="margin-bottom: 0.5em;"><b>Current Semester Form:</b></h5>
-        <a href="http://localhost/new_form.php" class="list-group-item list-group-item-action flex-column align-items-start active">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Book Selection for Semester.</h5>
-            <small>Last Edit.</small>
-          </div>
-          <p class="mb-1">Book Selection for Semester.</p>
-          <small>Click here to create or modify your choices.</small>
-        </a>
-      </div>
-      <div class="OldForm">
-        <h5 style="margin-bottom: 0.5em;"><b>Old Semester Forms:</b></h5>
-        <a href="http://localhost/old_form.php#formid" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Semester.</h5>
-            <small class="text-muted">Cannot be edited.</small>
-          </div>
-          <p class="mb-1">Book selection.</p>
-          <small class="text-muted">Click here to review.</small>
-        </a>
-        <a href="http://localhost/old_form.php#formid" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Semester.</h5>
-            <small class="text-muted">Cannot be edited.</small>
-          </div>
-          <p class="mb-1">Book selection.</p>
-          <small class="text-muted">Click here to review.</small>
-        </a>
-        <a href="http://localhost/old_form.php#formid" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Semester.</h5>
-            <small class="text-muted">Cannot be edited.</small>
-          </div>
-          <p class="mb-1">Book selection.</p>
-          <small class="text-muted">Click here to review.</small>
-        </a>
-      </div>
+    <div class="Old-Form">
+
     </div>
   </div>
 </body>
