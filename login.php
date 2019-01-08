@@ -1,5 +1,18 @@
 <?php
    include('./src/session.php');
+   if(isset($_SESSION['Id'])) {
+     if ($_SESSION['Id'] == 1){
+       header("location: student_home.php");
+     }else if ($_SESSION['Id'] == 2){
+       header("location: publisher_home.php");
+     }else if ($_SESSION['Id'] == 3){
+       header("location: secretary_home.php");
+     }else if ($_SESSION['Id'] == 4){
+       header("location: distributor_home.php");
+     }else if ($_SESSION['Id'] == 5){
+       header("location: professor_home.php");
+     }
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,8 +120,19 @@
                 $_SESSION['Email'] = $row["Email"];
                 $_SESSION['Phone'] = $row["Phone"];
                 if ($id == 1){
+                  $query2 = "SELECT University, Department, RegDate FROM student WHERE Username = '".$user."'";
+                  $result2 = $conn->query($query2);
+                  $row = mysqli_fetch_assoc($result2);
+                  $_SESSION['University'] = $row["University"];
+                  $_SESSION['Department'] = $row["Department"];
+                  $_SESSION['Date'] = $row["RegDate"];
                   header("location: student_home.php");
                 }else if ($id == 2){
+                  $query2 = "SELECT Address, DateAdded FROM publisher WHERE Username = '".$user."'";
+                  $result2 = $conn->query($query2);
+                  $row = mysqli_fetch_assoc($result2);
+                  $_SESSION['Address'] = $row["Address"];
+                  $_SESSION['Date'] = $row["DateAdded"];
                   header("location: publisher_home.php");                       //not exists
                 }else if ($id == 3){
                   header("location: secretary_home.php");                       //not exists
