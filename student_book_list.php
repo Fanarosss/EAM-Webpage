@@ -1,5 +1,6 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,8 +79,20 @@
       <h2>All classes for: <b><?php echo $_SESSION['University'];?></b></h2>
       <hr class="my-4">
       <?php
-      $query = "SELECT book.Title FROM user, user_has, book WHERE user.Id = user_has.User_Id AND user_has.Book_id = book.Id"
+      $query = "SELECT * FROM user,user_has,book WHERE user.Username = '".$_SESSION['Username']."' AND user.Username = user_has.User_id AND user_has.Book_id = book.Id";
       $result = $conn->query($query);
+      if (!$result) die($conn->error);
+      if (mysqli_num_rows($result) > 0) {
+        echo '<div class="book-row">';
+        while($row = $result->fetch_assoc()){
+          echo '<div class="btn">';
+          echo '<input class="myButton" type="submit" value="'.$row['Title'].'">';
+          echo '</div>';
+        }
+        echo '</div>';
+      }else{
+        echo 'No books selected yet.';
+      }
       ?>
     </div>
   </div>
