@@ -52,8 +52,8 @@
               </li>
             </ul>
             <div class="mydropdown">
-              <button class="dropbtn">Login</button>
-              <div class="mydropdown-content">
+              <button class="dropbtn" style="width: 110px;">Login</button>
+              <div class="mydropdown-content" style="width: 110px;">
                 <a href="http://localhost/login.php?id=1">Student</a>
                 <a href="http://localhost/login.php?id=2">Publisher</a>
                 <a href="http://localhost/login.php?id=3">Secretary</a>
@@ -61,6 +61,9 @@
                 <a href="http://localhost/login.php?id=5">Professor</a>
               </div>
             </div>
+            <a href="http://localhost/signup.php">
+              <button class="dropbtn" style="margin-left: 10px; width: 110px;">Sign Up</button>
+            </a>
           </div>
         </nav>
       </div>
