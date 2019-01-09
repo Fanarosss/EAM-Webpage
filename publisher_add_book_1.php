@@ -108,6 +108,7 @@
         $p = $_SESSION['Username'];
         if (isset($_POST['submit-check'])){
           $search = mysqli_real_escape_string($conn, $_POST['ISBN']);
+          $_SESSION['ISBN'] = $search;
           $query = "SELECT * FROM book WHERE Publications = '$p' AND ISBN = '$search'";
           $result = $conn->query($query);
           if (mysqli_num_rows($result) > 0) {

@@ -19,14 +19,12 @@
     include('./src/config.php');
     $IdErr = 0;
     $TitleErr = 0;
-    $ISBNErr = 0;
     $success = 0;
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
       $id = mysqli_real_escape_string($conn, $_POST['Id']);
       $title = mysqli_real_escape_string($conn, $_POST['Title']);
       $author = mysqli_real_escape_string($conn, $_POST['Author']);
-      $ISBN = mysqli_real_escape_string($conn, $_POST['ISBN']);
-      $book_check_query = "SELECT * FROM book WHERE Id='$id' OR Title='$title' OR ISBN='$ISBN'";
+      $book_check_query = "SELECT * FROM book WHERE Id='$id' OR Title='$title'";
       $result = $conn->query($book_check_query);
       $check = mysqli_fetch_assoc($result);
       if ($check) {
@@ -36,13 +34,11 @@
         if ($check['Title'] == $title) {
           $TitleErr = 1;
         }
-        if ($check['ISBN'] == $ISBN) {
-          $ISBNErr = 1;
-        }
       }
-      if ($IdErr == 0 && $TitleErr == 0 && $ISBNErr == 0) {
+      if ($IdErr == 0 && $TitleErr == 0) {
         $publications = $_SESSION['Username'];
-        $book_insert_query = "INSERT INTO book VALUES('$id', '$title', '$author', '$publications', '$ISBN')";
+        $ISBN = $_SESSION['ISBN'];
+        $book_insert_query = "INSERT INTO book VALUES('$id', '$title', '$author', '$publications', '$ISBN', NULL, NULL, NULL, NULL)";
         $conn->query($book_insert_query);
         $success = 1;
       }
@@ -170,18 +166,10 @@
             <div class="form-group">
               <label for="ISBN">ISBN</label>
               <?php
-              if ($IdErr == 0){
                 echo '<div class="form-group">
                 <input type="text" class="form-control" name="ISBN" value="';
-                echo isset($_POST['ISBN']) ? $_POST['ISBN'] : '';
-                echo '" required>';
-              }else{
-                echo '<div class="form-group has-danger">
-                <input type="text" class="form-control is-invalid" name="ISBN" value="';
-                echo isset($_POST['ISBN']) ? $_POST['ISBN'] : '';
-                echo '" required>';
-                echo '<font size="2" class="invalid-feedback">Sorry, that ISBN is already registered. Try another?</font>';
-              }
+                echo $_SESSION['ISBN'];
+                echo '" disabled>';
               ?>
             </div>
             <hr class="my-4">
