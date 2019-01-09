@@ -15,6 +15,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/scripts.js"></script>
 </head>
 
 <body>
@@ -90,21 +91,17 @@
         echo '<div class="book-row">';
         while($row = $result->fetch_assoc()){
           echo '<div class="btn">';
-          echo '<input class="myButton" type="submit" data-toggle="modal" data-target="#myModal" value="'.$row['Title'].'">';
+          echo '<input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">';
           echo '</div>';
           echo '<!-- Modal -->
-                <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal fade" id="dataModal" role="dialog">
                   <div class="modal-dialog">
 
                     <!-- Modal content-->
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">'.$row['Title'].'</h4>
+                      <div class="modal-header" id="book_header">
                       </div>
-                      <div class="modal-body">
-                        <p>Author: '.$row['Author'].'.</p>
-                        <p>Publications: '.$row['Publications'].'.</p>
-                        <p>ISBN: '.$row['ISBN'].'.</p>
+                      <div class="modal-body" id="book_details">
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
