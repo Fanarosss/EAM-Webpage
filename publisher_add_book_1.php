@@ -50,7 +50,8 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
           <li class="breadcrumb-item"><a href="http://localhost/publisher_home.php">Publisher</a></li>
-          <li class="breadcrumb-item active">Book Management</li>
+          <li class="breadcrumb-item"><a href="http://localhost/publisher_book_man.php">Book Management</a></li>
+          <li class="breadcrumb-item active">Add Book</li>
         </ol>
       </div>
     </div>
@@ -74,57 +75,54 @@
         <a class="nav-link" href="https://eudoxus.gr/files/ManualPublishersUpdateBooks.pdf" target="_blank">Manual</a>
       </li>
     </ul>
-    <div class="bs-item3">
+    <!-- item2 on bs2 grid-->
+    <div class="Book-Selection-Forms">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="http://localhost/publisher_add_book_1.php" style="padding-left: 2em; padding-right: 2em;">Check</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_2.php" style="padding-left: 2em; padding-right: 2em;">Book Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_3.php" style="padding-left: 2em; padding-right: 2em;">Book Files</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+        </li>
+      </ul>
       <div class="jumbotron2">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <div class="collapse navbar-collapse" id="navbarColor01">
-            <a class="btn btn-primary btn-lg" href="http://localhost/publisher_add_book_1.php" role="button"><i class="fas fa-book"></i>  Add Book</a>
-            <form action="publisher_book_man.php" method="POST">
-              <div class="form-inline my-2 my-lg-0" style="margin-left: 20px">
-                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit" name="submit-search">Search</button>
-                <div class="form-group">
-                  <select class="btn btn-primary btn-lg" style="margin-left: 20px">
-                    <option disabled selected value>-- Sort By --</option>
-                    <option>Id</option>
-                    <option>Title</option>
-                    <option>Author</option>
-                    <option>ISBN</option>
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
-        </nav>
-        <table class="table table-hover" style="margin-top: 20px">
-          <thead>
-            <tr>
-              <th scope="col">Available</th>
-              <th scope="col">ID</th>
-              <th scope="col">Title</th>
-              <th scope="col">Author</th>
-              <th scope="col">ISBN</th>
-              <th scope="col">Registration</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            include './src/config.php';
-            $p = $_SESSION['Username'];
-            if (isset($_POST['submit-search'])){
-              $search = mysqli_real_escape_string($conn, $_POST['search']);
-              $query = "SELECT * FROM book WHERE Publications = '$p' AND (Id LIKE '%$search%' OR Title LIKE '%$search%' OR Author LIKE '%$search%'
-                        OR ISBN LIKE '%$search%')";
-            } else {
-              $query = "SELECT * FROM book WHERE Publications = '$p'";
-            }
-            $result = $conn->query($query);
-            while($row = $result->fetch_assoc()){   //Creates a loop to loop through results
-              echo "<tr><td>x</td><td>" . $row['Id'] . "</td><td>" . $row['Title'] . "</td><td>" . $row['Author'] . "</td><td>" . $row['ISBN'] . "</td><td>x</td></tr>";
-            }
-            ?>
-          </tbody>
-        </table>
+        <h1 class="display-3">Check ISBN</h1>
+        <p class="lead">Please type book's ISBN to check if it is already registered!</p>
+        <hr class="my-4">
+        <form action="publisher_add_book_1.php" method="POST">
+          <fieldset>
+            <div class="form-group">
+              <input type="text" class="form-control" name="ISBN" placeholder="ISBN" value="<?php echo isset($_POST['ISBN']) ? $_POST['ISBN'] : '' ?>" required>
+            </div>
+            <button type="submit" class="btn btn-primary" name="submit-check">Check</button>
+          </fieldset>
+        </form>
+        <?php
+        include './src/config.php';
+        $p = $_SESSION['Username'];
+        if (isset($_POST['submit-check'])){
+          $search = mysqli_real_escape_string($conn, $_POST['ISBN']);
+          $query = "SELECT * FROM book WHERE Publications = '$p' AND ISBN = '$search'";
+          $result = $conn->query($query);
+          if (mysqli_num_rows($result) > 0) {
+            echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Check Fail--</strong> This ISBN was found in another book that you have already registered!
+                  </div>';
+          }else{
+            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Check Success--</strong> This ISBN is free and ready to be registered! Click <a href="http://localhost/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
+                  </div>';
+          }
+        }
+        ?>
       </div>
     </div>
   </div>
