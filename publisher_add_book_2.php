@@ -121,6 +121,14 @@
         </li>
       </ul>
       <div class="jumbotron2">
+        <?php
+        if ($success == 1) {
+          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>--Book info has been registered successfully!--</strong> Click <a href="http://localhost/publisher_add_book_3.php" class="alert-link">here</a> to proceed.
+                </div>';
+        }
+        ?>
         <p class="lead">Please enter book's info below:</p>
         <hr class="my-4">
         <form action="publisher_add_book_2.php" method="POST">
@@ -177,14 +185,6 @@
             <button type="reset" class="btn btn-primary" name="reset">Reset</button>
           </fieldset>
         </form>
-        <?php
-        if ($success == 1) {
-          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>--Book info has been registered successfully!--</strong> Click <a href="http://localhost/publisher_add_book_3.php" class="alert-link">here</a> to proceed.
-                </div>';
-        }
-        ?>
       </div>
     </div>
   </div>

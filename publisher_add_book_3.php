@@ -15,6 +15,21 @@
 </head>
 
 <body>
+  <?php
+    include('./src/config.php');
+    $success = 0;
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+      $ISBN = $_SESSION['ISBN'];
+      $f1 = addslashes(file_get_contents($_FILES['FPage']['tmp_name']));
+      $f2 = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
+      $f3 = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
+      $f4 = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
+
+      $book_insert_query = "UPDATE book SET FPage = '$f1', BPage = '$f2', Contents = '$f3', Extract = '$f4' WHERE ISBN = '$ISBN'";
+      $conn->query($book_insert_query);
+      $success = 1;
+    }
+  ?>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -92,29 +107,82 @@
         </li>
       </ul>
       <div class="jumbotron2">
+        <!-- <?php
+        include('./src/config.php');
+        $sql = "SELECT * FROM book WHERE Id = '1000'";
+        $sth = $conn->query($sql);
+        $result=mysqli_fetch_assoc($sth);
+        echo $result['Title'];
+        echo "HERE";
+        header("Content-type: image/jpeg");
+        echo '<img src="data:image/jpeg;base64,' . base64_encode( $result['Extract'] ) . '" />';
+        ?> -->
+        <?php
+        if ($success == 1) {
+          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>--Book files have been registered successfully!--</strong> Click <a href="http://localhost/publisher_add_book_4.php" class="alert-link">here</a> to proceed.
+                </div>';
+        }
+        ?>
         <p class="lead">Please enter book's files below:</p>
         <hr class="my-4">
-        <form action="publisher_add_book_3.php" method="POST">
+        <form action="publisher_add_book_3.php" method="POST" enctype="multipart/form-data">
           <fieldset>
             <div class="form-group">
               <label for="FPage">Front Page</label>
-              <input type="file" class="form-control-file" name="FPage">
+              <input type="file" class="form-control-file" name="FPage" accept="image/*" onchange="loadFile1(event)">
+              <img id="output1" style="margin-top:10px"/>
+              <script>
+                var loadFile1 = function(event) {
+                  var output = document.getElementById('output1');
+                  output.src = URL.createObjectURL(event.target.files[0]);
+                };
+              </script>
             </div>
             <div class="form-group">
               <label for="BPage">Back Page</label>
-              <input type="file" class="form-control-file" name="BPage">
+              <input type="file" class="form-control-file" name="BPage" accept="image/*" onchange="loadFile2(event)">
+              <img id="output2" style="margin-top:10px"/>
+              <script>
+                var loadFile2 = function(event) {
+                  var output = document.getElementById('output2');
+                  output.src = URL.createObjectURL(event.target.files[0]);
+                };
+              </script>
             </div>
             <div class="form-group">
               <label for="Contents">Contents</label>
-              <input type="file" class="form-control-file" name="Contents">
+              <input type="file" class="form-control-file" name="Contents" accept="image/*" onchange="loadFile3(event)">
+              <img id="output3" style="margin-top:10px"/>
+              <script>
+                var loadFile3 = function(event) {
+                  var output = document.getElementById('output3');
+                  output.src = URL.createObjectURL(event.target.files[0]);
+                };
+              </script>
             </div>
             <div class="form-group">
               <label for="Extract">Extract</label>
-              <input type="file" class="form-control-file" name="FPage">
+              <input type="file" class="form-control-file" name="Extract" accept="image/*" onchange="loadFile4(event)">
+              <img id="output4" style="margin-top:10px"/>
+              <script>
+                var loadFile4 = function(event) {
+                  var output = document.getElementById('output4');
+                  output.src = URL.createObjectURL(event.target.files[0]);
+                };
+              </script>
             </div>
             <hr class="my-4">
             <button type="submit" class="btn btn-primary" name="submit-check">Submit</button>
-            <button type="reset" class="btn btn-primary" name="reset">Reset</button>
+            <button type="reset" class="btn btn-primary" name="reset" onClick="deleteall(event)">Reset</button>
+            <script>
+              var deleteall = function(event) {
+                document.getElementById('output4').value = "";
+                var output = document.getElementById('output4');
+                output.src = URL.createObjectURL(event.target.files[0]);
+              };
+            </script>
           </fieldset>
         </form>
       </div>
