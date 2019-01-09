@@ -11,9 +11,12 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -81,23 +84,31 @@
           <a class="nav-link active" data-toggle="tab" href="" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
+          <a class="nav-link" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
+          <a class="nav-link" href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
       </ul>
+
       <div class="class-select">
         <?php
         include('./src/config.php');
         $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                  AND Semester = 'Winter' ORDER BY class.Name ASC";
+                  AND Period = 'Winter' ORDER BY class.Name ASC";
         $result = $conn->query($query);
         if (!$result) die($conn->error);
-        echo '<h3><b>Winter Period:</b></h3>';
+        echo '<div class="panel-group" id="accordion" style="display:grid;">';
+        echo '<div class="panel panel-default">
+              <div class="panel-heading" style="margin-top: 2em;">
+                <h4 class="panel-title">
+                  <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h3><b>Winter Period:</b></h3></button>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse in">';
         if (mysqli_num_rows($result) > 0) {
           while($row = $result->fetch_assoc()){
             echo '<div class="btn">';
@@ -107,11 +118,19 @@
         }else{
           echo 'No classes available.';
         }
+        echo '</div>';
+        echo '</div>';
         $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                  AND Semester = 'Summer' ORDER BY class.Name ASC";
+                  AND Period = 'Summer' ORDER BY class.Name ASC";
         $result = $conn->query($query);
         if (!$result) die($conn->error);
-        echo '<h3><b>Summer Period:</b></h3>';
+        echo '<div class="panel panel-default">
+              <div class="panel-heading" style="margin-top: 2em;">
+                <h4 class="panel-title">
+                  <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h3><b>Summer Period:</b></h3></button>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse in">';
         if (mysqli_num_rows($result) > 0) {
           while($row = $result->fetch_assoc()){
             echo '<div class="btn">';
@@ -121,9 +140,12 @@
         }else{
           echo 'No classes available.';
         }
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
         ?>
       </div>
-      <button type="button" class="btn btn-primary btn-lg">Proceed</button>
+      <button type="button" class="btn btn-primary btn-lg" style="margin-top: 2em;">Proceed</button>
     </div>
   </div>
 </body>

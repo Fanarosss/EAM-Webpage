@@ -14,6 +14,8 @@
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -78,23 +80,23 @@
     <div class="Book-Selection-Forms">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form1.php" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
+          <a class="nav-link" href="http://localhost/student_new_form1.php" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
+          <a class="nav-link" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
+          <a class="nav-link active" href="" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
       </ul>
       <div class="pickup-point-select">
         <?php
         include('./src/config.php');
         $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                  AND Semester = 'Winter' ORDER BY class.Name ASC";
+                  AND Period = 'Winter' ORDER BY class.Name ASC";
         $result = $conn->query($query);
         if (!$result) die($conn->error);
         if (mysqli_num_rows($result) > 0) {
