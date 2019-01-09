@@ -79,7 +79,7 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="Book-Selection-Forms">
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs" style="margin-bottom: 2em;">
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form1.php" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>

@@ -97,10 +97,6 @@
       <div class="class-select">
         <?php
         include('./src/config.php');
-        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                  AND Period = 'Winter' ORDER BY class.Name ASC";
-        $result = $conn->query($query);
-        if (!$result) die($conn->error);
         echo '<div class="panel-group" id="accordion" style="display:grid;">';
         echo '<div class="panel panel-default">
               <div class="panel-heading" style="margin-top: 2em;">
@@ -109,21 +105,33 @@
                 </h4>
               </div>
               <div id="collapse1" class="panel-collapse collapse in">';
-        if (mysqli_num_rows($result) > 0) {
-          while($row = $result->fetch_assoc()){
-            echo '<div class="btn">';
-            echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
-            echo '</div>';
+        for ($semid = 1; $semid <=7; $semid+=2) {
+          $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
+                    AND Period = 'Winter' AND Semester='".$semid."' ORDER BY class.Name ASC";
+          $result = $conn->query($query);
+          if (!$result) die($conn->error);
+          echo '<div class="panel panel-default">
+                <div class="panel-heading" style="margin-top: 2em;">
+                  <h4 class="panel-title">
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsew1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                  </h4>
+                </div>
+                <div id="collapsew1'.$semid.'" class="panel-collapse collapse in">';
+          if (mysqli_num_rows($result) > 0) {
+            while($row = $result->fetch_assoc()){
+              echo '<div class="btn">';
+              echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
+              echo '</div>';
+            }
+          }else{
+            echo 'No classes available.';
           }
-        }else{
-          echo 'No classes available.';
+          echo '</div>';
+          echo '</div>';
         }
         echo '</div>';
         echo '</div>';
-        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                  AND Period = 'Summer' ORDER BY class.Name ASC";
-        $result = $conn->query($query);
-        if (!$result) die($conn->error);
+        echo '<div class="panel-group" id="accordion" style="display:grid;">';
         echo '<div class="panel panel-default">
               <div class="panel-heading" style="margin-top: 2em;">
                 <h4 class="panel-title">
@@ -131,14 +139,29 @@
                 </h4>
               </div>
               <div id="collapse2" class="panel-collapse collapse in">';
-        if (mysqli_num_rows($result) > 0) {
-          while($row = $result->fetch_assoc()){
-            echo '<div class="btn">';
-            echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
-            echo '</div>';
+        for ($semid = 2; $semid <=8; $semid+=2) {
+          $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
+                    AND Period = 'Summer' AND Semester='".$semid."' ORDER BY class.Name ASC";
+          $result = $conn->query($query);
+          if (!$result) die($conn->error);
+          echo '<div class="panel panel-default">
+                <div class="panel-heading" style="margin-top: 2em;">
+                  <h4 class="panel-title">
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapses1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                  </h4>
+                </div>
+                <div id="collapses1'.$semid.'" class="panel-collapse collapse in">';
+          if (mysqli_num_rows($result) > 0) {
+            while($row = $result->fetch_assoc()){
+              echo '<div class="btn">';
+              echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
+              echo '</div>';
+            }
+          }else{
+            echo 'No classes available.';
           }
-        }else{
-          echo 'No classes available.';
+          echo '</div>';
+          echo '</div>';
         }
         echo '</div>';
         echo '</div>';
