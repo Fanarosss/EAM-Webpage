@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 
 <body>
@@ -49,7 +50,8 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
           <li class="breadcrumb-item"><a href="http://localhost/student_home.php">Student</a></li>
-          <li class="breadcrumb-item active">SELECT</li>
+          <li class="breadcrumb-item"><a href="http://localhost/student_book_sel.php">Select</a></li>
+          <li class="breadcrumb-item active">New Form</li>
         </ol>
       </div>
     </div>
@@ -75,37 +77,45 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="Book-Selection-Forms">
-      <div class="CurrForm">
-        <h5 style="margin-bottom: 0.5em;"><b>Current Semester Form:</b></h5>
-        <a href="http://localhost/student_new_form1.php" class="list-group-item list-group-item-action flex-column align-items-start active">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Book Selection for Semester.</h5>
-            <small>Last Edit.</small>
-          </div>
-          <p class="mb-1">Book Selection for Semester.</p>
-          <small>Click here to create or modify your choices.</small>
-        </a>
-      </div>
-      <div class="OldForm">
-        <h5 style="margin-bottom: 0.5em;"><b>Old Semester Forms:</b></h5>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form1.php" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+        </li>
+      </ul>
+      <div class="class-select">
         <?php
         include('./src/config.php');
-        $query = "SELECT form.Id, form.Semester, form.Year FROM user, form WHERE user.Username = '".$_SESSION['Username']."' AND user.Username = form.User_id AND form.Ended = 1 ORDER BY form.Id DESC";
+        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id ORDER BY class.Name ASC";
         $result = $conn->query($query);
         if (!$result) die($conn->error);
         if (mysqli_num_rows($result) > 0) {
           while($row = $result->fetch_assoc()){
-            echo '<a href="http://localhost/old_form.php?id='.$row['Id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">'.$row['Semester'].' '.$row['Year'].'</h5>
-                  <small class="text-muted">Cannot be edited.</small>
-                  </div>
-                  <p class="mb-1">Book selection.</p>
-                  <small class="text-muted">Click here to review.</small>
-                  </a>';
+            echo '<h3><b><u>'.$row['Name'].'</b></u></br></h3>';
+            $query2 = "SELECT * FROM class,class_has_choice,book WHERE class.Id = '".$row['Id']."' AND class_has_choice.Class_id = class.Id
+            AND class_has_choice.Book_id = book.Id ORDER BY book.Title ASC";
+            $result2 = $conn->query($query2);
+            if (!$result2) die($conn->error);
+            if (mysqli_num_rows($result2) > 0) {
+              while($row2 = $result2->fetch_assoc()){
+                echo '<div class="btn">';
+                echo '<input class="myButton" type="submit" value="'.$row2['Title'].'">';
+                echo '</div>';
+              }
+            }else{
+              echo 'No books available.';
+            }
           }
         }else{
-          echo 'This is your first semester on the platform.';
+          echo 'No classes available.';
         }
         ?>
       </div>

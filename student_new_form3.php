@@ -78,46 +78,37 @@
     <div class="Book-Selection-Forms">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#home" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
+          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form1.php" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#home" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
+          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#home" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
+          <a class="nav-link active" data-toggle="tab" href="" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#home" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link" data-toggle="tab" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
       </ul>
-      <div class="class-select">
+      <div class="pickup-point-select">
         <?php
         include('./src/config.php');
-        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id ORDER BY class.Name ASC";
+        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
+                  AND Semester = 'Winter' ORDER BY class.Name ASC";
         $result = $conn->query($query);
         if (!$result) die($conn->error);
         if (mysqli_num_rows($result) > 0) {
           while($row = $result->fetch_assoc()){
-            echo '<h3><b><u>'.$row['Name'].'</b></u></br></h3>';
-            $query2 = "SELECT * FROM class,class_has_choice,book WHERE class.Id = '".$row['Id']."' AND class_has_choice.Class_id = class.Id
-            AND class_has_choice.Book_id = book.Id ORDER BY book.Title ASC";
-            $result2 = $conn->query($query2);
-            if (!$result2) die($conn->error);
-            if (mysqli_num_rows($result2) > 0) {
-              while($row2 = $result2->fetch_assoc()){
-                echo '<div class="btn">';
-                echo '<input class="myButton" type="submit" value="'.$row2['Title'].'">';
-                echo '</div>';
-              }
-            }else{
-              echo 'No books available.';
-            }
+            echo '<div class="btn">';
+            echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
+            echo '</div>';
           }
         }else{
           echo 'No classes available.';
         }
         ?>
       </div>
+      <button type="button" class="btn btn-primary btn-lg">Proceed</button>
     </div>
   </div>
 </body>
