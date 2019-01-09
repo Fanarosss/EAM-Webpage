@@ -93,14 +93,14 @@
       <div class="class-select">
         <?php
         include('./src/config.php');
-        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id";
+        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id ORDER BY class.Name ASC";
         $result = $conn->query($query);
         if (!$result) die($conn->error);
         if (mysqli_num_rows($result) > 0) {
           while($row = $result->fetch_assoc()){
             echo '<h3><b><u>'.$row['Name'].'</b></u></br></h3>';
             $query2 = "SELECT * FROM class,class_has_choice,book WHERE class.Id = '".$row['Id']."' AND class_has_choice.Class_id = class.Id
-            AND class_has_choice.Book_id = book.Id";
+            AND class_has_choice.Book_id = book.Id ORDER BY book.Title ASC";
             $result2 = $conn->query($query2);
             if (!$result2) die($conn->error);
             if (mysqli_num_rows($result2) > 0) {
