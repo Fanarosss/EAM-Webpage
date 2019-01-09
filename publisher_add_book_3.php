@@ -92,6 +92,31 @@
         </li>
       </ul>
       <div class="jumbotron2">
+        <p class="lead">Please enter book's files below:</p>
+        <hr class="my-4">
+        <form action="publisher_add_book_3.php" method="POST">
+          <fieldset>
+            <div class="form-group">
+              <label for="FPage">Front Page</label>
+              <input type="file" class="form-control-file" name="FPage">
+            </div>
+            <div class="form-group">
+              <label for="BPage">Back Page</label>
+              <input type="file" class="form-control-file" name="BPage">
+            </div>
+            <div class="form-group">
+              <label for="Contents">Contents</label>
+              <input type="file" class="form-control-file" name="Contents">
+            </div>
+            <div class="form-group">
+              <label for="Extract">Extract</label>
+              <input type="file" class="form-control-file" name="FPage">
+            </div>
+            <hr class="my-4">
+            <button type="submit" class="btn btn-primary" name="submit-check">Submit</button>
+            <button type="reset" class="btn btn-primary" name="reset">Reset</button>
+          </fieldset>
+        </form>
       </div>
     </div>
   </div>

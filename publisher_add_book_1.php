@@ -118,7 +118,7 @@
           }else{
             echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>--Check Success--</strong> This ISBN is free and ready to be registered! Click <a href="http://localhost/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
+                    <strong>--Check Success--</strong> This ISBN is ready to be registered! Click <a href="http://localhost/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
                   </div>';
           }
         }

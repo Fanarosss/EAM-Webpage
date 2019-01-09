@@ -15,6 +15,39 @@
 </head>
 
 <body>
+  <?php
+    include('./src/config.php');
+    $IdErr = 0;
+    $TitleErr = 0;
+    $ISBNErr = 0;
+    $success = 0;
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+      $id = mysqli_real_escape_string($conn, $_POST['Id']);
+      $title = mysqli_real_escape_string($conn, $_POST['Title']);
+      $author = mysqli_real_escape_string($conn, $_POST['Author']);
+      $ISBN = mysqli_real_escape_string($conn, $_POST['ISBN']);
+      $book_check_query = "SELECT * FROM book WHERE Id='$id' OR Title='$title' OR ISBN='$ISBN'";
+      $result = $conn->query($book_check_query);
+      $check = mysqli_fetch_assoc($result);
+      if ($check) {
+        if ($check['Id'] == $id) {
+          $IdErr = 1;
+        }
+        if ($check['Title'] == $title) {
+          $TitleErr = 1;
+        }
+        if ($check['ISBN'] == $ISBN) {
+          $ISBNErr = 1;
+        }
+      }
+      if ($IdErr == 0 && $TitleErr == 0 && $ISBNErr == 0) {
+        $publications = $_SESSION['Username'];
+        $book_insert_query = "INSERT INTO book VALUES('$id', '$title', '$author', '$publications', '$ISBN')";
+        $conn->query($book_insert_query);
+        $success = 1;
+      }
+    }
+  ?>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -92,6 +125,78 @@
         </li>
       </ul>
       <div class="jumbotron2">
+        <p class="lead">Please enter book's info below:</p>
+        <hr class="my-4">
+        <form action="publisher_add_book_2.php" method="POST">
+          <fieldset>
+            <div class="form-group">
+              <label for="Id">Id</label>
+              <?php
+              if ($IdErr == 0){
+                echo '<div class="form-group">
+                <input type="text" class="form-control" name="Id" value="';
+                echo isset($_POST['Id']) ? $_POST['Id'] : '';
+                echo '" required>';
+              }else{
+                echo '<div class="form-group has-danger">
+                <input type="text" class="form-control is-invalid" name="Id" value="';
+                echo isset($_POST['Id']) ? $_POST['Id'] : '';
+                echo '" required>';
+                echo '<font size="2" class="invalid-feedback">Sorry, that Id is already registered. Try another?</font>';
+              }
+              ?>
+            </div>
+            <div class="form-group">
+              <label for="Title">Title</label>
+              <?php
+              if ($IdErr == 0){
+                echo '<div class="form-group">
+                <input type="text" class="form-control" name="Title" value="';
+                echo isset($_POST['Title']) ? $_POST['Title'] : '';
+                echo '" required>';
+              }else{
+                echo '<div class="form-group has-danger">
+                <input type="text" class="form-control is-invalid" name="Title" value="';
+                echo isset($_POST['Title']) ? $_POST['Title'] : '';
+                echo '" required>';
+                echo '<font size="2" class="invalid-feedback">Sorry, that Title is already registered. Try another?</font>';
+              }
+              ?>
+            </div>
+            <div class="form-group">
+              <label for="Author">Author(s)</label>
+              <input type="text" class="form-control" name="Author" value="<?php echo isset($_POST['Author']) ? $_POST['Author'] : '' ?>" required>
+            </div>
+            <div class="form-group">
+              <label for="ISBN">ISBN</label>
+              <?php
+              if ($IdErr == 0){
+                echo '<div class="form-group">
+                <input type="text" class="form-control" name="ISBN" value="';
+                echo isset($_POST['ISBN']) ? $_POST['ISBN'] : '';
+                echo '" required>';
+              }else{
+                echo '<div class="form-group has-danger">
+                <input type="text" class="form-control is-invalid" name="ISBN" value="';
+                echo isset($_POST['ISBN']) ? $_POST['ISBN'] : '';
+                echo '" required>';
+                echo '<font size="2" class="invalid-feedback">Sorry, that ISBN is already registered. Try another?</font>';
+              }
+              ?>
+            </div>
+            <hr class="my-4">
+            <button type="submit" class="btn btn-primary" name="submit-check">Submit</button>
+            <button type="reset" class="btn btn-primary" name="reset">Reset</button>
+          </fieldset>
+        </form>
+        <?php
+        if ($success == 1) {
+          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>--Book info has been registered successfully!--</strong> Click <a href="http://localhost/publisher_add_book_3.php" class="alert-link">here</a> to proceed.
+                </div>';
+        }
+        ?>
       </div>
     </div>
   </div>
