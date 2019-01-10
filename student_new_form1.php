@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
 </head>
 
@@ -116,16 +117,21 @@
                     <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsew1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
                   </h4>
                 </div>
-                <div id="collapsew1'.$semid.'" class="panel-collapse collapse in">';
+                <div id="collapsew1'.$semid.'" class="panel-collapse collapse in">
+                <div class="cart-container">';
           if (mysqli_num_rows($result) > 0) {
             while($row = $result->fetch_assoc()){
-              echo '<div class="btn">';
-              echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
-              echo '</div>';
+              echo '<div class="myshop-item">
+                    <div class="btn">
+                    <input class="myButton" type="submit" value="'.$row['Name'].'">
+                    </div>
+                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="fa fa-shopping-cart"></i></button>
+                    </div>';
             }
           }else{
             echo 'No classes available.';
           }
+          echo '</div>';
           echo '</div>';
           echo '</div>';
         }
@@ -150,16 +156,21 @@
                     <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapses1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
                   </h4>
                 </div>
-                <div id="collapses1'.$semid.'" class="panel-collapse collapse in">';
+                <div id="collapses1'.$semid.'" class="panel-collapse collapse in">
+                <div class="cart-container">';
           if (mysqli_num_rows($result) > 0) {
             while($row = $result->fetch_assoc()){
-              echo '<div class="btn">';
-              echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
-              echo '</div>';
+              echo '<div class="myshop-item">
+                    <div class="btn">
+                    <input class="myButton" type="submit" value="'.$row['Name'].'">
+                    </div>
+                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="fa fa-shopping-cart"></i></button>
+                    </div>';
             }
           }else{
             echo 'No classes available.';
           }
+          echo '</div>';
           echo '</div>';
           echo '</div>';
         }
