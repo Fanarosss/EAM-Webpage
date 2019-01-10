@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -78,7 +80,7 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="Book-Selection-Forms">
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs" style="margin-bottom: 2em; display: grid; grid-template-columns: auto auto auto auto auto;">
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form1.php" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
@@ -91,6 +93,10 @@
         <li class="nav-item">
           <a class="nav-link active" href="" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
+        <button type="button" class="shopping-cart-button float-right" data-toggle="shopping-cart-dropdown" disabled>
+          <i class="fa fa-book"></i>
+          <span class="text">Selected Books (-)</span>
+        </button>
       </ul>
       <div class="pickup-point-select">
         <?php
