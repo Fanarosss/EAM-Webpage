@@ -1,5 +1,42 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
+   $book_ids = array();
+   //Implementation similar to shoping cart
+
+   if(filter_input(INPUT_POST, 'add_to_selected')) {
+     if(isset($_SESSION['selected_books'])){
+       //counter for books inside
+       $count = count($_SESSION['selected_books']);
+       //to match array keys and book ids
+       $class_ids = array_column($_SESSION['selected_books'], 'id');
+
+       //check if it already exists inside array
+       if (!in_array(filter_input(INPUT_GET, 'id'), $class_ids)) {
+         $_SESSION['selected_books'][$count] = array
+         (
+           'id' => filter_input(INPUT_GET, 'id'),
+           'title' => filter_input(INPUT_POST, 'Title'),
+           'author' => filter_input(INPUT_POST, 'Author'),
+           'publications' => filter_input(INPUT_POST, 'Publications')
+         );
+       }else{
+         //if it already exists possibly print an error message.
+       }
+     }else{ //if selected doesnt exist, create first product with array key 0
+       $_SESSION['selected_books'][0] = array
+       (
+         'id' => filter_input(INPUT_GET, 'id'),
+         'title' => filter_input(INPUT_POST, 'Title'),
+         'author' => filter_input(INPUT_POST, 'Author'),
+         'publications' => filter_input(INPUT_POST, 'Publications')
+       );
+     }
+   }
+
+   /*echo '<pre>';
+   print_r($_SESSION);
+   echo '</pre>';*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,24 +135,27 @@
       <div class="class-select">
         <?php
         include('./src/config.php');
-        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id ORDER BY class.Name ASC";
-        $result = $conn->query($query);
-        if (!$result) die($conn->error);
-        if (mysqli_num_rows($result) > 0) {
-          while($row = $result->fetch_assoc()){
-            echo '<h3><b><u>'.$row['Name'].'</b></u></br></h3>';
-            $query2 = "SELECT * FROM class,class_has_choice,book WHERE class.Id = '".$row['Id']."' AND class_has_choice.Class_id = class.Id
+        if (isset($_SESSION['selected_class'])) {
+          $count = 0;
+          while($count < count($_SESSION['selected_class'])){
+            echo '<h3><b><u>'.$_SESSION['selected_class'][$count]['name'].'</b></u></br></h3>';
+            $query = "SELECT *,book.Id as BId FROM class,class_has_choice,book WHERE class.Id = '".$_SESSION['selected_class'][$count]['id']."' AND class_has_choice.Class_id = class.Id
             AND class_has_choice.Book_id = book.Id ORDER BY book.Title ASC";
-            $result2 = $conn->query($query2);
-            if (!$result2) die($conn->error);
+            $result = $conn->query($query);
+            if (!$result) die($conn->error);
             echo '<div class="cart-container">';
-            if (mysqli_num_rows($result2) > 0) {
-              while($row2 = $result2->fetch_assoc()){
+            if (mysqli_num_rows($result) > 0) {
+              while($row = $result->fetch_assoc()){
                 echo '<div class="myshop-item">
                       <div class="btn">
-                      <input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row2['ISBN'].'" value="'.$row2['Title'].'">
+                        <input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">
                       </div>
-                      <button class="button-hover-addcart button"><span>Add to selected</span><i class="far fa-check-circle"></i></button>
+                      <form method="post" action="http://localhost/student_new_form2.php?action=add&id='.$row['BId'].'">
+                            <input type="hidden" name="Title" value="'.$row['Title'].'"/>
+                            <input type="hidden" name="Author" value="'.$row['Author'].'"/>
+                            <input type="hidden" name="Publications" value="'.$row['Publications'].'"/>
+                            <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
+                      </form>
                       </div>';
                 echo '<!-- Modal -->
                       <div class="modal fade" id="dataModal" role="dialog">
@@ -139,6 +179,7 @@
               echo 'No books available.';
             }
             echo '</div>';
+            $count++;
           }
         }else{
           echo 'No classes available.';

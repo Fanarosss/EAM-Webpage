@@ -197,14 +197,15 @@
 
 .button-hover-addcart {
   border: 2px solid #767676;
-  background: transparent;
   color: #767676;
+  background: transparent;
   text-transform: uppercase;
   overflow: hidden;
   letter-spacing: 0.06rem;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   position: relative;
   margin-left: 24px;
+  cursor: pointer;
 }
 
 .button-hover-addcart span {
@@ -225,8 +226,8 @@
 
 .button-hover-addcart:hover {
   border-color: #1779ba;
-  background: transparent;
-  transition: border-color 0.2s;
+  background-color: #2ea0c9;
+  transition: border-color 0.2s, background-color 0.5s;
 }
 
 .button-hover-addcart:hover span {

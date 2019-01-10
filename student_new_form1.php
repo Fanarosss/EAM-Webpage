@@ -1,5 +1,38 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
+   $class_ids = array();
+   //Implementation similar to shoping cart
+
+   if(filter_input(INPUT_POST, 'add_to_selected')) {
+     if(isset($_SESSION['selected_class'])){
+       //counter for classes inside
+       $count = count($_SESSION['selected_class']);
+       //to match array keys and class ids
+       $class_ids = array_column($_SESSION['selected_class'], 'id');
+
+       //check if it already exists inside array
+       if (!in_array(filter_input(INPUT_GET, 'id'), $class_ids)) {
+         $_SESSION['selected_class'][$count] = array
+         (
+           'id' => filter_input(INPUT_GET, 'id'),
+           'name' => filter_input(INPUT_POST, 'Name')
+         );
+       }else{
+         //if it already exists possibly print an error message.
+       }
+     }else{ //if selected doesnt exist, create first product with array key 0
+       $_SESSION['selected_class'][0] = array
+       (
+         'id' => filter_input(INPUT_GET, 'id'),
+         'name' => filter_input(INPUT_POST, 'Name')
+       );
+     }
+   }
+
+   /*echo '<pre>';
+   print_r($_SESSION);
+   echo '</pre>';*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,23 +52,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="./js/scripts.js"></script>
-  <?php
-  /*$itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
-
-		if(!empty($_SESSION["selected_class"])) {
-			if(in_array($productByCode[0]["code"],array_keys($_SESSION["selected_class"]))) {
-				foreach($_SESSION["selected_class"] as $k => $v) {
-						if($productByCode[0]["code"] == $k) {
-							echo 'Class is already selected';
-						}
-				}
-			} else {
-				$_SESSION["selected_class"] = array_merge($_SESSION["selected_class"],$itemArray);
-			}
-		} else {
-			$_SESSION["selected_class"] = $itemArray;
-		}*/
-    ?>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -115,7 +131,6 @@
 
       <div class="class-select">
         <?php
-        include('./src/config.php');
         echo '<div class="panel-group" id="accordion" style="display:grid;">';
         echo '<div class="panel panel-default">
               <div class="panel-heading" style="margin-top: 2em;">
@@ -141,9 +156,12 @@
             while($row = $result->fetch_assoc()){
               echo '<div class="myshop-item">
                     <div class="btn">
-                    <input class="myButton" type="submit" value="'.$row['Name'].'">
+                    <input class="myButton" type="submit" name="Name" value="'.$row['Name'].'">
                     </div>
-                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="far fa-check-circle"></i></button>
+                    <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
+                    <input type="hidden" name="Name" value="'.$row['Name'].'"/>
+                    <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
+                    </form>
                     </div>';
             }
           }else{
@@ -180,9 +198,12 @@
             while($row = $result->fetch_assoc()){
               echo '<div class="myshop-item">
                     <div class="btn">
-                    <input class="myButton" type="submit" value="'.$row['Name'].'">
+                    <input class="myButton" type="submit" name="Name" value="'.$row['Name'].'">
                     </div>
-                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="far fa-check-circle"></i></button>
+                    <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
+                    <input type="hidden" name="Name" value="'.$row['Name'].'">
+                    <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
+                    </form>
                     </div>';
             }
           }else{
