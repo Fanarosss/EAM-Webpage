@@ -211,7 +211,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-.button-hover-addcart .fa {
+.button-hover-addcart .far {
   position: absolute;
   font-size: 1.2rem;
   top: 50%;
@@ -234,7 +234,7 @@
   color: #1779ba;
 }
 
-.button-hover-addcart:hover .fa {
+.button-hover-addcart:hover .far {
   right: 5px;
 }
 .myshop-item {
@@ -243,5 +243,5 @@
 }
 .cart-container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto; 
+  grid-template-columns: 20% 20% 20% 20% 20%;
 }

@@ -11,12 +11,14 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
 </head>
 
 <body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./js/scripts.js"></script>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -106,15 +108,37 @@
             AND class_has_choice.Book_id = book.Id ORDER BY book.Title ASC";
             $result2 = $conn->query($query2);
             if (!$result2) die($conn->error);
+            echo '<div class="cart-container">';
             if (mysqli_num_rows($result2) > 0) {
               while($row2 = $result2->fetch_assoc()){
-                echo '<div class="btn">';
-                echo '<input class="myButton" type="submit" value="'.$row2['Title'].'">';
-                echo '</div>';
+                echo '<div class="myshop-item">
+                      <div class="btn">
+                      <input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row2['ISBN'].'" value="'.$row2['Title'].'">
+                      </div>
+                      <button class="button-hover-addcart button"><span>Add to selected</span><i class="far fa-check-circle"></i></button>
+                      </div>';
+                echo '<!-- Modal -->
+                      <div class="modal fade" id="dataModal" role="dialog">
+                        <div class="modal-dialog">
+
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header" id="book_header">
+                            </div>
+                            <div class="modal-body" id="book_details">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>';
               }
             }else{
               echo 'No books available.';
             }
+            echo '</div>';
           }
         }else{
           echo 'No classes available.';

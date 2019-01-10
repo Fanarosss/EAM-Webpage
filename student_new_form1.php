@@ -18,6 +18,24 @@
 <body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./js/scripts.js"></script>
+  <?php
+  /*$itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
+
+		if(!empty($_SESSION["selected_class"])) {
+			if(in_array($productByCode[0]["code"],array_keys($_SESSION["selected_class"]))) {
+				foreach($_SESSION["selected_class"] as $k => $v) {
+						if($productByCode[0]["code"] == $k) {
+							echo 'Class is already selected';
+						}
+				}
+			} else {
+				$_SESSION["selected_class"] = array_merge($_SESSION["selected_class"],$itemArray);
+			}
+		} else {
+			$_SESSION["selected_class"] = $itemArray;
+		}*/
+    ?>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -125,7 +143,7 @@
                     <div class="btn">
                     <input class="myButton" type="submit" value="'.$row['Name'].'">
                     </div>
-                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="fa fa-shopping-cart"></i></button>
+                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="far fa-check-circle"></i></button>
                     </div>';
             }
           }else{
@@ -164,7 +182,7 @@
                     <div class="btn">
                     <input class="myButton" type="submit" value="'.$row['Name'].'">
                     </div>
-                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="fa fa-shopping-cart"></i></button>
+                    <button class="button-hover-addcart button"><span>Add to selected</span><i class="far fa-check-circle"></i></button>
                     </div>';
             }
           }else{
