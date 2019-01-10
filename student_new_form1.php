@@ -114,7 +114,7 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="Book-Selection-Forms">
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs" style="margin-bottom: 2em; display: grid; grid-template-columns: auto auto auto auto auto;">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
@@ -127,6 +127,14 @@
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
+        <button type="button" class="shopping-cart-button float-right" data-toggle="shopping-cart-dropdown">
+          <i class="fa fa-book"></i>
+          <span class="text">Selected Classes (-)</span>
+        </button>
+        <div class="shopping-cart-dropdown-pane">
+          <div class="dropdown-pane bottom " id="shopping-cart-dropdown" data-dropdown data-hover="true" data-hover-pane="true">
+          </div>
+        </div>
       </ul>
 
       <div class="class-select">
@@ -162,6 +170,23 @@
                     <input type="hidden" name="Name" value="'.$row['Name'].'"/>
                     <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
                     </form>
+                    </div>';
+              echo '<!-- Modal -->
+                    <div class="modal fade" id="dataModal" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header" id="book_header">
+                          </div>
+                          <div class="modal-body" id="book_details">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>';
             }
           }else{

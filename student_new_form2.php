@@ -118,7 +118,7 @@
     </ul>
     <!-- item2 on bs2 grid-->
     <div class="Book-Selection-Forms">
-      <ul class="nav nav-tabs" style="margin-bottom: 2em;">
+      <ul class="nav nav-tabs" style="margin-bottom: 2em; display: grid; grid-template-columns: auto auto auto auto auto;">
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form1.php" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
@@ -131,6 +131,14 @@
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
+        <button type="button" class="shopping-cart-button float-right" data-toggle="shopping-cart-dropdown">
+          <i class="fa fa-book"></i>
+          <span class="text">Selected Books (-)</span>
+        </button>
+        <div class="shopping-cart-dropdown-pane">
+          <div class="dropdown-pane bottom " id="shopping-cart-dropdown" data-dropdown data-hover="true" data-hover-pane="true">
+          </div>
+        </div>
       </ul>
       <div class="class-select">
         <?php
