@@ -92,6 +92,42 @@
         </li>
       </ul>
       <div class="jumbotron2">
+
+        <div class="separator" style="margin-bottom:2em">
+          <?php
+            include('./src/config.php');
+            $ISBN = $_SESSION['ISBN'];
+            $sql = "SELECT * FROM book WHERE ISBN = '$ISBN'";
+            $sth = $conn->query($sql);
+            $result=mysqli_fetch_assoc($sth);
+          ?>
+          <div class="Headers">
+            <h5>Id</h5>
+            <h5>Title</h5>
+            <h5>Author(s)</h5>
+            <h5>ISBN</h5>
+            <br>
+            <h5>Back Page</h5>
+            <h5>Contents</h5>
+            <h5>Extract</h5>
+          </div>
+          <div class="Info">
+            <h5><?php echo $result['Id'];?></h5>
+            <h5><?php echo $result['Title'];?></h5>
+            <h5><?php echo $result['Author'];?></h5>
+            <h5><?php echo $result['ISBN'];?></h5>
+            <br>
+            <h5><?php echo !empty($result['BPage']) ? 'Yes' : 'No';?></h5>
+            <h5><?php echo !empty($result['Contents']) ? 'Yes' : 'No';?></h5>
+            <h5><?php echo !empty($result['Extract']) ? 'Yes' : 'No';?></h5>
+          </div>
+          <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <?php
+              header("Content-type: image/jpeg");
+              echo '<img src="data:image/jpeg;base64,' . base64_encode( $result['FPage'] ) . '" />';
+            ?>
+          </div>
+        </div>
       </div>
     </div>
   </div>

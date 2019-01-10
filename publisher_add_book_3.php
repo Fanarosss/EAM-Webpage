@@ -107,16 +107,6 @@
         </li>
       </ul>
       <div class="jumbotron2">
-        <!-- <?php
-        include('./src/config.php');
-        $sql = "SELECT * FROM book WHERE Id = '1000'";
-        $sth = $conn->query($sql);
-        $result=mysqli_fetch_assoc($sth);
-        echo $result['Title'];
-        echo "HERE";
-        header("Content-type: image/jpeg");
-        echo '<img src="data:image/jpeg;base64,' . base64_encode( $result['Extract'] ) . '" />';
-        ?> -->
         <?php
         if ($success == 1) {
           echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
@@ -131,7 +121,7 @@
           <fieldset>
             <div class="form-group">
               <label for="FPage">Front Page</label>
-              <input type="file" class="form-control-file" name="FPage" accept="image/*" onchange="loadFile1(event)">
+              <input type="file" class="form-control-file" name="FPage" accept="image/*" onchange="loadFile1(event)" required>
               <img id="output1" style="margin-top:10px"/>
               <script>
                 var loadFile1 = function(event) {
