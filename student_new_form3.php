@@ -93,30 +93,63 @@
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
-        <button type="button" class="shopping-cart-button float-right" data-toggle="shopping-cart-dropdown" disabled>
-          <i class="fa fa-book"></i>
-          <span class="text">Selected Books (-)</span>
-        </button>
+        <li class="nav-item" style="margin-right: 0px; float: right;">
+          <a href="http://localhost/selected_books.php" style="float: right;">
+            <button type="button" class="btn btn-primary btn-lg">
+              <i class="fa fa-book"></i>
+              <span class="text">Selected Books</span>
+            </button>
+          </a>
+        </li>
       </ul>
       <div class="pickup-point-select">
         <?php
         include('./src/config.php');
-        $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                  AND Period = 'Winter' ORDER BY class.Name ASC";
-        $result = $conn->query($query);
-        if (!$result) die($conn->error);
-        if (mysqli_num_rows($result) > 0) {
-          while($row = $result->fetch_assoc()){
-            echo '<div class="btn">';
-            echo '<input class="myButton" type="submit" value="'.$row['Name'].'">';
-            echo '</div>';
+        if (isset($_SESSION['selected_books'])) {
+          echo '<table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">From Distributor</th>
+                    <th scope="col">From Student</th>
+                  </tr>
+                </thead>
+                <tbody>';
+          $count = 0;
+          while($count < count($_SESSION['selected_books'])){
+            echo '<tr>
+                    <th scope="row">'.$_SESSION['selected_books'][$count]['id'].'</th>
+                    <td>'.$_SESSION['selected_books'][$count]['title'].'</td>
+                    <td>'.$_SESSION['selected_books'][$count]['for_class'].'</td>
+                    <td><fieldset class="form-group">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="option'.$count.'" checked>
+                            Select this to pick up a new book from the closest distributor.
+                            </label>
+                          </div>
+                        </fieldset>
+                    </td>
+                    <td><fieldset class="form-group">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="option'.$count.'">
+                            Select this to take the book from a fellow student.
+                            </label>
+                          </div>
+                        </fieldset>
+                    </td>
+                  </tr>';
+            $count++;
           }
-        }else{
-          echo 'No classes available.';
         }
+        echo  '</tbody>
+              </table>';
         ?>
       </div>
-      <button type="button" class="btn btn-primary btn-lg">Proceed</button>
+      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_new_form4.php">Proceed</a>
     </div>
   </div>
 </body>

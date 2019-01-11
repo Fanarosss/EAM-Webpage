@@ -16,7 +16,9 @@
          $_SESSION['selected_class'][$count] = array
          (
            'id' => filter_input(INPUT_GET, 'id'),
-           'name' => filter_input(INPUT_POST, 'Name')
+           'name' => filter_input(INPUT_POST, 'Name'),
+           'professor' => filter_input(INPUT_POST, 'Professor'),
+           'semester' => filter_input(INPUT_POST, 'Semester')
          );
        }else{
          //if it already exists possibly print an error message.
@@ -25,13 +27,15 @@
        $_SESSION['selected_class'][0] = array
        (
          'id' => filter_input(INPUT_GET, 'id'),
-         'name' => filter_input(INPUT_POST, 'Name')
+         'name' => filter_input(INPUT_POST, 'Name'),
+         'professor' => filter_input(INPUT_POST, 'Professor'),
+         'semester' => filter_input(INPUT_POST, 'Semester')
        );
      }
    }
 
    /*echo '<pre>';
-   print_r($_SESSION);
+   print_r($class_ids);
    echo '</pre>';*/
 ?>
 <!DOCTYPE html>
@@ -116,7 +120,7 @@
     <div class="Book-Selection-Forms">
       <ul class="nav nav-tabs" style="margin-bottom: 2em; display: grid; grid-template-columns: auto auto auto auto auto;">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
+          <a class="nav-link active" href="" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
@@ -127,14 +131,14 @@
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
-        <button type="button" class="shopping-cart-button float-right" data-toggle="shopping-cart-dropdown">
-          <i class="fa fa-book"></i>
-          <span class="text">Selected Classes (-)</span>
-        </button>
-        <div class="shopping-cart-dropdown-pane">
-          <div class="dropdown-pane bottom " id="shopping-cart-dropdown" data-dropdown data-hover="true" data-hover-pane="true">
-          </div>
-        </div>
+        <li class="nav-item" style="margin-right: 0px; float: right;">
+          <a href="http://localhost/selected_classes.php" style="float: right;">
+            <button type="button" class="btn btn-primary btn-lg">
+              <i class="fa fa-book"></i>
+              <span class="text">Selected Classes</span>
+            </button>
+          </a>
+        </li>
       </ul>
 
       <div class="class-select">
@@ -164,10 +168,12 @@
             while($row = $result->fetch_assoc()){
               echo '<div class="myshop-item">
                     <div class="btn">
-                    <input class="myButton" type="submit" name="Name" value="'.$row['Name'].'">
+                      <input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
                     </div>
                     <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
                     <input type="hidden" name="Name" value="'.$row['Name'].'"/>
+                    <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
+                    <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
                     <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
                     </form>
                     </div>';
@@ -177,9 +183,9 @@
 
                         <!-- Modal content-->
                         <div class="modal-content">
-                          <div class="modal-header" id="book_header">
+                          <div class="modal-header" id="class_header">
                           </div>
-                          <div class="modal-body" id="book_details">
+                          <div class="modal-body" id="class_details">
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -190,7 +196,7 @@
                     </div>';
             }
           }else{
-            echo 'No classes available.';
+            echo '<p>No classes available.<p>';
           }
           echo '</div>';
           echo '</div>';
@@ -223,12 +229,31 @@
             while($row = $result->fetch_assoc()){
               echo '<div class="myshop-item">
                     <div class="btn">
-                    <input class="myButton" type="submit" name="Name" value="'.$row['Name'].'">
+                      <input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
                     </div>
                     <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
                     <input type="hidden" name="Name" value="'.$row['Name'].'">
+                    <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
+                    <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
                     <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
                     </form>
+                    </div>';
+              echo '<!-- Modal -->
+                    <div class="modal fade" id="dataModal" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header" id="class_header">
+                          </div>
+                          <div class="modal-body" id="class_details">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>';
             }
           }else{
@@ -243,7 +268,7 @@
         echo '</div>';
         ?>
       </div>
-      <button type="button" class="btn btn-primary btn-lg" style="margin-top: 2em;">Proceed</button>
+      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_new_form2.php">Proceed</a>
     </div>
   </div>
 </body>

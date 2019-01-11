@@ -20,4 +20,25 @@ $(document).ready(function() {
           }
      });
    });
+   $('.view_info').click(function(){
+      var class_id = $(this).attr("id");
+      $.ajax({
+           url:"show_class_header.php",
+           method:"post",
+           data:{class_id:class_id},
+           success:function(data){
+                $('#class_header').html(data);
+                $('#dataModal').modal("show");
+           }
+      });
+      $.ajax({
+           url:"show_class_details.php",
+           method:"post",
+           data:{class_id:class_id},
+           success:function(data){
+                $('#class_details').html(data);
+                $('#dataModal').modal("show");
+           }
+      });
+    });
 });

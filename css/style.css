@@ -102,9 +102,6 @@
 .dropdown:hover .dropbtn {
   background-color: #grey;
 }
-.search-container {
-
-}
 .search-bn-container {
   padding-left: 40%;
   padding-right: 40%;
@@ -246,7 +243,6 @@
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
 }
-
 
 .shopping-cart-button {
   background-color: #1779ba;

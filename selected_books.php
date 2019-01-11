@@ -1,5 +1,16 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
+
+   if (filter_input(INPUT_GET, 'action') == 'delete'){
+     foreach($_SESSION['selected_books'] as $key => $book){
+       if ($book['id'] == filter_input(INPUT_GET, 'id')){
+         unset($_SESSION['selected_books'][$key]);
+       }
+     }
+     //reset session array keys so they match
+     $_SESSION['selected_books'] = array_values($_SESSION['selected_books']);
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,10 +102,10 @@
           <a class="nav-link" href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
         <li class="nav-item" style="margin-right: 0px; float: right;">
-          <a href="http://localhost/selected_books.php" style="float: right;">
+          <a href="" style="float: right;">
             <button type="button" class="btn btn-primary btn-lg">
               <i class="fa fa-book"></i>
               <span class="text">Selected Books</span>
@@ -102,12 +113,42 @@
           </a>
         </li>
       </ul>
-      <div class="pickup-point-select">
+      </li>
+      <div class="selection-cart">
         <?php
-        include('./src/config.php');
+        echo '<h2><b>Selected Books</b></h2>';
+        echo '<table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Publications</th>
+                  <th scope="col">Id</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>';
+        $count = 0;
+        if (isset($_SESSION['selected_books'])){
+          while($count < count($_SESSION['selected_books'])){
+            $bookid = $_SESSION['selected_books'][$count]['id'];
+            echo '<tr>
+                    <th scope="row">'.$_SESSION['selected_books'][$count]['title'].'</th>
+                    <td>'.$_SESSION['selected_books'][$count]['author'].'</td>
+                    <td>'.$_SESSION['selected_books'][$count]['publications'].'</td>
+                    <td>'.$_SESSION['selected_books'][$count]['id'].'</td>
+                    <td><a class="btn btn-danger btn-sm" href="http://localhost/selected_books.php?action=delete&id='.$bookid.'"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                  </tr>';
+            $count++;
+          }
+        }else{
+          echo '<tr><p>No books selected.<p></tr>';
+        }
+        echo  '</tbody>
+              </table>';
         ?>
       </div>
-      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_book_sel.php">Confirm</a>
+      <a role="button" class="btn btn-primary btn-lg" href="http://localhost/student_new_form2.php">Go back</a>
     </div>
   </div>
 </body>

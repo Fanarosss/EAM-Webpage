@@ -1,7 +1,6 @@
 <?php
    include('./src/session.php');
    include('./src/config.php');
-   $book_ids = array();
    //Implementation similar to shoping cart
 
    if(filter_input(INPUT_POST, 'add_to_selected')) {
@@ -9,16 +8,17 @@
        //counter for books inside
        $count = count($_SESSION['selected_books']);
        //to match array keys and book ids
-       $class_ids = array_column($_SESSION['selected_books'], 'id');
+       $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
 
        //check if it already exists inside array
-       if (!in_array(filter_input(INPUT_GET, 'id'), $class_ids)) {
+       if (!in_array(filter_input(INPUT_GET, 'id'), $_SESSION['book_ids'])) {
          $_SESSION['selected_books'][$count] = array
          (
            'id' => filter_input(INPUT_GET, 'id'),
            'title' => filter_input(INPUT_POST, 'Title'),
            'author' => filter_input(INPUT_POST, 'Author'),
-           'publications' => filter_input(INPUT_POST, 'Publications')
+           'publications' => filter_input(INPUT_POST, 'Publications'),
+           'for_class' => filter_input(INPUT_POST, 'For_class')
          );
        }else{
          //if it already exists possibly print an error message.
@@ -29,11 +29,12 @@
          'id' => filter_input(INPUT_GET, 'id'),
          'title' => filter_input(INPUT_POST, 'Title'),
          'author' => filter_input(INPUT_POST, 'Author'),
-         'publications' => filter_input(INPUT_POST, 'Publications')
+         'publications' => filter_input(INPUT_POST, 'Publications'),
+         'for_class' => filter_input(INPUT_POST, 'For_class')
        );
+       $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
      }
    }
-
    /*echo '<pre>';
    print_r($_SESSION);
    echo '</pre>';*/
@@ -131,14 +132,14 @@
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
-        <button type="button" class="shopping-cart-button float-right" data-toggle="shopping-cart-dropdown">
-          <i class="fa fa-book"></i>
-          <span class="text">Selected Books (-)</span>
-        </button>
-        <div class="shopping-cart-dropdown-pane">
-          <div class="dropdown-pane bottom " id="shopping-cart-dropdown" data-dropdown data-hover="true" data-hover-pane="true">
-          </div>
-        </div>
+        <li class="nav-item" style="margin-right: 0px; float: right;">
+          <a href="http://localhost/selected_books.php" style="float: right;">
+            <button type="button" class="btn btn-primary btn-lg">
+              <i class="fa fa-book"></i>
+              <span class="text">Selected Books</span>
+            </button>
+          </a>
+        </li>
       </ul>
       <div class="class-select">
         <?php
@@ -147,21 +148,40 @@
           $count = 0;
           while($count < count($_SESSION['selected_class'])){
             echo '<h3><b><u>'.$_SESSION['selected_class'][$count]['name'].'</b></u></br></h3>';
-            $query = "SELECT *,book.Id as BId FROM class,class_has_choice,book WHERE class.Id = '".$_SESSION['selected_class'][$count]['id']."' AND class_has_choice.Class_id = class.Id
+            $query = "SELECT class.Id AS Id, book.Title, book.Author, book.Publications, book.ISBN,book.Id as BId FROM class,class_has_choice,book WHERE class.Id = '".$_SESSION['selected_class'][$count]['id']."' AND class_has_choice.Class_id = class.Id
             AND class_has_choice.Book_id = book.Id ORDER BY book.Title ASC";
             $result = $conn->query($query);
             if (!$result) die($conn->error);
             echo '<div class="cart-container">';
             if (mysqli_num_rows($result) > 0) {
               while($row = $result->fetch_assoc()){
-                echo '<div class="myshop-item">
-                      <div class="btn">
+                echo '<div class="myshop-item"';
+                      if(isset($_SESSION['selected_books'])){
+                        if (in_array($row['BId'], $_SESSION['book_ids'])) {
+                          $found = 0;
+                          foreach($_SESSION['selected_books'] as $key => $tbook){
+                            if (($_SESSION['selected_class'][$count]['id'] == $tbook['for_class']) && ($row['BId'] == $tbook['id'])){
+                              echo ' style="background-color: #eee;"><i class="fas fa-check-circle" style="color: #2ea0c9"></i>';
+                              $found = 1;
+                            }
+                          }
+                          if ($found == 0){
+                            echo '>';
+                          }
+                      }else{
+                        echo '>';
+                      }
+                    }else{
+                      echo '>';
+                    }
+                echo '<div class="btn">
                         <input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">
                       </div>
                       <form method="post" action="http://localhost/student_new_form2.php?action=add&id='.$row['BId'].'">
                             <input type="hidden" name="Title" value="'.$row['Title'].'"/>
                             <input type="hidden" name="Author" value="'.$row['Author'].'"/>
                             <input type="hidden" name="Publications" value="'.$row['Publications'].'"/>
+                            <input type="hidden" name="For_class" value="'.$row['Id'].'"/>
                             <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
                       </form>
                       </div>';
@@ -194,6 +214,7 @@
         }
         ?>
       </div>
+      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_new_form3.php">Proceed</a>
     </div>
   </div>
 </body>
