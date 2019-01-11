@@ -12,9 +12,14 @@
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./js/scripts.js"></script>
   <?php
   include './src/config.php';
   $p = $_SESSION['Username'];
@@ -109,19 +114,21 @@
         </li>
       </ul>
       <div class="jumbotron2">
-        <?php
-          if ($success == -1) {
-            echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>--Check Fail--</strong> This ISBN was found in another book that you have already registered!
-                  </div>';
-          }else if ($success == 1){
-            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>--Check Success--</strong> This ISBN is ready to be registered! Click <a href="http://localhost/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
-                  </div>';
-          }
-        ?>
+      <?php
+        if ($success == -1) {
+          echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>--Check Fail--</strong> This ISBN was found in another book that you have already registered!
+                </div>';
+        }else if ($success == 1){
+          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>--Check Success--</strong> This ISBN is ready to be registered! Click <a href="http://localhost/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
+                </div>';
+        }
+      ?>
         <h1 class="display-3">Check ISBN</h1>
         <p class="lead">Please type book's ISBN to check if it is already registered!</p>
         <hr class="my-4">

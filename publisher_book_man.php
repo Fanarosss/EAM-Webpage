@@ -97,6 +97,12 @@
                   <strong>--Book was added successfully!--</strong>
                 </div>';
           unset($_SESSION['msg']);
+        }else if ($_SESSION['msg'] == 2){
+          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>--Book was edited successfully!--</strong>
+                </div>';
+          unset($_SESSION['msg']);
         }
         ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -151,7 +157,7 @@
                     "</td><td>" . $row['Pages'] .
                     "</td><td>" . $row['Dimensions'] .
                     "</td><td>" . $row['Costing'] .
-                    "</td><td>" . '<button type="submit" class="btn btn-primary" name="submit-check">Edit</button>' .
+                    "</td><td>" . '<a class="btn btn-primary" name="submit-check" href="http://localhost/publisher_edit_book.php?ISBN='.$row['ISBN'].'">Edit</a>' .
                     '<a class="btn btn-danger btn" style="margin-left:10px" href="http://localhost/publisher_book_man.php?action=delete&ISBN='.$row['ISBN'].'"><i class="fas fa-trash-alt"></i> Delete</a>' ."</td></tr>";
             }
             ?>
