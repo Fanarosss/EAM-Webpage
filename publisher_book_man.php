@@ -1,5 +1,13 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
+
+   if (filter_input(INPUT_GET, 'action') == 'delete'){
+     $ISBN = $_GET['ISBN'];
+     $book_delete_query = "DELETE from book where ISBN = '$ISBN'";
+     $conn->query($book_delete_query);
+     $deleted = 1;
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +84,21 @@
     </ul>
     <div class="bs-item3">
       <div class="jumbotron2">
+        <?php
+        if ($deleted == 1) {
+          echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>--Book was deleted successfully!--</strong>
+                </div>';
+        }
+        if ($_SESSION['msg'] == 1){
+          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>--Book was added successfully!--</strong>
+                </div>';
+          unset($_SESSION['msg']);
+        }
+        ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
           <div class="collapse navbar-collapse" id="navbarColor01">
             <a class="btn btn-primary btn-lg" href="http://localhost/publisher_add_book_1.php" role="button"><i class="fas fa-book"></i>  Add Book</a>
@@ -99,17 +122,18 @@
         <table class="table table-hover" style="margin-top: 20px">
           <thead>
             <tr>
-              <th scope="col">Available</th>
               <th scope="col">ID</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">ISBN</th>
-              <th scope="col">Registration</th>
+              <th scope="col">Pages</th>
+              <th scope="col">Dimensions</th>
+              <th scope="col">Costing</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
             <?php
-            include './src/config.php';
             $p = $_SESSION['Username'];
             if (isset($_POST['submit-search'])){
               $search = mysqli_real_escape_string($conn, $_POST['search']);
@@ -120,7 +144,15 @@
             }
             $result = $conn->query($query);
             while($row = $result->fetch_assoc()){   //Creates a loop to loop through results
-              echo "<tr><td>x</td><td>" . $row['Id'] . "</td><td>" . $row['Title'] . "</td><td>" . $row['Author'] . "</td><td>" . $row['ISBN'] . "</td><td>x</td></tr>";
+              echo  "<tr><td>" . $row['Id'] .
+                    "</td><td>" . $row['Title'] .
+                    "</td><td>" . $row['Author'] .
+                    "</td><td>" . $row['ISBN'] .
+                    "</td><td>" . $row['Pages'] .
+                    "</td><td>" . $row['Dimensions'] .
+                    "</td><td>" . $row['Costing'] .
+                    "</td><td>" . '<button type="submit" class="btn btn-primary" name="submit-check">Edit</button>' .
+                    '<a class="btn btn-danger btn" style="margin-left:10px" href="http://localhost/publisher_book_man.php?action=delete&ISBN='.$row['ISBN'].'"><i class="fas fa-trash-alt"></i> Delete</a>' ."</td></tr>";
             }
             ?>
           </tbody>

@@ -17,17 +17,23 @@
 <body>
   <?php
     include('./src/config.php');
-    $success = 0;
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-      $ISBN = $_SESSION['ISBN'];
-      $f1 = addslashes(file_get_contents($_FILES['FPage']['tmp_name']));
-      $f2 = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
-      $f3 = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
-      $f4 = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
-
-      $book_insert_query = "UPDATE book SET FPage = '$f1', BPage = '$f2', Contents = '$f3', Extract = '$f4' WHERE ISBN = '$ISBN'";
-      $conn->query($book_insert_query);
-      $success = 1;
+      if ($_GET['action'] == 'submit'){
+        $ISBN = $_SESSION['ISBN'];
+        $_SESSION['img1'] = addslashes(file_get_contents($_FILES['FPage']['tmp_name']));
+        $_SESSION['img2'] = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
+        $_SESSION['img3'] = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
+        $_SESSION['img4'] = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
+        $_SESSION['p_add3'] = 1;
+        // $book_insert_query = "UPDATE book SET FPage = '$f1', BPage = '$f2', Contents = '$f3', Extract = '$f4' WHERE ISBN = '$ISBN'";
+        // $conn->query($book_insert_query);
+      }else if($_GET['action'] == 'reset'){
+        unset($_SESSION['img1']);
+        unset($_SESSION['img2']);
+        unset($_SESSION['img3']);
+        unset($_SESSION['img4']);
+        unset($_SESSION['p_add3']);
+      }
     }
   ?>
   <!-- grid class containing all items -->
@@ -103,12 +109,12 @@
           <a class="nav-link active" data-toggle="tab" href="http://localhost/publisher_add_book_3.php" style="padding-left: 2em; padding-right: 2em;">Book Files</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link <?php if($_SESSION['p_add3'] <= 0) {echo 'disabled';} ?>" data-toggle="tab" href="http://localhost/publisher_add_book_4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
       </ul>
       <div class="jumbotron2">
         <?php
-        if ($success == 1) {
+        if ($_SESSION['p_add3'] == 1) {
           echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
                   <button type="button" class="close" data-dismiss="alert">&times;</button>
                   <strong>--Book files have been registered successfully!--</strong> Click <a href="http://localhost/publisher_add_book_4.php" class="alert-link">here</a> to proceed.
@@ -120,7 +126,7 @@
         <form action="publisher_add_book_3.php" method="POST" enctype="multipart/form-data">
           <fieldset>
             <div class="form-group">
-              <label for="FPage">Front Page</label>
+              <label for="FPage">Front Page <?php echo !empty($_SESSION['img1']) ? " (Already Submitted)" : " (NOT Submitted)" ?></label>
               <input type="file" class="form-control-file" name="FPage" accept="image/*" onchange="loadFile1(event)" required>
               <img id="output1" style="margin-top:10px"/>
               <script>
@@ -131,7 +137,7 @@
               </script>
             </div>
             <div class="form-group">
-              <label for="BPage">Back Page</label>
+              <label for="BPage">Back Page <?php echo !empty($_SESSION['img2']) ? " (Already Submitted)" : " (NOT Submitted)" ?></label>
               <input type="file" class="form-control-file" name="BPage" accept="image/*" onchange="loadFile2(event)">
               <img id="output2" style="margin-top:10px"/>
               <script>
@@ -142,7 +148,7 @@
               </script>
             </div>
             <div class="form-group">
-              <label for="Contents">Contents</label>
+              <label for="Contents">Contents <?php echo !empty($_SESSION['img3']) ? " (Already Submitted)" : " (NOT Submitted)" ?></label>
               <input type="file" class="form-control-file" name="Contents" accept="image/*" onchange="loadFile3(event)">
               <img id="output3" style="margin-top:10px"/>
               <script>
@@ -153,26 +159,20 @@
               </script>
             </div>
             <div class="form-group">
-              <label for="Extract">Extract</label>
+              <label for="Extract">Extract <?php echo !empty($_SESSION['img4']) ? " (Already Submitted)" : " (NOT Submitted)" ?></label>
               <input type="file" class="form-control-file" name="Extract" accept="image/*" onchange="loadFile4(event)">
               <img id="output4" style="margin-top:10px"/>
               <script>
                 var loadFile4 = function(event) {
                   var output = document.getElementById('output4');
+                  var Images = document.createElement("Images");
                   output.src = URL.createObjectURL(event.target.files[0]);
                 };
               </script>
             </div>
             <hr class="my-4">
-            <button type="submit" class="btn btn-primary" name="submit-check">Submit</button>
-            <button type="reset" class="btn btn-primary" name="reset" onClick="deleteall(event)">Reset</button>
-            <script>
-              var deleteall = function(event) {
-                document.getElementById('output4').value = "";
-                var output = document.getElementById('output4');
-                output.src = URL.createObjectURL(event.target.files[0]);
-              };
-            </script>
+            <button type="submit" formaction="publisher_add_book_3.php?action=submit" class="btn btn-primary" name="submit-check">Submit</button>
+            <button type="submit" formaction="publisher_add_book_3.php?action=reset" formnovalidate class="btn btn-primary" name="reset">Reset</button>
           </fieldset>
         </form>
       </div>

@@ -15,6 +15,59 @@
 </head>
 
 <body>
+  <?php
+    include('./src/config.php');
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+      if ($_GET['action'] == 'confirm'){
+        $id = $_SESSION['b_id'];
+        $title = $_SESSION['b_title'];
+        $author = $_SESSION['b_author'];
+        $publications = $_SESSION['Username'];
+        $ISBN = $_SESSION['ISBN'];
+        $pages = $_SESSION['b_pages'];
+        $dims = $_SESSION['b_dims'];
+        $cost = $_SESSION['b_cost'];
+        $img1 = $_SESSION['img1'];
+        $img2 = $_SESSION['img2'];
+        $img3 = $_SESSION['img3'];
+        $img4 = $_SESSION['img4'];
+        $book_insert_query = "INSERT INTO book VALUES('$id', '$title', '$author', '$publications', '$ISBN', '$pages', '$dims', '$cost', '$img1', '$img2', '$img3', '$img4')";
+        $conn->query($book_insert_query);
+        unset($_SESSION['b_id']);
+        unset($_SESSION['b_title']);
+        unset($_SESSION['b_author']);
+        unset($_SESSION['ISBN']);
+        unset($_SESSION['b_pages']);
+        unset($_SESSION['b_dims']);
+        unset($_SESSION['b_cost']);
+        unset($_SESSION['img1']);
+        unset($_SESSION['img2']);
+        unset($_SESSION['img3']);
+        unset($_SESSION['img4']);
+        unset($_SESSION['p_add1']);
+        unset($_SESSION['p_add2']);
+        unset($_SESSION['p_add3']);
+        $_SESSION['msg'] = 1;
+        header("location: publisher_book_man.php");
+      }else if($_GET['action'] == 'cancel'){
+        unset($_SESSION['b_id']);
+        unset($_SESSION['b_title']);
+        unset($_SESSION['b_author']);
+        unset($_SESSION['ISBN']);
+        unset($_SESSION['b_pages']);
+        unset($_SESSION['b_dims']);
+        unset($_SESSION['b_cost']);
+        unset($_SESSION['img1']);
+        unset($_SESSION['img2']);
+        unset($_SESSION['img3']);
+        unset($_SESSION['img4']);
+        unset($_SESSION['p_add1']);
+        unset($_SESSION['p_add2']);
+        unset($_SESSION['p_add3']);
+        header("location: publisher_book_man.php");
+      }
+    }
+  ?>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -92,7 +145,6 @@
         </li>
       </ul>
       <div class="jumbotron2">
-
         <div class="separator" style="margin-bottom:2em">
           <?php
             include('./src/config.php');
@@ -106,28 +158,35 @@
             <h5>Title</h5>
             <h5>Author(s)</h5>
             <h5>ISBN</h5>
+            <h5>Pages</h5>
+            <h5>Dimensions</h5>
+            <h5>Costing</h5>
             <br>
+            <h5>Front Page</h5>
             <h5>Back Page</h5>
             <h5>Contents</h5>
             <h5>Extract</h5>
           </div>
           <div class="Info">
-            <h5><?php echo $result['Id'];?></h5>
-            <h5><?php echo $result['Title'];?></h5>
-            <h5><?php echo $result['Author'];?></h5>
-            <h5><?php echo $result['ISBN'];?></h5>
+            <h5><?php echo $_SESSION['b_id'];?></h5>
+            <h5><?php echo $_SESSION['b_title'];?></h5>
+            <h5><?php echo $_SESSION['b_author'];?></h5>
+            <h5><?php echo $_SESSION['ISBN'];?></h5>
+            <h5><?php echo $_SESSION['b_pages'];?></h5>
+            <h5><?php echo $_SESSION['b_dims'];?></h5>
+            <h5><?php echo $_SESSION['b_cost'];?></h5>
             <br>
-            <h5><?php echo !empty($result['BPage']) ? 'Yes' : 'No';?></h5>
-            <h5><?php echo !empty($result['Contents']) ? 'Yes' : 'No';?></h5>
-            <h5><?php echo !empty($result['Extract']) ? 'Yes' : 'No';?></h5>
-          </div>
-          <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <?php
-              header("Content-type: image/jpeg");
-              echo '<img src="data:image/jpeg;base64,' . base64_encode( $result['FPage'] ) . '" />';
-            ?>
+            <h5><?php echo !empty($_SESSION['img1']) ? 'Yes' : 'No';?></h5>
+            <h5><?php echo !empty($_SESSION['img2']) ? 'Yes' : 'No';?></h5>
+            <h5><?php echo !empty($_SESSION['img3']) ? 'Yes' : 'No';?></h5>
+            <h5><?php echo !empty($_SESSION['img4']) ? 'Yes' : 'No';?></h5>
           </div>
         </div>
+        <hr class="my-4">
+        <form action="publisher_add_book_3.php" method="POST" enctype="multipart/form-data">
+          <button type="submit" formaction="publisher_add_book_4.php?action=confirm" class="btn btn-primary" name="submit-check">Confirm</button>
+          <button type="submit" formaction="publisher_add_book_4.php?action=cancel" formnovalidate class="btn btn-primary" name="cancel">Cancel</button>
+        </form>
       </div>
     </div>
   </div>

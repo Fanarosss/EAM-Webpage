@@ -15,6 +15,23 @@
 </head>
 
 <body>
+  <?php
+  include './src/config.php';
+  $p = $_SESSION['Username'];
+  if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $search = mysqli_real_escape_string($conn, $_POST['ISBN']);
+    $_SESSION['ISBN'] = $search;
+    $query = "SELECT * FROM book WHERE Publications = '$p' AND ISBN = '$search'";
+    $result = $conn->query($query);
+    if (mysqli_num_rows($result) > 0) {
+      $_SESSION['p_add1'] = -1;
+      $success = -1;
+    }else{
+      $_SESSION['p_add1'] = 1;
+      $success = 1;
+    }
+  }
+  ?>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -82,48 +99,40 @@
           <a class="nav-link active" data-toggle="tab" href="http://localhost/publisher_add_book_1.php" style="padding-left: 2em; padding-right: 2em;">Check</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_2.php" style="padding-left: 2em; padding-right: 2em;">Book Info</a>
+          <a class="nav-link <?php if($_SESSION['p_add1'] <= 0) {echo 'disabled';} ?>" data-toggle="tab" href="http://localhost/publisher_add_book_2.php" style="padding-left: 2em; padding-right: 2em;">Book Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_3.php" style="padding-left: 2em; padding-right: 2em;">Book Files</a>
+          <a class="nav-link <?php if($_SESSION['p_add2'] <= 0) {echo 'disabled';} ?>" data-toggle="tab" href="http://localhost/publisher_add_book_3.php" style="padding-left: 2em; padding-right: 2em;">Book Files</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link <?php if($_SESSION['p_add3'] <= 0) {echo 'disabled';} ?>" data-toggle="tab" href="http://localhost/publisher_add_book_4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
       </ul>
       <div class="jumbotron2">
+        <?php
+          if ($success == -1) {
+            echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Check Fail--</strong> This ISBN was found in another book that you have already registered!
+                  </div>';
+          }else if ($success == 1){
+            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Check Success--</strong> This ISBN is ready to be registered! Click <a href="http://localhost/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
+                  </div>';
+          }
+        ?>
         <h1 class="display-3">Check ISBN</h1>
         <p class="lead">Please type book's ISBN to check if it is already registered!</p>
         <hr class="my-4">
         <form action="publisher_add_book_1.php" method="POST">
           <fieldset>
             <div class="form-group">
-              <input type="text" class="form-control" name="ISBN" placeholder="ISBN" value="<?php echo isset($_POST['ISBN']) ? $_POST['ISBN'] : '' ?>" required>
+              <input type="text" class="form-control" name="ISBN" placeholder="ISBN" value="<?php echo isset($_POST['ISBN']) ? $_POST['ISBN'] : $_SESSION['ISBN'] ?>" required>
             </div>
             <button type="submit" class="btn btn-primary" name="submit-check">Check</button>
           </fieldset>
         </form>
-        <?php
-        include './src/config.php';
-        $p = $_SESSION['Username'];
-        if (isset($_POST['submit-check'])){
-          $search = mysqli_real_escape_string($conn, $_POST['ISBN']);
-          $_SESSION['ISBN'] = $search;
-          $query = "SELECT * FROM book WHERE Publications = '$p' AND ISBN = '$search'";
-          $result = $conn->query($query);
-          if (mysqli_num_rows($result) > 0) {
-            echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>--Check Fail--</strong> This ISBN was found in another book that you have already registered!
-                  </div>';
-          }else{
-            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>--Check Success--</strong> This ISBN is ready to be registered! Click <a href="http://localhost/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
-                  </div>';
-          }
-        }
-        ?>
       </div>
     </div>
   </div>

@@ -19,28 +19,48 @@
     include('./src/config.php');
     $IdErr = 0;
     $TitleErr = 0;
-    $success = 0;
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-      $id = mysqli_real_escape_string($conn, $_POST['Id']);
-      $title = mysqli_real_escape_string($conn, $_POST['Title']);
-      $author = mysqli_real_escape_string($conn, $_POST['Author']);
-      $book_check_query = "SELECT * FROM book WHERE Id='$id' OR Title='$title'";
-      $result = $conn->query($book_check_query);
-      $check = mysqli_fetch_assoc($result);
-      if ($check) {
-        if ($check['Id'] == $id) {
-          $IdErr = 1;
+      if ($_GET['action'] == 'submit'){
+        $id = mysqli_real_escape_string($conn, $_POST['Id']);
+        $title = mysqli_real_escape_string($conn, $_POST['Title']);
+        $author = mysqli_real_escape_string($conn, $_POST['Author']);
+        $pages = mysqli_real_escape_string($conn, $_POST['Pages']);
+        $dims = mysqli_real_escape_string($conn, $_POST['Dimensions']);
+        $cost = mysqli_real_escape_string($conn, $_POST['Costing']);
+        $_SESSION['b_author'] = $author;
+        $_SESSION['b_pages'] = $pages;
+        $_SESSION['b_dims'] = $dims;
+        $_SESSION['b_cost'] = $cost;
+        $book_check_query = "SELECT * FROM book WHERE Id='$id' OR Title='$title'";
+        $result = $conn->query($book_check_query);
+        $check = mysqli_fetch_assoc($result);
+        if ($check) {
+          if ($check['Id'] == $id) {
+            $IdErr = 1;
+            unset($_SESSION['p_add2']);
+          }else{
+            $_SESSION['b_id'] = $id;
+          }
+          if ($check['Title'] == $title) {
+            $TitleErr = 1;
+            unset($_SESSION['p_add2']);
+          }else{
+            $_SESSION['b_title'] = $title;
+          }
+        }else{
+          $_SESSION['b_id'] = $id;
+          $_SESSION['b_title'] = $title;
+          $_SESSION['p_add2'] = 1;
+          $success = 1;
         }
-        if ($check['Title'] == $title) {
-          $TitleErr = 1;
-        }
-      }
-      if ($IdErr == 0 && $TitleErr == 0) {
-        $publications = $_SESSION['Username'];
-        $ISBN = $_SESSION['ISBN'];
-        $book_insert_query = "INSERT INTO book VALUES('$id', '$title', '$author', '$publications', '$ISBN', NULL, NULL, NULL, NULL)";
-        $conn->query($book_insert_query);
-        $success = 1;
+      }else if($_GET['action'] == 'reset'){
+        unset($_SESSION['b_id']);
+        unset($_SESSION['b_title']);
+        unset($_SESSION['b_author']);
+        unset($_SESSION['b_pages']);
+        unset($_SESSION['b_dims']);
+        unset($_SESSION['b_cost']);
+        unset($_SESSION['p_add2']);
       }
     }
   ?>
@@ -114,10 +134,10 @@
           <a class="nav-link active" data-toggle="tab" href="http://localhost/publisher_add_book_2.php" style="padding-left: 2em; padding-right: 2em;">Book Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_3.php" style="padding-left: 2em; padding-right: 2em;">Book Files</a>
+          <a class="nav-link <?php if($_SESSION['p_add2'] <= 0) {echo 'disabled';} ?>" data-toggle="tab" href="http://localhost/publisher_add_book_3.php" style="padding-left: 2em; padding-right: 2em;">Book Files</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="http://localhost/publisher_add_book_4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link <?php if($_SESSION['p_add3'] <= 0) {echo 'disabled';} ?>" data-toggle="tab" href="http://localhost/publisher_add_book_4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
       </ul>
       <div class="jumbotron2">
@@ -139,13 +159,16 @@
               if ($IdErr == 0){
                 echo '<div class="form-group">
                 <input type="text" class="form-control" name="Id" value="';
-                echo isset($_POST['Id']) ? $_POST['Id'] : '';
+                echo isset($_SESSION['b_id']) ? $_SESSION['b_id'] : '';
                 echo '" required>';
               }else{
                 echo '<div class="form-group has-danger">
                 <input type="text" class="form-control is-invalid" name="Id" value="';
                 echo isset($_POST['Id']) ? $_POST['Id'] : '';
                 echo '" required>';
+                if(isset($_SESSION['b_id'])){
+                  unset($_SESSION['b_id']);
+                }
                 echo '<font size="2" class="invalid-feedback">Sorry, that Id is already registered. Try another?</font>';
               }
               ?>
@@ -153,23 +176,26 @@
             <div class="form-group">
               <label for="Title">Title</label>
               <?php
-              if ($IdErr == 0){
+              if ($TitleErr == 0){
                 echo '<div class="form-group">
                 <input type="text" class="form-control" name="Title" value="';
-                echo isset($_POST['Title']) ? $_POST['Title'] : '';
+                echo isset($_SESSION['b_title']) ? $_SESSION['b_title'] : '';
                 echo '" required>';
               }else{
                 echo '<div class="form-group has-danger">
                 <input type="text" class="form-control is-invalid" name="Title" value="';
                 echo isset($_POST['Title']) ? $_POST['Title'] : '';
                 echo '" required>';
+                if(isset($_SESSION['b_title'])){
+                  unset($_SESSION['b_title']);
+                }
                 echo '<font size="2" class="invalid-feedback">Sorry, that Title is already registered. Try another?</font>';
               }
               ?>
             </div>
             <div class="form-group">
               <label for="Author">Author(s)</label>
-              <input type="text" class="form-control" name="Author" value="<?php echo isset($_POST['Author']) ? $_POST['Author'] : '' ?>" required>
+              <input type="text" class="form-control" name="Author" value="<?php echo isset($_SESSION['b_author']) ? $_SESSION['b_author'] : '' ?>" required>
             </div>
             <div class="form-group">
               <label for="ISBN">ISBN</label>
@@ -180,9 +206,21 @@
                 echo '" disabled>';
               ?>
             </div>
+            <div class="form-group">
+              <label for="Pages">Pages</label>
+              <input type="number" class="form-control" name="Pages" value="<?php echo isset($_SESSION['b_pages']) ? $_SESSION['b_pages'] : '' ?>" required>
+            </div>
+            <div class="form-group">
+              <label for="Dimensions">Dimensions</label>
+              <input type="text" class="form-control" pattern="\d{2}[\*]\d{2}" title="Ex: 45*35 (Length*Width)" name="Dimensions" value="<?php echo isset($_SESSION['b_dims']) ? $_SESSION['b_dims'] : '' ?>" required>
+            </div>
+            <div class="form-group">
+              <label for="Costing">Costing</label>
+              <input type="number" class="form-control" name="Costing" value="<?php echo isset($_SESSION['b_cost']) ? $_SESSION['b_cost'] : '' ?>" required>
+            </div>
             <hr class="my-4">
-            <button type="submit" class="btn btn-primary" name="submit-check">Submit</button>
-            <button type="reset" class="btn btn-primary" name="reset">Reset</button>
+            <button type="submit" formaction="publisher_add_book_2.php?action=submit" class="btn btn-primary" name="submit-check">Submit</button>
+            <button type="submit" formaction="publisher_add_book_2.php?action=reset" formnovalidate class="btn btn-primary" name="reset">Reset</button>
           </fieldset>
         </form>
       </div>
