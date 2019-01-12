@@ -1,5 +1,30 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
+   $form_completed = 0;
+   if(isset($_POST['checkout'])){
+     if(isset($_SESSION['Editing_Form'])){
+       $query4 = "DELETE FROM form_has_book WHERE Form_id = '".$_SESSION['Editing_Form']."'";
+       $conn->query($query4);
+       $query5 = "DELETE FROM form WHERE Id = '".$_SESSION['Editing_Form']."'";
+       $conn->query($query5);
+     }
+     $year = date('Y');
+     $date = date('Y-m-d h:i:sa');
+     $query = "INSERT INTO form(User_id, Semester, Year, LastEdit, Ended) VALUES ('".$_SESSION['Username']."','".$_SESSION['Period']."','".$year."','".$date."',0)";
+     $conn->query($query);
+     $query2 = "SELECT * FROM form WHERE User_id = '".$_SESSION['Username']."' AND Ended = 0";
+     $result = $conn->query($query2);
+     $row = $result->fetch_assoc();
+     $formid = $row['Id'];
+     foreach($_SESSION['selected_books'] as $key => $book){
+       $query = "INSERT INTO `form_has_book`(`Form_id`, `Book_id`, `Class_id`) VALUES ('".$formid."','".$book['id']."','".$book['for_class']."')";
+       $conn->query($query);
+     }
+     $form_completed = 1;
+     unset($_POST['checkout']);
+     unset($_SESSION['Editing_Form']);
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +39,16 @@
 </head>
 
 <body>
+  <?php
+  if($form_completed == 1){
+    echo '<div class="alert alert-dismissible alert-success">
+         <button type="button" class="close" data-dismiss="alert">&times;</button>
+         <strong>Well done!</strong> Your new form was saved with success. Check your e-mail for the PIN!!!</a>.
+         </div>';
+  }
+  ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">

@@ -98,7 +98,7 @@
           <div class="card border-primary mb-3" style="max-width: 20rem;">
             <div class="card-header">Book selection Deadline</div>
             <div class="card-body">
-              <h4 class="card-title">21/01/19</h4>
+              <h4 class="card-title"><?php echo $_SESSION['Deadline'] ?></h4>
               <p class="card-text">Students have until then to select and pick all books.</p>
             </div>
           </div>

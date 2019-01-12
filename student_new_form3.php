@@ -1,5 +1,6 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +92,7 @@
           <a class="nav-link active" href="" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link disabled" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
         <li class="nav-item" style="margin-right: 0px; float: right;">
           <a href="http://localhost/selected_books.php" style="float: right;">
@@ -103,6 +104,7 @@
         </li>
       </ul>
       <div class="pickup-point-select">
+      <form method="post" action="http://localhost/student_new_form4.php">
         <?php
         include('./src/config.php');
         if (isset($_SESSION['selected_books'])) {
@@ -126,7 +128,7 @@
                     <td><fieldset class="form-group">
                           <div class="form-check">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="option'.$count.'" checked>
+                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="0" checked>
                             Select this to pick up a new book from the closest distributor.
                             </label>
                           </div>
@@ -135,7 +137,7 @@
                     <td><fieldset class="form-group">
                           <div class="form-check">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="option'.$count.'">
+                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="1">
                             Select this to take the book from a fellow student.
                             </label>
                           </div>
@@ -148,8 +150,9 @@
         echo  '</tbody>
               </table>';
         ?>
+        <input type="submit" class="btn btn-primary btn-lg" name="select_type" value="Save and Proceed"/>
+        </form>
       </div>
-      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_new_form4.php">Proceed</a>
     </div>
   </div>
 </body>

@@ -1,18 +1,57 @@
 <?php
-   include('./src/session.php');
-   include('./src/config.php');
-   $class_ids = array();
-   //Implementation similar to shoping cart
+  include('./src/session.php');
+  include('./src/config.php');
+  //Implementation similar to shoping cart
+
+  $query = "SELECT * FROM form WHERE form.User_id = '".$_SESSION['Username']."' AND form.Ended = 0";
+  $result = $conn->query($query);
+  if (!$result) die($conn->error);
+  if (mysqli_num_rows($result) > 0) {
+    $row = $result->fetch_assoc();
+    $query2 = "SELECT * FROM class, form_has_book WHERE form_has_book.Form_id = '".$row['Id']."' AND form_has_book.Class_id = class.Id";
+    $result2 = $conn->query($query2);
+    $count = 0;
+    $count2 = 0;
+    while($row2 = $result2->fetch_assoc()){
+      $_SESSION['selected_class'][$count] = array
+      (
+       'id' => $row2['Id'],
+       'name' => $row2['Name'],
+       'professor' => $row2['Professor'],
+       'semester' => $row2['Semester']
+      );
+      $count++;
+      $query3 = "SELECT * FROM book, form_has_book WHERE form_has_book.Form_id = '".$row['Id']."' AND form_has_book.class_id = '".$row2['Id']."'
+                AND book.Id = form_has_book.Book_id";
+      $result3 = $conn->query($query3);
+      while($row3 = $result3->fetch_assoc()){
+        $_SESSION['selected_books'][$count2] = array
+        (
+          'id' => $row3['Id'],
+          'title' => $row3['Title'],
+          'author' => $row3['Author'],
+          'publications' => $row3['Publications'],
+          'for_class' => $row2['Id']
+        );
+        $count2++;
+      }
+    }
+    $_SESSION['class_ids'] = array_column($_SESSION['selected_class'], 'id');
+    $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
+    $selected = array_column($_SESSION['selected_books'], 'for_class');
+    $_SESSION['Editing_Form'] = $row['Id'];
+
+  }
 
    if(filter_input(INPUT_POST, 'add_to_selected')) {
      if(isset($_SESSION['selected_class'])){
        //counter for classes inside
        $count = count($_SESSION['selected_class']);
        //to match array keys and class ids
-       $class_ids = array_column($_SESSION['selected_class'], 'id');
+       $_SESSION['class_ids'] = array_column($_SESSION['selected_class'], 'id');
 
        //check if it already exists inside array
-       if (!in_array(filter_input(INPUT_GET, 'id'), $class_ids)) {
+       if (!in_array(filter_input(INPUT_GET, 'id'), $_SESSION['class_ids'])) {
          $_SESSION['selected_class'][$count] = array
          (
            'id' => filter_input(INPUT_GET, 'id'),
@@ -32,6 +71,7 @@
          'semester' => filter_input(INPUT_POST, 'Semester')
        );
      }
+     $_SESSION['class_ids'] = array_column($_SESSION['selected_class'], 'id');
    }
 
    /*echo '<pre>';
@@ -123,13 +163,23 @@
           <a class="nav-link active" href="" style="padding-left: 2em; padding-right: 2em;">Class Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
+          <a class="nav-link <?php if(!isset($_SESSION['selected_class'])){
+            echo 'disabled';
+          }else{
+            if(isset($_SESSION['selected_class']) && (count($_SESSION['selected_class']) == 0)){
+              echo 'disabled';}}?>"
+            href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
+          <a class="nav-link <?php if(!isset($_SESSION['selected_books'])){
+            echo 'disabled';
+          }else{
+            if(isset($_SESSION['selected_books']) && (count($_SESSION['selected_books']) == 0)){
+              echo 'disabled';}}?>"
+         href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link disabled" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
         <li class="nav-item" style="margin-right: 0px; float: right;">
           <a href="http://localhost/selected_classes.php" style="float: right;">
@@ -143,128 +193,151 @@
 
       <div class="class-select">
         <?php
-        echo '<div class="panel-group" id="accordion" style="display:grid;">';
-        echo '<div class="panel panel-default">
-              <div class="panel-heading" style="margin-top: 2em;">
-                <h4 class="panel-title">
-                  <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h3><b>Winter Period:</b></h3></button>
-                </h4>
-              </div>
-              <div id="collapse1" class="panel-collapse collapse in">';
-        for ($semid = 1; $semid <=7; $semid+=2) {
-          $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                    AND Period = 'Winter' AND Semester='".$semid."' ORDER BY class.Name ASC";
-          $result = $conn->query($query);
-          if (!$result) die($conn->error);
+        if (isset($_SESSION['Period']) && ($_SESSION['Period'] == 'Winter')){
+          echo '<div class="panel-group" id="accordion" style="display:grid;">';
           echo '<div class="panel panel-default">
                 <div class="panel-heading" style="margin-top: 2em;">
                   <h4 class="panel-title">
-                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsew1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h3><b>Winter Period:</b></h3></button>
                   </h4>
                 </div>
-                <div id="collapsew1'.$semid.'" class="panel-collapse collapse in">
-                <div class="cart-container">';
-          if (mysqli_num_rows($result) > 0) {
-            while($row = $result->fetch_assoc()){
-              echo '<div class="myshop-item">
-                    <div class="btn">
+                <div id="collapse1" class="panel-collapse collapse in">';
+          for ($semid = 1; $semid <=7; $semid+=2) {
+            $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
+                      AND Period = 'Winter' AND Semester='".$semid."' ORDER BY class.Name ASC";
+            $result = $conn->query($query);
+            if (!$result) die($conn->error);
+            echo '<div class="panel panel-default">
+                  <div class="panel-heading" style="margin-top: 2em;">
+                    <h4 class="panel-title">
+                      <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsew1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                    </h4>
+                  </div>
+                  <div id="collapsew1'.$semid.'" class="panel-collapse collapse in">
+                  <div class="cart-container">';
+            if (mysqli_num_rows($result) > 0) {
+              while($row = $result->fetch_assoc()){
+                echo '<div class="myshop-item"';
+                      if(isset($_SESSION['selected_class'])){
+                        if (in_array($row['Id'], $_SESSION['class_ids'])) {
+                          echo ' style="background-color: #eee;"><i class="fas fa-check-circle" style="color: #2ea0c9"></i>';
+                      }else{
+                        echo '>';
+                      }
+                    }else{
+                      echo '>';
+                    }
+                echo  '<div class="btn">
                       <input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
-                    </div>
-                    <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
-                    <input type="hidden" name="Name" value="'.$row['Name'].'"/>
-                    <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
-                    <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
-                    <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
-                    </form>
-                    </div>';
-              echo '<!-- Modal -->
-                    <div class="modal fade" id="dataModal" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header" id="class_header">
-                          </div>
-                          <div class="modal-body" id="class_details">
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-
                       </div>
-                    </div>';
+                      <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
+                      <input type="hidden" name="Name" value="'.$row['Name'].'"/>
+                      <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
+                      <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
+                      <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
+                      </form>
+                      </div>';
+
+              }
+            }else{
+              echo '<p>No classes available.<p>';
             }
-          }else{
-            echo '<p>No classes available.<p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '<!-- Modal -->
+                  <div class="modal fade" id="dataModal" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header" id="class_header">
+                        </div>
+                        <div class="modal-body" id="class_details">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>';
           }
           echo '</div>';
           echo '</div>';
-          echo '</div>';
         }
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="panel-group" id="accordion" style="display:grid;">';
-        echo '<div class="panel panel-default">
-              <div class="panel-heading" style="margin-top: 2em;">
-                <h4 class="panel-title">
-                  <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h3><b>Summer Period:</b></h3></button>
-                </h4>
-              </div>
-              <div id="collapse2" class="panel-collapse collapse in">';
-        for ($semid = 2; $semid <=8; $semid+=2) {
-          $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
-                    AND Period = 'Summer' AND Semester='".$semid."' ORDER BY class.Name ASC";
-          $result = $conn->query($query);
-          if (!$result) die($conn->error);
+        if (isset($_SESSION['Period']) && ($_SESSION['Period'] == 'Summer')){
+          echo '<div class="panel-group" id="accordion" style="display:grid;">';
           echo '<div class="panel panel-default">
                 <div class="panel-heading" style="margin-top: 2em;">
                   <h4 class="panel-title">
-                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapses1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h3><b>Summer Period:</b></h3></button>
                   </h4>
                 </div>
-                <div id="collapses1'.$semid.'" class="panel-collapse collapse in">
-                <div class="cart-container">';
-          if (mysqli_num_rows($result) > 0) {
-            while($row = $result->fetch_assoc()){
-              echo '<div class="myshop-item">
-                    <div class="btn">
-                      <input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
-                    </div>
-                    <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
-                    <input type="hidden" name="Name" value="'.$row['Name'].'">
-                    <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
-                    <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
-                    <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
-                    </form>
-                    </div>';
-              echo '<!-- Modal -->
-                    <div class="modal fade" id="dataModal" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header" id="class_header">
-                          </div>
-                          <div class="modal-body" id="class_details">
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-
+                <div id="collapse2" class="panel-collapse collapse in">';
+          for ($semid = 2; $semid <=8; $semid+=2) {
+            $query = "SELECT * FROM class,student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = class.Department_id
+                      AND Period = 'Summer' AND Semester='".$semid."' ORDER BY class.Name ASC";
+            $result = $conn->query($query);
+            if (!$result) die($conn->error);
+            echo '<div class="panel panel-default">
+                  <div class="panel-heading" style="margin-top: 2em;">
+                    <h4 class="panel-title">
+                      <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapses1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                    </h4>
+                  </div>
+                  <div id="collapses1'.$semid.'" class="panel-collapse collapse in">
+                  <div class="cart-container">';
+            if (mysqli_num_rows($result) > 0) {
+              while($row = $result->fetch_assoc()){
+                echo '<div class="myshop-item"';
+                      if(isset($_SESSION['selected_class'])){
+                        if (in_array($row['Id'], $_SESSION['class_ids'])) {
+                          echo ' style="background-color: #eee;"><i class="fas fa-check-circle" style="color: #2ea0c9"></i>';
+                      }else{
+                        echo '>';
+                      }
+                    }else{
+                      echo '>';
+                    }
+                echo '<div class="btn">
+                        <input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
                       </div>
-                    </div>';
+                      <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
+                      <input type="hidden" name="Name" value="'.$row['Name'].'">
+                      <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
+                      <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
+                      <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
+                      </form>
+                      </div>';
+              }
+            }else{
+              echo 'No classes available.';
             }
-          }else{
-            echo 'No classes available.';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '<!-- Modal -->
+                  <div class="modal fade" id="dataModal" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header" id="class_header">
+                        </div>
+                        <div class="modal-body" id="class_details">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>';
           }
           echo '</div>';
           echo '</div>';
-          echo '</div>';
         }
-        echo '</div>';
-        echo '</div>';
         echo '</div>';
         ?>
       </div>

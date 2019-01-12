@@ -21,7 +21,9 @@
   $passErr = "";
   $emailSuccess = 0;
   $passwordSuccess = 0;
+  $phoneSuccess = 0;
   $email = "";
+  $phone = "";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (!empty($_POST['Email'])){
         $email = test_input($_POST['Email']);
@@ -52,6 +54,16 @@
         }
         unset($_POST['Password']);
         unset($_POST['CPassword']);
+      }
+
+      if (!empty($_POST['Phone'])){
+        $phone = mysqli_real_escape_string($conn, $_POST['Phone']);
+        $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
+        $query = "UPDATE user SET Phone='$phone' WHERE Username='$username'";
+        $conn->query($query);
+        $phoneSuccess = 1;
+        $_SESSION['Phone'] = $phone;
+        unset($_POST['Phone']);
       }
   }
 
@@ -161,11 +173,18 @@
           </div>
         </div>
         <div class="Settfield">
+          <h4><b>Phone</b></h4>
+          <div class="form-group">
+            <input class="form-control" type="text" name="Phone" id="Phone" placeholder="<?php echo $_SESSION['Phone'];?>">
+            <button type="save" name="save-phone" class="btn btn-primary btn">Save</button></b>
+          </div>
+        </div>
+        <div class="Settfield">
           <h4><b>University</b></h4>
           <div class="form-group">
             <fieldset disabled="">
-              <font size="2" style="color: red;">You cannot change your university</font>
-              <input class="form-control" id="disabledInput" type="text" placeholder="Univeristy..." disabled="">
+              <font size="2" style="color: red;">You cannot change your University</font>
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['University'],' - ',$_SESSION['Department'];?>" disabled="">
             </fieldset>
           </div>
         </div>

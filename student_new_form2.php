@@ -2,16 +2,20 @@
    include('./src/session.php');
    include('./src/config.php');
    //Implementation similar to shoping cart
-
+   $SingleBook = 0;
+   $DuplicateBook = 0;
    if(filter_input(INPUT_POST, 'add_to_selected')) {
      if(isset($_SESSION['selected_books'])){
        //counter for books inside
        $count = count($_SESSION['selected_books']);
        //to match array keys and book ids
        $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
+       $selected = array_column($_SESSION['selected_books'], 'for_class');
 
        //check if it already exists inside array
-       if (!in_array(filter_input(INPUT_GET, 'id'), $_SESSION['book_ids'])) {
+       if(in_array(filter_input(INPUT_POST, 'For_class'), $selected)){
+         $SingleBook = 1;
+       }else if (!in_array(filter_input(INPUT_GET, 'id'), $_SESSION['book_ids'])) {
          $_SESSION['selected_books'][$count] = array
          (
            'id' => filter_input(INPUT_GET, 'id'),
@@ -20,8 +24,9 @@
            'publications' => filter_input(INPUT_POST, 'Publications'),
            'for_class' => filter_input(INPUT_POST, 'For_class')
          );
-       }else{
+       }else {
          //if it already exists possibly print an error message.
+         $DuplicateBook = 1;
        }
      }else{ //if selected doesnt exist, create first product with array key 0
        $_SESSION['selected_books'][0] = array
@@ -32,8 +37,9 @@
          'publications' => filter_input(INPUT_POST, 'Publications'),
          'for_class' => filter_input(INPUT_POST, 'For_class')
        );
-       $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
      }
+     $selected = array_column($_SESSION['selected_books'], 'for_class');
+     $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
    }
    /*echo '<pre>';
    print_r($_SESSION);
@@ -58,6 +64,22 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="./js/scripts.js"></script>
   <!-- grid class containing all items -->
+  <?php
+    if ($SingleBook == 1){
+      echo '<div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Already selected book for this class</strong>
+            </div>';
+      $SingleBook = 0;
+    }
+    if ($DuplicateBook == 1){
+      echo '<div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>You have already selected this book for another class</strong>
+            </div>';
+      $DuplicateBook = 0;
+    }
+  ?>
   <div class="bs1-grid">
     <div class="logo">
       <a href="index.php"><img src="images/eudoxus.png"/></a>
@@ -127,10 +149,15 @@
           <a class="nav-link active" href="" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
+          <a class="nav-link <?php if(!isset($_SESSION['selected_books'])){
+            echo 'disabled';
+          }else{
+            if(isset($_SESSION['selected_books']) && (count($_SESSION['selected_books']) == 0)){
+              echo 'disabled';}}?>"
+         href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link disabled" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
         <li class="nav-item" style="margin-right: 0px; float: right;">
           <a href="http://localhost/selected_books.php" style="float: right;">

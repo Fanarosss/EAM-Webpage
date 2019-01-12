@@ -288,3 +288,16 @@
   padding: 0.5rem;
   margin-bottom: 0;
 }
+.BookPreview {
+  background-color: #eee;
+  border: 1px groove #e5e5e5;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin-bottom: 2em;
+}
+.BookInfo {
+  padding: 1em;
+}
+.DistribInfo{
+  padding: 1em;
+}

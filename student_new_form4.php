@@ -1,5 +1,20 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
+   //Implementation similar to shoping cart
+
+   if(filter_input(INPUT_POST, 'select_type')) {
+     $count = 0;
+     foreach($_SESSION['selected_books'] as $book){
+       //It is 0 for distribution point and 1 for students
+       $_SESSION['selected_distrib'][$count] = filter_input(INPUT_POST, 'optionsRadios'.$count.'');
+       $count++;
+     }
+   }
+
+   /*echo '<pre>';
+   print_r($_SESSION);
+   echo '</pre>';*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,12 +117,50 @@
           </a>
         </li>
       </ul>
-      <div class="pickup-point-select">
+      <div class="Confirmation-container">
         <?php
-        include('./src/config.php');
+        $counter = 0;
+        foreach($_SESSION['selected_books'] as $key => $book){
+          $query = "SELECT * FROM class WHERE class.Id = '".$book['for_class']."'";
+          $result = $conn->query($query);
+          $tclass = $result->fetch_assoc();
+          $query2 = "SELECT * FROM user, distributor, book, user_has WHERE book.Id = '".$book['id']."' AND user.Username = user_has.User_id
+                    AND user_has.Book_id = book.Id AND user.Id = 4";
+          $result2 = $conn->query($query2);
+          $distributοr = $result2->fetch_assoc();
+          echo '<div class="BookPreview">
+                  <div class="BookInfo">
+                    <h3><b>'.$book['title'].'</b></h3>
+                    <h5>Selected for class '.$tclass['Name'].'</h5></br>
+                    <h5>Author: '.$book['author'].'</h5>
+                    <h5>Publications: '.$book['publications'].'</h5></br>
+                  </div>';
+          if ($_SESSION['selected_distrib'][$counter] == 0){
+            echo '<div class="DistribInfo">
+                    <h5>Distribution Point: '.$distributοr['FullName'].'</h5>
+                    <div class="mymap">
+                      <img src="https://developers.google.com/maps/documentation/urls/images/map-no-params.png" style="max-width:400px; max-height: 350px;">
+                    </div>
+                    <div class="dinfo">
+                      <p class="text-muted">Address: '.$distributοr['Address'].'</p>
+                      <p class="text-muted">Phone: '.$distributοr['Phone'].'</p>
+                    </div>
+                  </div>
+                </div>';
+          }else{
+            echo '<div class="StudentInfo">
+                    <h3>Book exchange arranged with fellow student.</h3>
+                </div>
+              </div>';
+          }
+          $counter++;
+        }
         ?>
       </div>
-      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_book_sel.php">Confirm</a>
+      <form method="post" action="http://localhost/student_book_sel.php">
+        <input type="hidden" name="checkout" id="checkout" value="1"/>
+        <button type="save" name="save-form" class="btn btn-primary btn-lg">Confirm</button>
+      </form>
     </div>
   </div>
 </body>

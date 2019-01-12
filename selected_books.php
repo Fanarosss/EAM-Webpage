@@ -10,6 +10,7 @@
      }
      //reset session array keys so they match
      $_SESSION['selected_books'] = array_values($_SESSION['selected_books']);
+     $selected = array_column($_SESSION['selected_books'], 'for_class');
    }
 ?>
 <!DOCTYPE html>
@@ -99,14 +100,19 @@
           <a class="nav-link" href="http://localhost/student_new_form2.php" style="padding-left: 2em; padding-right: 2em;">Book Selection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
+          <a class="nav-link <?php if(!isset($_SESSION['selected_books'])){
+            echo 'disabled';
+          }else{
+            if(isset($_SESSION['selected_books']) && (count($_SESSION['selected_books']) == 0)){
+              echo 'disabled';}}?>"
+          href="http://localhost/student_new_form3.php" style="padding-left: 2em; padding-right: 2em;">Pickup Point</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
+          <a class="nav-link disabled" href="http://localhost/student_new_form4.php" style="padding-left: 2em; padding-right: 2em;">Confirmation</a>
         </li>
         <li class="nav-item" style="margin-right: 0px; float: right;">
           <a href="" style="float: right;">
-            <button type="button" class="btn btn-primary btn-lg">
+            <button type="button" class="btn btn-primary btn-lg" style="background-color: #046889;">
               <i class="fa fa-book"></i>
               <span class="text">Selected Books</span>
             </button>

@@ -113,7 +113,7 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST"){
               $user = mysqli_real_escape_string($conn, $_POST['Username']);
               $pass = mysqli_real_escape_string($conn, $_POST['Password']);
-              $query = "SELECT FullName, Email, Phone FROM user WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
+              $query = "SELECT FullName, Email, Phone, Period, Deadline FROM user,system WHERE Username = '".$user."' AND Password = '".$pass."' AND Id = '".$id."'";
               $result = $conn->query($query);
               if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_assoc($result);
@@ -122,6 +122,8 @@
                 $_SESSION['FullName'] = $row["FullName"];
                 $_SESSION['Email'] = $row["Email"];
                 $_SESSION['Phone'] = $row["Phone"];
+                $_SESSION['Period'] = $row["Period"];
+                $_SESSION['Deadline'] = $row["Deadline"];
                 if ($id == 1){
                   $query2 = "SELECT university.name, department.name AS dname, student.RegDate FROM student,department,university WHERE student.Username = '".$user."'
                   AND student.Department_id = department.Id AND university.Id = department.University_id";
