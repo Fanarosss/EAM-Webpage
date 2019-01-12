@@ -79,21 +79,21 @@
         <div class="separator" style="margin-bottom:2em">
           <div class="Headers">
             <h2 style="margin-bottom:1em;">Full Name</h2>
-            <h5>E-mail</h5>
-            <h5>Register ID</h5>
+            <h5>Username</h5>
+            <h5>Email</h5>
+            <h5>Phone</h5>
             <h5>University</h5>
             <h5>Department</h5>
             <h5>Since</h5>
-            <h5>Phone</h5>
           </div>
           <div class="Info">
             <h2 style="margin-bottom:1em;"><?php echo $_SESSION['FullName'];?></h2>
-            <h5><?php echo $_SESSION['Email'];?></h5>
             <h5><?php echo $_SESSION['Username'];?></h5>
+            <h5><?php echo $_SESSION['Email'];?></h5>
+            <h5><?php echo $_SESSION['Phone'];?></h5>
             <h5><?php echo $_SESSION['University'];?></h5>
             <h5><?php echo $_SESSION['Department'];?></h5>
             <h5><?php echo $_SESSION['Date'];?></h5>
-            <h5><?php echo $_SESSION['Phone'];?></h5>
           </div>
           <div class="card border-primary mb-3" style="max-width: 20rem;">
             <div class="card-header">Book selection Deadline</div>

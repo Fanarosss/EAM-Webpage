@@ -19,26 +19,13 @@
   include('./src/config.php');
   $emailErr = "";
   $passErr = "";
-  $emailSuccess = 0;
+  $phoneErr = "";
   $passwordSuccess = 0;
+  $emailSuccess = 0;
   $phoneSuccess = 0;
   $email = "";
   $phone = "";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      if (!empty($_POST['Email'])){
-        $email = test_input($_POST['Email']);
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-          $email = mysqli_real_escape_string($conn, $_POST['Email']);
-          $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
-          $query = "UPDATE user SET Email='$email' WHERE Username='$username'";
-          $conn->query($query);
-          $emailSuccess = 1;
-          $_SESSION['Email'] = $email;
-        }else{
-          $emailErr = '<font size="2" style="color: red">Incorrect email format</font>';
-        }
-        unset($_POST['Email']);
-      }
 
       if (!empty($_POST['Password']) && !empty($_POST['CPassword'])){
         $password = test_input($_POST['Password']);
@@ -56,13 +43,40 @@
         unset($_POST['CPassword']);
       }
 
+      if (!empty($_POST['Email'])){
+        $email = test_input($_POST['Email']);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          $email = mysqli_real_escape_string($conn, $_POST['Email']);
+          $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
+          $email_check_query = "SELECT * FROM user WHERE Username!='$username' AND Email='$email' LIMIT 1";
+          $result = $conn->query($email_check_query);
+          $check = mysqli_fetch_assoc($result);
+          if (!$check) {
+            $query = "UPDATE user SET Email='$email' WHERE Username='$username'";
+            $conn->query($query);
+            $emailSuccess = 1;
+            $_SESSION['Email'] = $email;
+          }else{
+            $emailErr = '<font size="2" style="color: red">This email is taken</font>';
+          }
+        }else{
+          $emailErr = '<font size="2" style="color: red">Incorrect email format</font>';
+        }
+        unset($_POST['Email']);
+      }
+
       if (!empty($_POST['Phone'])){
-        $phone = mysqli_real_escape_string($conn, $_POST['Phone']);
-        $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
-        $query = "UPDATE user SET Phone='$phone' WHERE Username='$username'";
-        $conn->query($query);
-        $phoneSuccess = 1;
-        $_SESSION['Phone'] = $phone;
+        $phone = preg_replace('/[^0-9]/', '', $_POST['Phone']);
+        if(strlen($phone) === 10) {
+          $phone = mysqli_real_escape_string($conn, $_POST['Phone']);
+          $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
+          $query = "UPDATE user SET Phone='$phone' WHERE Username='$username'";
+          $conn->query($query);
+          $phoneSuccess = 1;
+          $_SESSION['Phone'] = $phone;
+        }else{
+          $phoneErr = '<font size="2" style="color: red">Incorrect phone format</font>';
+        }
         unset($_POST['Phone']);
       }
   }
@@ -137,20 +151,21 @@
     <div class="settings-sep">
       <form method="POST" action="">
         <div class="Settfield">
+          <h4><b>Full Name</b></h4>
+          <div class="form-group">
+            <fieldset disabled="">
+              <font size="2" style="color: red;">You cannot change your full name</font>
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['FullName'];?>" disabled="">
+            </fieldset>
+          </div>
+        </div>
+        <div class="Settfield">
           <h4><b>Username</b></h4>
           <div class="form-group">
             <fieldset disabled="">
               <font size="2" style="color: red;">You cannot change your username</font>
               <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['Username'];?>" disabled="">
             </fieldset>
-          </div>
-        </div>
-        <div class="Settfield">
-          <h4><b>Email</h4>
-          <span class="error"><?php echo $emailErr;?></span>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="<?php echo $_SESSION['Email'];?>" name="Email" id="Email">
-            <button type="save" name="save-email" class="btn btn-primary btn">Save</button></b>
           </div>
         </div>
         <div class="Settfield" style="margin-bottom: 2em;">
@@ -161,22 +176,23 @@
           <input type="password" class="form-control" placeholder="" id="Password" name="Password">
           <font size="2">Confirm new password</font>
           <input type="password" class="form-control" placeholder="" id="CPassword" name="CPassword">
-          <button type="save" name="save-pass" class="btn btn-primary btn">Save</button></b>
+          <button type="save" name="save-pass" class="btn btn-primary btn" style="margin-top:10px">Save</button></b>
         </div>
         <div class="Settfield">
-          <h4><b>Full Name</b></h4>
+          <h4><b>Email</h4>
+          <span class="error"><?php echo $emailErr;?></span>
           <div class="form-group">
-            <fieldset disabled="">
-              <font size="2" style="color: red;">You cannot change your full name</font>
-              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['FullName'];?>" disabled="">
-            </fieldset>
+            <input type="text" class="form-control" placeholder="<?php echo $_SESSION['Email'];?>" name="Email" id="Email">
+            <button type="save" name="save-email" class="btn btn-primary btn" style="margin-top:10px">Save</button></b>
           </div>
         </div>
+
+
         <div class="Settfield">
           <h4><b>Phone</b></h4>
           <div class="form-group">
             <input class="form-control" type="text" name="Phone" id="Phone" placeholder="<?php echo $_SESSION['Phone'];?>">
-            <button type="save" name="save-phone" class="btn btn-primary btn">Save</button></b>
+            <button type="save" name="save-phone" class="btn btn-primary btn" style="margin-top:10px">Save</button></b>
           </div>
         </div>
         <div class="Settfield">
@@ -184,7 +200,25 @@
           <div class="form-group">
             <fieldset disabled="">
               <font size="2" style="color: red;">You cannot change your University</font>
-              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['University'],' - ',$_SESSION['Department'];?>" disabled="">
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['University'];?>" disabled="">
+            </fieldset>
+          </div>
+        </div>
+        <div class="Settfield">
+          <h4><b>Department</b></h4>
+          <div class="form-group">
+            <fieldset disabled="">
+              <font size="2" style="color: red;">You cannot change your Department</font>
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['Department'];?>" disabled="">
+            </fieldset>
+          </div>
+        </div>
+        <div class="Settfield">
+          <h4><b>Date Added</b></h4>
+          <div class="form-group">
+            <fieldset disabled="">
+              <font size="2" style="color: red;">You cannot change your Registration Date</font>
+              <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo $_SESSION['Date'];?>" disabled="">
             </fieldset>
           </div>
         </div>
@@ -195,6 +229,16 @@
       </form>
       <div class="mymessages" style="margin: 50px">
         <?php
+
+        if (isset($passwordSuccess)){
+          if ($passwordSuccess==1){
+            echo '<div class="alert alert-dismissible alert-success">
+                    <strong>Well done!</strong> You successfully changed your Password.
+                  </div>';
+            $passwordSuccess = 0;
+          }
+        }
+
         if (isset($emailSuccess)){
           if ($emailSuccess==1){
             echo '<div class="alert alert-dismissible alert-success">
@@ -204,12 +248,12 @@
           }
         }
 
-        if (isset($passwordSuccess)){
-          if ($passwordSuccess==1){
+        if (isset($phoneSuccess)){
+          if ($phoneSuccess==1){
             echo '<div class="alert alert-dismissible alert-success">
-                    <strong>Well done!</strong> You successfully changed your password.
+                    <strong>Well done!</strong> You successfully changed your Phone.
                   </div>';
-            $passwordSuccess = 0;
+            $phoneSuccess = 0;
           }
         }
         ?>

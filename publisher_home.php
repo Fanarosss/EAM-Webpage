@@ -79,7 +79,7 @@
         <div class="separator" style="margin-bottom:2em">
           <div class="Headers">
             <h2 style="margin-bottom:1em;">Full Name</h2>
-            <h5>Register ID</h5>
+            <h5>Username</h5>
             <h5>Address</h5>
             <h5>E-mail</h5>
             <h5>Phone</h5>
