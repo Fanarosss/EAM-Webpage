@@ -179,8 +179,15 @@
             AND class_has_choice.Book_id = book.Id ORDER BY book.Title ASC";
             $result = $conn->query($query);
             if (!$result) die($conn->error);
+            //search for forms with this class as selected
+            $query2 = "SELECT * FROM form, form_has_book WHERE form_has_book.Class_id = '".$_SESSION['selected_class'][$count]['id']."' AND form.User_id = '".$_SESSION['Username']."'
+                         AND form_has_book.Form_id = form.Id AND form.Ended = 1";
+            $result2 = $conn->query($query2);
+            if (!$result2) die($conn->error);
             echo '<div class="cart-container">';
-            if (mysqli_num_rows($result) > 0) {
+            if (mysqli_num_rows($result2) > 0){
+              echo '<h5>You have already gotten a book for this class<h5>';
+            } else if ((mysqli_num_rows($result) > 0)) {
               while($row = $result->fetch_assoc()){
                 echo '<div class="myshop-item"';
                       if(isset($_SESSION['selected_books'])){
@@ -247,7 +254,7 @@
       }else{
         if(isset($_SESSION['selected_books']) && (count($_SESSION['selected_books']) == 0)){
           echo 'disabled';}}?>"
-        style="margin-top: 2em;" href="http://localhost/student_new_form2.php">Proceed</a>
+        style="margin-top: 2em;" href="http://localhost/student_new_form3.php">Proceed</a>
         <input type="hidden" name="Cancel" value="unset"/>
         <button type="submit" class="btn btn-danger btn-lg" style="margin-top: 2em;">Cancel</a>
       </form>
