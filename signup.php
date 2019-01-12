@@ -24,12 +24,13 @@
     $usernameErr = 0;
     $emailErr = 0;
     $success = 0;
+    $id = $_GET['id'];
+    $date = date("Y/m/d");
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-      $type = mysqli_real_escape_string($conn, $_POST['Type']);
+      $fname = mysqli_real_escape_string($conn, $_POST['FullName']);
       $user = mysqli_real_escape_string($conn, $_POST['Username']);
       $pass = mysqli_real_escape_string($conn, $_POST['Password']);
       $cpass = mysqli_real_escape_string($conn, $_POST['CPassword']);
-      $fname = mysqli_real_escape_string($conn, $_POST['FullName']);
       $email = mysqli_real_escape_string($conn, $_POST['Email']);
       $phone = mysqli_real_escape_string($conn, $_POST['Phone']);
       if ($pass != $cpass) {
@@ -47,9 +48,19 @@
         }
       }
       if ($emailErr == 0 && $passwordErr == 0 && $usernameErr == 0) {
-        $user_insert_query = "INSERT INTO user VALUES('$type', '$user', '$pass', '$fname', '$email', '$phone')";
+        $user_insert_query = "INSERT INTO user VALUES('$id', '$user', '$pass', '$fname', '$email', '$phone')";
         $conn->query($user_insert_query);
-        $success = 1;
+        if($id == 1){
+          $department = mysqli_real_escape_string($conn, $_POST['department']);
+          $student_insert_query = "INSERT INTO student VALUES('$user', '$department', '$date')";
+          $conn->query($student_insert_query);
+        }else if($id == 2){
+          $address = mysqli_real_escape_string($conn, $_POST['Address']);
+          $publisher_insert_query = "INSERT INTO publisher VALUES('$user', '$address', '$date')";
+          $conn->query($publisher_insert_query);
+        }
+        $_SESSION['signup'] = 1;
+        header("location: login.php?id=$id");
       }
     }
   ?>
@@ -103,16 +114,8 @@
       <!-- Item 3 on grid -->
       <div class="bs-item3">
         <div class="jumbotron">
-          <?php
-          if ($success == 1) {
-            echo '<div class="alert alert-dismissible alert-success">
-              <strong> You successfully signed up!</strong>You can now log in from <a href="http://localhost/index.php" class="alert-link">home page</a>.
-            </div>';
-          }
-          ?>
           <h1 class="display-3">Sign Up</h1>
           <?php
-            $id = $_GET['id'];
             if ($id == 1){
               echo "For Students";
             }else if ($id == 2){
@@ -128,6 +131,10 @@
           <form action="" method="POST">
             <hr class="my-2">
             <div class="form-group">
+              <label for="FullName">Full Name</label>
+              <input type="text" class="form-control" name="FullName" id="FullName" value="<?php echo isset($_POST['FullName']) ? $_POST['FullName'] : '' ?>" required>
+            </div>
+            <div class="form-group">
               <label for="Username">Username</label>
               <?php
               if ($usernameErr == 0){
@@ -141,6 +148,7 @@
                 echo isset($_POST['Username']) ? $_POST['Username'] : '';
                 echo '" required>';
                 echo '<font size="2" class="invalid-feedback">Sorry, that username is taken. Try another?</font>';
+                $usernameErr = 0;
               }
               ?>
             </div>
@@ -154,6 +162,7 @@
                 echo '<div class="form-group has-danger">
                 <input type="password" class="form-control is-invalid" name="Password" id="Password" value="" required>';
                 echo '<font size="2" class="invalid-feedback">Passwords do not match!</font>';
+                $passwordErr = 0;
               }
               ?>
             </div>
@@ -162,50 +171,57 @@
               <input type="password" class="form-control" name="CPassword" id="CPassword" required>
             </div>
             <div class="form-group">
-              <label for="FullName">Full Name</label>
-              <input type="text" class="form-control" name="FullName" id="FullName" value="<?php echo isset($_POST['FullName']) ? $_POST['FullName'] : '' ?>" required>
-            </div>
-            <div class="form-group">
               <label for="Email">Email Address</label>
               <?php
               if ($emailErr == 0){
                 echo '<div class="form-group">
-                <input type="text" class="form-control" name="Email" id="Email" value="';
+                <input type="email" class="form-control" name="Email" id="Email" value="';
                 echo isset($_POST['Email']) ? $_POST['Email'] : '';
                 echo '" required>';
               }else{
                 echo '<div class="form-group has-danger">
-                <input type="text" class="form-control is-invalid" name="Email" id="Email" value="';
+                <input type="email" class="form-control is-invalid" name="Email" id="Email" value="';
                 echo isset($_POST['Email']) ? $_POST['Email'] : '';
                 echo '" required>';
                 echo '<font size="2" class="invalid-feedback">Sorry, that e-mail is already being used. Already have an account?</font>';
+                $emailErr = 0;
               }
               ?>
             </div>
             <div class="form-group">
               <label for="Phone">Phone Number</label>
-              <input type="tel" class="form-control" id="Phone" value="<?php echo isset($_POST['Phone']) ? $_POST['Phone'] : '' ?>"required>
-            </div>
-            <div class="form-group">
-              <label for="University">University</label>
-              <select class="form-control" id="University" name="University" onChange="getDepartments(this.value);" required>
-                <option disabled selected value>-- Choose University --</option>
-                <?php
-                $query = "SELECT * from university where 1";
-                $result = $conn->query($query);
-                while ($row = $result->fetch_assoc()){
-                  echo '<option value='.$row['Id'].'>'.$row['Name'].'</option>';
-                }
-                ?>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="Department">Department</label>
-              <select class="form-control" id="department-list" name="department" required>
-                <option disabled selected value="">-- Choose Department --</option>
-              </select>
+              <input type="tel" class="form-control" name="Phone" id="Phone" pattern="[0-9]{10}" title="Type a 10-digit number" value="<?php echo isset($_POST['Phone']) ? $_POST['Phone'] : '' ?>"required>
             </div>
 
+            <?php
+            if ($id == 1){
+              echo '
+              <div class="form-group">
+                <label for="University">University</label>
+                <select class="form-control" id="University" name="University" onChange="getDepartments(this.value);" required>
+                  <option disabled selected value>-- Choose University --</option>';
+                  $query = "SELECT * from university where 1";
+                  $result = $conn->query($query);
+                  while ($row = $result->fetch_assoc()){
+                    echo '<option value='.$row['Id'].'>'.$row['Name'].'</option>';
+                  }
+              echo '
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Department">Department</label>
+                <select class="form-control" id="department-list" name="department" required>
+                  <option disabled selected value="">-- Choose Department --</option>
+                </select>
+              </div>';
+            }else if ($id == 2){
+              echo '<div class="form-group">
+              <label for="Address">Address</label>
+              <input type="text" class="form-control" name="Address" id="Address" value="';
+              echo isset($_POST['Address']) ? $_POST['Address'] : '';
+              echo '" required>';
+            }
+            ?>
             <hr class="my-4">
             <button type="submit" name="SignUp" class="btn btn-primary">Submit</button>
             <a href="http://localhost/index.php">

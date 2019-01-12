@@ -77,6 +77,16 @@
       <!-- Item 3 on grid -->
       <div class="bs-item3">
         <div class="jumbotron">
+          <?php
+          if (isset($_SESSION['signup'])) {
+            if($_SESSION['signup'] == 1){
+              echo '<div class="alert alert-dismissible alert-success">
+                <strong> You successfully signed up!</strong>
+              </div>';
+              unset($_SESSION['signup']);
+            }
+          }
+          ?>
           <h1 class="display-3">Log In</h1>
           <?php
             $id = $_GET['id'];
