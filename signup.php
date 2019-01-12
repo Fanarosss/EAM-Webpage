@@ -108,9 +108,6 @@
                 <a href="http://localhost/signup.php?id=5">Professor</a>
               </div>
             </div>
-            <a href="http://localhost/signup.php">
-              <button class="dropbtn" style="margin-left: 10px; width: 110px;">Sign Up</button>
-            </a>
           </div>
         </nav>
       </div>
