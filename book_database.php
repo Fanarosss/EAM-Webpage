@@ -140,8 +140,8 @@
         <form action="book_database.php" method="POST">
           <div class="form-group">
             <input type="text" name="search" class="form-control" id="search" placeholder="Search" aria-describedby="search">
-            <small id="emailHelp" class="form-text text-muted">Search books by author, title etc.</small>
-            <small id="emailHelp" class="form-text text-muted">Example search: Algo.</small>
+            <small id="emailHelp" class="form-text text-muted">Search books by author, title, publications, isbn.</small>
+            <small id="emailHelp" class="form-text text-muted">Example search: Algo -> Results: Introduction to Algorithms. Kleidarithmos -> Results: All books of Kleidarithmos publications</small>
           </div>
           <div class="search-bn-container">
             <button type="submit" name="submit-search" class="btn btn-primary btn-lg">Search</button>

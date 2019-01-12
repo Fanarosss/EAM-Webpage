@@ -158,11 +158,13 @@
 
         <?php
         if (isset($_POST['submit-options'])){
-          $search = mysqli_real_escape_string($conn, $_POST['department']);
-          $query = "SELECT * FROM class WHERE 1";
+          $dep_id = mysqli_real_escape_string($conn, $_POST['department']);
+          $query = "SELECT * FROM class WHERE class.Department_id='".$dep_id."'";
           $result = $conn->query($query);
-          if ($result){
-            echo '<h1>Classes:</h1>';
+          echo '<div class="fancy-header">
+                  <h1>Classes:</h1>
+                </div>';
+          if (mysqli_num_rows($result) > 0) {
             echo '<div class="book-row">';
             while($row = $result->fetch_assoc()){
               echo '<div class="btn">';
@@ -188,10 +190,8 @@
             }
             echo '</div>';
           }else{
-            echo "<h1>There are no results matching your search.</h1>";
+            echo "There are no results matching your search.";
           }
-        } else {
-          echo 'Classes';
         }
         ?>
 
