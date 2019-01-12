@@ -11,9 +11,13 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+  <script type="text/javascript" src="./js/options.js"></script>
   <?php
     include('./src/config.php');
     $passwordErr = 0;
@@ -107,19 +111,22 @@
           }
           ?>
           <h1 class="display-3">Sign Up</h1>
+          <?php
+            $id = $_GET['id'];
+            if ($id == 1){
+              echo "For Students";
+            }else if ($id == 2){
+              echo "For Publishers";
+            }else if ($id == 3){
+              echo "For Secretaries";
+            }else if ($id == 4){
+              echo "For Distributors";
+            }else if ($id == 5){
+              echo "For Professors";
+            }
+          ?>
           <form action="" method="POST">
             <hr class="my-2">
-            <div class="form-group">
-              <label for="Type">User Type</label>
-              <select class="form-control" id="Type" name="Type" value="<?php echo isset($_POST['Type']) ? $_POST['Type'] : '' ?>" required>
-                <option disabled selected value>-- Choose Type --</option>
-                <option value='1' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='1') echo 'selected="selected"';}?>>Student</option>
-                <option value='2' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='2') echo 'selected="selected"';}?>>Publisher</option>
-                <option value='3' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='3') echo 'selected="selected"';}?>>Secretary</option>
-                <option value='4' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='4') echo 'selected="selected"';}?>>Distributor</option>
-                <option value='5' <?php if (isset($_POST['Type'])) {if($_POST['Type']=='5') echo 'selected="selected"';}?>>Professor</option>
-              </select>
-            </div>
             <div class="form-group">
               <label for="Username">Username</label>
               <?php
@@ -179,6 +186,33 @@
               <label for="Phone">Phone Number</label>
               <input type="tel" class="form-control" id="Phone" value="<?php echo isset($_POST['Phone']) ? $_POST['Phone'] : '' ?>"required>
             </div>
+            <div class="form-group">
+              <label for="Type">University</label>
+              <select class="form-control" id="University" name="University" required>
+                <option disabled selected value>-- Choose University --</option>
+                <?php
+                $query = "SELECT * from university where 1";
+                $result = $conn->query($query);
+                while ($row = $result->fetch_assoc()){
+                  echo '<option id="'.$row['Id'].'" value='.$row['Id'].'>'.$row['Name'].'</option>';
+                }
+                ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="Type">Department</label>
+              <select class="form-control" id="Department" name="Department" required>
+                <option disabled selected value>-- Choose Department --</option>
+                <?php
+                $query = "SELECT * from department where 1";
+                $result = $conn->query($query);
+                while ($row = $result->fetch_assoc()){
+                  echo '<option data-name="'.$row['University_id'].'" value='.$row['Id'].'>'.$row['Name'].'</option>';
+                }
+                ?>
+              </select>
+            </div>
+
             <hr class="my-4">
             <button type="submit" name="SignUp" class="btn btn-primary">Submit</button>
             <a href="http://localhost/index.php">
