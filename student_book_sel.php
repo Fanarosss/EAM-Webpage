@@ -29,6 +29,8 @@
    if(isset($_POST['Cancel'])){
      unset($_POST['Cancel']);
      unset($_SESSION['Editing_Form']);
+     unset($_SESSION['selected_class']);
+     unset($_SESSION['selected_books']);
    }
 ?>
 <!DOCTYPE html>
