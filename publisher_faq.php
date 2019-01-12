@@ -74,6 +74,51 @@
         <a class="nav-link" href="https://eudoxus.gr/files/ManualPublishersUpdateBooks.pdf" target="_blank">Manual</a>
       </li>
     </ul>
+    <!-- item2 on bs2 grid-->
+    <div class="faq-grid">
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Is book distribution possible without using Eudoxus?</div>
+        <div class="card-body">
+          <h4 class="card-title">Primary card title</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Who have the right to register books for distribution?</div>
+        <div class="card-body">
+          <h4 class="card-title">Primary card title</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">How to register a book?</div>
+        <div class="card-body">
+          <h4 class="card-title">Primary card title</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Is there any limitation to the number of books that I can register?</div>
+        <div class="card-body">
+          <h4 class="card-title">Primary card title</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">How to select multiple distribution points for one book?</div>
+        <div class="card-body">
+          <h4 class="card-title">Primary card title</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">What do I have to keep in mind for my security?</div>
+        <div class="card-body">
+          <h4 class="card-title">Primary card title</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
