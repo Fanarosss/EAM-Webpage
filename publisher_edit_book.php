@@ -29,48 +29,63 @@
     $book = mysqli_fetch_assoc($result);
   ?>
   <?php
-    $IdErr = 0;
     $TitleErr = 0;
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-      $id = mysqli_real_escape_string($conn, $_POST['Id']);
       $title = mysqli_real_escape_string($conn, $_POST['Title']);
       $author = mysqli_real_escape_string($conn, $_POST['Author']);
       $pages = mysqli_real_escape_string($conn, $_POST['Pages']);
       $dims = mysqli_real_escape_string($conn, $_POST['Dimensions']);
       $cost = mysqli_real_escape_string($conn, $_POST['Costing']);
-      $img1 = addslashes(file_get_contents($_FILES['FPage']['tmp_name']));
-      if(empty($img1)){
+      if(empty(file_get_contents($_FILES['FPage']['tmp_name']))){
         $img1 = $book['FPage'];
+      }else{
+        $img1 = addslashes(file_get_contents($_FILES['FPage']['tmp_name']));
       }
-      $img2 = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
-      if(empty($img2)){
+      if(empty(file_get_contents($_FILES['BPage']['tmp_name']))){
         $img2 = $book['BPage'];
+      }else{
+        $img2 = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
       }
-      $img3 = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
-      if(empty($img3)){
+      if(empty(file_get_contents($_FILES['Contents']['tmp_name']))){
         $img3 = $book['Contents'];
+      }else{
+        $img3 = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
       }
-      $img4 = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
-      if(empty($img4)){
+      if(empty(file_get_contents($_FILES['Extract']['tmp_name']))){
         $img4 = $book['Extract'];
+      }else{
+        $img4 = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
       }
-      $book_check_query = "SELECT * FROM book WHERE ISBN!='$ISBN' AND (Id='$id' OR Title='$title')";
+      // $img2 = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
+      // if(empty($img2)){
+      //   $img2 = $book['BPage'];
+      // }
+      // $img3 = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
+      // if(empty($img3)){
+      //   $img3 = $book['Contents'];
+      // }
+      // $img4 = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
+      // if(empty($img4)){
+      //   $img4 = $book['Extract'];
+      // }
+      $book_check_query = "SELECT * FROM book WHERE ISBN!='$ISBN' AND Title='$title'";
       $check_result = $conn->query($book_check_query);
       $check = mysqli_fetch_assoc($check_result);
       if ($check) {
-        if ($check['Id'] == $id) {
-          $IdErr = 1;
-        }
-        if ($check['Title'] == $title) {
-          $TitleErr = 1;
-        }
+        $TitleErr = 1;
       }else{
-        $book_delete_query = "DELETE from book where ISBN = '$ISBN'";
-        $conn->query($book_delete_query);
-        $book_edit_query = "INSERT INTO book VALUES('$id', '$title', '$author', '$publications', '$ISBN', '$pages', '$dims', '$cost', '$img1', '$img2', '$img3', '$img4')";
-        $conn->query($book_edit_query);
+        $book_edit1_query = "UPDATE book SET Title='$title', Author='$author', Pages='$pages', Dimensions='$dims', Costing='$cost' where ISBN = '$ISBN'";
+        $conn->query($book_edit1_query);
+        $book_editimg1_query = "UPDATE book SET FPage='$img1' where ISBN = '$ISBN'";
+        $conn->query($book_editimg1_query);
+        $book_editimg2_query = "UPDATE book SET BPage='$img2' where ISBN = '$ISBN'";
+        $conn->query($book_editimg2_query);
+        $book_editimg3_query = "UPDATE book SET Contents='$img3' where ISBN = '$ISBN'";
+        $conn->query($book_editimg3_query);
+        $book_editimg4_query = "UPDATE book SET Extract='$img4' where ISBN = '$ISBN'";
+        $conn->query($book_editimg4_query);
         $_SESSION['msg'] = 2;
-        // header("location: publisher_book_man.php");
+        header("location: publisher_book_man.php");
       }
     }
   ?>
@@ -144,21 +159,10 @@
             <div class="form-group">
               <label for="Id">Id</label>
               <?php
-              if ($IdErr == 0){
                 echo '<div class="form-group">
                 <input type="text" class="form-control" name="Id" value="';
                 echo $book['Id'];
-                echo '" required>';
-              }else{
-                echo '<div class="form-group has-danger">
-                <input type="text" class="form-control is-invalid" name="Id" value="';
-                echo isset($_POST['Id']) ? $_POST['Id'] : '';
-                echo '" required>';
-                if(isset($_SESSION['b_id'])){
-                  unset($_SESSION['b_id']);
-                }
-                echo '<font size="2" class="invalid-feedback">Sorry, that Id is already registered. Try another?</font>';
-              }
+                echo '" disabled>';
               ?>
             </div>
             <div class="form-group">

@@ -1,7 +1,7 @@
 <?php
    include('./src/session.php');
    include('./src/config.php');
-
+   $deleted = 0;
    if (filter_input(INPUT_GET, 'action') == 'delete'){
      $ISBN = $_GET['ISBN'];
      $book_delete_query = "DELETE from book where ISBN = '$ISBN'";
@@ -91,18 +91,20 @@
                   <strong>--Book was deleted successfully!--</strong>
                 </div>';
         }
-        if ($_SESSION['msg'] == 1){
-          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>--Book was added successfully!--</strong>
-                </div>';
-          unset($_SESSION['msg']);
-        }else if ($_SESSION['msg'] == 2){
-          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>--Book was edited successfully!--</strong>
-                </div>';
-          unset($_SESSION['msg']);
+        if(isset($_SESSION['msg'])){
+          if ($_SESSION['msg'] == 1){
+            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Book was added successfully!--</strong>
+                  </div>';
+            unset($_SESSION['msg']);
+          }else if ($_SESSION['msg'] == 2){
+            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Book was edited successfully!--</strong>
+                  </div>';
+            unset($_SESSION['msg']);
+          }
         }
         ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
