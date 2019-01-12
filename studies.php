@@ -1,5 +1,6 @@
 <?php
    include('./src/session.php');
+   include('./src/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +15,10 @@
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./js/options.js"></script>
+  <script type="text/javascript" src="./js/scripts.js"></script>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
@@ -123,23 +128,73 @@
     <!-- Item 2 on grid2 -->
     <div class="bs-grid">
       <!-- Item 3 on grid -->
-      <div class="selection" style="padding-right:70%">
-        <div class="form-group">
-          <select class="custom-select" style="margin-bottom:30px">
-            <option selected="">--Select University--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <select class="custom-select">
-            <option selected="">--Select Degree--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-        <h1>Curriculum for your Degree: </h1>
-        <p style="color:grey">Not selected degree and university</p>
+      <form method="post" action="studies.php">
+        <div class="selection">
+          <div class="form-group">
+            <label for="University">University</label>
+            <select class="form-control" id="University" name="University" onChange="getDepartments(this.value);" required>
+              <option disabled selected value>-- Choose University --</option>
+              <?php
+              $query = "SELECT * from university where 1";
+              $result = $conn->query($query);
+              while ($row = $result->fetch_assoc()){
+                echo '<option value='.$row['Id'].'>'.$row['Name'].'</option>';
+              }
+              ?>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Department">Department</label>
+            <select class="form-control" id="department-list" name="department" required>
+              <option disabled selected value="">-- Choose Department --</option>
+            </select>
+          </div>
+          <div class="search-bn-container">
+            <button type="submit" name="submit-options" class="btn btn-primary btn-lg">Search</button>
+          </div>
+        </form>
+      </div>
+      <div class="results-container">
+
+        <?php
+        if (isset($_POST['submit-options'])){
+          $search = mysqli_real_escape_string($conn, $_POST['department']);
+          $query = "SELECT * FROM class WHERE 1";
+          $result = $conn->query($query);
+          if ($result){
+            echo '<h1>Classes:</h1>';
+            echo '<div class="book-row">';
+            while($row = $result->fetch_assoc()){
+              echo '<div class="btn">';
+              echo '<input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">';
+              echo '</div>';
+              echo '<!-- Modal -->
+                    <div class="modal fade" id="dataModal" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header" id="class_header">
+                          </div>
+                          <div class="modal-body" id="class_details">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>';
+            }
+            echo '</div>';
+          }else{
+            echo "<h1>There are no results matching your search.</h1>";
+          }
+        } else {
+          echo 'Classes';
+        }
+        ?>
+
       </div>
     </div>
   </div>

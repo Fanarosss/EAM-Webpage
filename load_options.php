@@ -11,7 +11,7 @@ if (isset($_POST['uid'])){
   <?php
 	while($department=$result->fetch_assoc()) {
     ?>
-  	<option value="<?php echo $department["Id"]; ?>"><?php echo $department["Name"]; ?></option>
+  	<option name="department" value="<?php echo $department["Id"]; ?>"><?php echo $department["Name"]; ?></option>
     <?php
   }
 }
