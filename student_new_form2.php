@@ -241,7 +241,16 @@
         }
         ?>
       </div>
-      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_new_form3.php">Proceed</a>
+      <form method="post" action="http://localhost/student_book_sel.php">
+        <a role="button" class="btn btn-primary btn-lg <?php if(!isset($_SESSION['selected_books'])){
+        echo 'disabled';
+      }else{
+        if(isset($_SESSION['selected_books']) && (count($_SESSION['selected_books']) == 0)){
+          echo 'disabled';}}?>"
+        style="margin-top: 2em;" href="http://localhost/student_new_form2.php">Proceed</a>
+        <input type="hidden" name="Cancel" value="unset"/>
+        <button type="submit" class="btn btn-danger btn-lg" style="margin-top: 2em;">Cancel</a>
+      </form>
     </div>
   </div>
 </body>

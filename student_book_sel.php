@@ -25,6 +25,11 @@
      unset($_POST['checkout']);
      unset($_SESSION['Editing_Form']);
    }
+
+   if(isset($_POST['Cancel'])){
+     unset($_POST['Cancel']);
+     unset($_SESSION['Editing_Form']);
+   }
 ?>
 <!DOCTYPE html>
 <html lang="en">

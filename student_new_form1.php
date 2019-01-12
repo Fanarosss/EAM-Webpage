@@ -3,44 +3,46 @@
   include('./src/config.php');
   //Implementation similar to shoping cart
 
-  $query = "SELECT * FROM form WHERE form.User_id = '".$_SESSION['Username']."' AND form.Ended = 0";
-  $result = $conn->query($query);
-  if (!$result) die($conn->error);
-  if (mysqli_num_rows($result) > 0) {
-    $row = $result->fetch_assoc();
-    $query2 = "SELECT * FROM class, form_has_book WHERE form_has_book.Form_id = '".$row['Id']."' AND form_has_book.Class_id = class.Id";
-    $result2 = $conn->query($query2);
-    $count = 0;
-    $count2 = 0;
-    while($row2 = $result2->fetch_assoc()){
-      $_SESSION['selected_class'][$count] = array
-      (
-       'id' => $row2['Id'],
-       'name' => $row2['Name'],
-       'professor' => $row2['Professor'],
-       'semester' => $row2['Semester']
-      );
-      $count++;
-      $query3 = "SELECT * FROM book, form_has_book WHERE form_has_book.Form_id = '".$row['Id']."' AND form_has_book.class_id = '".$row2['Id']."'
-                AND book.Id = form_has_book.Book_id";
-      $result3 = $conn->query($query3);
-      while($row3 = $result3->fetch_assoc()){
-        $_SESSION['selected_books'][$count2] = array
+  if(!isset($_SESSION['Editing_Form'])){
+    $query = "SELECT * FROM form WHERE form.User_id = '".$_SESSION['Username']."' AND form.Ended = 0";
+    $result = $conn->query($query);
+    if (!$result) die($conn->error);
+    if (mysqli_num_rows($result) > 0) {
+      $row = $result->fetch_assoc();
+      $query2 = "SELECT * FROM class, form_has_book WHERE form_has_book.Form_id = '".$row['Id']."' AND form_has_book.Class_id = class.Id";
+      $result2 = $conn->query($query2);
+      $count = 0;
+      $count2 = 0;
+      while($row2 = $result2->fetch_assoc()){
+        $_SESSION['selected_class'][$count] = array
         (
-          'id' => $row3['Id'],
-          'title' => $row3['Title'],
-          'author' => $row3['Author'],
-          'publications' => $row3['Publications'],
-          'for_class' => $row2['Id']
+         'id' => $row2['Id'],
+         'name' => $row2['Name'],
+         'professor' => $row2['Professor'],
+         'semester' => $row2['Semester']
         );
-        $count2++;
+        $count++;
+        $query3 = "SELECT * FROM book, form_has_book WHERE form_has_book.Form_id = '".$row['Id']."' AND form_has_book.class_id = '".$row2['Id']."'
+                  AND book.Id = form_has_book.Book_id";
+        $result3 = $conn->query($query3);
+        while($row3 = $result3->fetch_assoc()){
+          $_SESSION['selected_books'][$count2] = array
+          (
+            'id' => $row3['Id'],
+            'title' => $row3['Title'],
+            'author' => $row3['Author'],
+            'publications' => $row3['Publications'],
+            'for_class' => $row2['Id']
+          );
+          $count2++;
+        }
       }
-    }
-    $_SESSION['class_ids'] = array_column($_SESSION['selected_class'], 'id');
-    $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
-    $selected = array_column($_SESSION['selected_books'], 'for_class');
-    $_SESSION['Editing_Form'] = $row['Id'];
+      $_SESSION['class_ids'] = array_column($_SESSION['selected_class'], 'id');
+      $_SESSION['book_ids'] = array_column($_SESSION['selected_books'], 'id');
+      $selected = array_column($_SESSION['selected_books'], 'for_class');
+      $_SESSION['Editing_Form'] = $row['Id'];
 
+    }
   }
 
    if(filter_input(INPUT_POST, 'add_to_selected')) {
@@ -341,7 +343,18 @@
         echo '</div>';
         ?>
       </div>
-      <a role="button" class="btn btn-primary btn-lg" style="margin-top: 2em;" href="http://localhost/student_new_form2.php">Proceed</a>
+      <div class="button-row" style="max-height: ;">
+        <form method="post" action="http://localhost/student_book_sel.php">
+          <a role="button" class="btn btn-primary btn-lg <?php if(!isset($_SESSION['selected_class'])){
+          echo 'disabled';
+        }else{
+          if(isset($_SESSION['selected_class']) && (count($_SESSION['selected_class']) == 0)){
+            echo 'disabled';}}?>"
+          style="margin-top: 2em;" href="http://localhost/student_new_form2.php">Proceed</a>
+          <input type="hidden" name="Cancel" value="unset"/>
+          <button type="submit" class="btn btn-danger btn-lg" style="margin-top: 2em;">Cancel</a>
+        </form>
+      </div>
     </div>
   </div>
 </body>

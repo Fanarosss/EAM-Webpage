@@ -160,6 +160,7 @@
       <form method="post" action="http://localhost/student_book_sel.php">
         <input type="hidden" name="checkout" id="checkout" value="1"/>
         <button type="save" name="save-form" class="btn btn-primary btn-lg">Confirm</button>
+        <button type="submit" class="btn btn-danger btn-lg">Cancel</a>
       </form>
     </div>
   </div>
