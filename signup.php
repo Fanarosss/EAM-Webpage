@@ -12,11 +12,11 @@
     <link rel="stylesheet" type="text/css" href="/css/foundation.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="./js/options.js"></script>
   <?php
     include('./src/config.php');
@@ -187,29 +187,22 @@
               <input type="tel" class="form-control" id="Phone" value="<?php echo isset($_POST['Phone']) ? $_POST['Phone'] : '' ?>"required>
             </div>
             <div class="form-group">
-              <label for="Type">University</label>
-              <select class="form-control" id="University" name="University" required>
+              <label for="University">University</label>
+              <select class="form-control" id="University" name="University" onChange="getDepartments(this.value);" required>
                 <option disabled selected value>-- Choose University --</option>
                 <?php
                 $query = "SELECT * from university where 1";
                 $result = $conn->query($query);
                 while ($row = $result->fetch_assoc()){
-                  echo '<option id="'.$row['Id'].'" value='.$row['Id'].'>'.$row['Name'].'</option>';
+                  echo '<option value='.$row['Id'].'>'.$row['Name'].'</option>';
                 }
                 ?>
               </select>
             </div>
             <div class="form-group">
-              <label for="Type">Department</label>
-              <select class="form-control" id="Department" name="Department" required>
-                <option disabled selected value>-- Choose Department --</option>
-                <?php
-                $query = "SELECT * from department where 1";
-                $result = $conn->query($query);
-                while ($row = $result->fetch_assoc()){
-                  echo '<option data-name="'.$row['University_id'].'" value='.$row['Id'].'>'.$row['Name'].'</option>';
-                }
-                ?>
+              <label for="Department">Department</label>
+              <select class="form-control" id="department-list" name="department" required>
+                <option disabled selected value="">-- Choose Department --</option>
               </select>
             </div>
 
