@@ -136,15 +136,15 @@
             <legend>Contact Form</legend>
             <div class="form-group">
               <label for="Name">Full Name</label>
-              <input type="text" class="form-control" id="Name" placeholder="Ex: John Davis" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ex: John Davis'">
+              <input type="text" class="form-control" id="Name" placeholder="Ex: John Davis" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ex: John Davis'" required>
             </div>
             <div class="form-group">
               <label for="Phone">Phone Number</label>
-              <input type="tel" class="form-control" id="Phone" placeholder="Ex: 6986321654" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ex: 6986321654'">
+              <input type="tel" class="form-control" id="Phone" placeholder="Ex: 6986321654" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ex: 6986321654'" required>
             </div>
             <div class="form-group">
               <label for="Email">Email Address</label>
-              <input type="email" class="form-control" id="Email" placeholder="Ex: JohnD@gmail.com" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ex: JohnD@gmail.com'">
+              <input type="email" class="form-control" id="Email" placeholder="Ex: JohnD@gmail.com" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ex: JohnD@gmail.com'" required>
             </div>
             <div class="form-group">
               <label for="Type">User Type</label>
@@ -159,7 +159,7 @@
             </div>
             <div class="form-group">
               <label for="Title">Text Title</label>
-              <input type="text" class="form-control" id="Title">
+              <input type="text" class="form-control" id="Title" required>
             </div>
             <div class="form-group">
               <label for="Text">Text Area</label>
