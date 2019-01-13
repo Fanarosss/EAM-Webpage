@@ -131,15 +131,8 @@
       <!-- Item 1 on grid -->
       <div class="bs-item3">
         <div class="jumbotron" style="margin-bottom: 10px;">
-          <div class="splitter">
-            <div class="split1">
-              <h1 class="display-3">Book distribution!</h1>
-              <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
-            </div>
-            <div class="split2" style="padding: 2em;">
-              <a role="button" class="btn btn-outline-primary btn-lg" style="color: black" href="http://localhost/studies.php"><h3>Browser for all departments.</h3></a>
-            </div>
-          </div>
+          <h1 class="display-3">Book distribution!</h1>
+          <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
           <hr class="my-4">
           <div class="splitter">
             <div class="split1">
@@ -149,7 +142,10 @@
               </p>
             </div>
             <div class="split2" style="padding-left: 2em;">
-              <a role="button" class="btn btn-outline-primary btn-lg" style="color: black" href="http://localhost/book_database.php"><h3>Search Engine.</h3></a>
+              <a role="button" class="btn btn-outline-primary btn-lg" href="http://localhost/studies.php"><h3>Browser for all departments.</h3></a>
+            </div>
+            <div class="split3" style="padding-left: 2em;">
+              <a role="button" class="btn btn-outline-primary btn-lg" href="http://localhost/book_database.php"><h3>Search Engine.</h3></a>
             </div>
           </div>
         </div>
