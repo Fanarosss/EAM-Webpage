@@ -162,7 +162,7 @@
             echo '<div class="book-row">';
             while($row = $result->fetch_assoc()){
               echo '<div class="btn">';
-              echo '<input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">';
+              echo '<input class="myButton view_data" title="Click to view book preview" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">';
               echo '</div>';
               echo '<!-- Modal -->
                     <div class="modal fade" id="dataModal" role="dialog">
@@ -194,7 +194,7 @@
           echo '<div class="book-row">';
           while($row = $result->fetch_assoc()){
             echo '<div class="btn">';
-            echo '<input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">';
+            echo '<input class="myButton view_data" title="Click to view book preview" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">';
             echo '</div>';
             echo '<!-- Modal -->
                   <div class="modal fade" id="dataModal" role="dialog">

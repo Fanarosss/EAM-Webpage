@@ -96,7 +96,7 @@
             <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
           </li>
           <li class="nav-item" style="padding-bottom:2em">
-            <a class="nav-link" href="http://localhost/student_manual.php" target="_blank">Manual</a>
+            <a class="nav-link" href="http://localhost/student_manual.php">Manual</a>
           </li>
         </ul>';
       }else if ($_SESSION['Id'] == 2){
@@ -115,7 +115,7 @@
             <a class="nav-link" href="http://localhost/publisher_faq.php">FAQ</a>
           </li>
           <li class="nav-item" style="padding-bottom:2em">
-            <a class="nav-link" href="http://localhost/publisher_manual.php" target="_blank">Manual</a>
+            <a class="nav-link" href="http://localhost/publisher_manual.php">Manual</a>
           </li>
         </ul>';
       }
@@ -208,12 +208,12 @@
               echo '<div class="panel panel-default">
                     <div class="panel-heading" style="margin-top: 2em;">
                       <h4 class="panel-title">
-                        <button class="myButton" data-toggle="collapse" data-parent="#accordion" href="#collapse1'.$row['Id'].'">'.$row['Id'].' | '.$row['Name'].'</button>
+                        <button class="myButton" title="Click for book choices and class info" data-toggle="collapse" data-parent="#accordion" href="#collapse1'.$row['Id'].'">'.$row['Id'].' | '.$row['Name'].'</button>
                       </h4>
                     </div>
                     <div id="collapse1'.$row['Id'].'" class="panel-collapse collapse in">
                     <div class="class-info">
-                      <input class="btn btn-outline-dark view_info" style="min-width: 200px;" type="submit" data-toggle="modal" data-target="#dataModal1" id="'.$row['Id'].'" value="Class Info">
+                      <input class="btn btn-outline-dark view_info" title="Click to view class description" style="min-width: 200px;" type="submit" data-toggle="modal" data-target="#dataModal1" id="'.$row['Id'].'" value="Class Info">
                     </div>
                     <div class="cart-container" style="display: grid; grid-template-columns: 50% 50%">';
               $query2 = "SELECT * FROM book,class_has_choice WHERE class_has_choice.Class_id='".$row['Id']."' AND book.Id = class_has_choice.Book_id";
@@ -221,7 +221,7 @@
               if (mysqli_num_rows($result) > 0) {
                 while($row2 = $result2->fetch_assoc()){
                   echo '<div class="btn2" >';
-                  echo '<input class="myButton view_data" type="submit" data-toggle="modal" data-target="#dataModal2" id="'.$row2['ISBN'].'" value="'.$row2['Title'].'">';
+                  echo '<input class="myButton view_data" title="Click to view book preview" type="submit" data-toggle="modal" data-target="#dataModal2" id="'.$row2['ISBN'].'" value="'.$row2['Title'].'">';
                   echo '</div>';
                   }
                 }else{

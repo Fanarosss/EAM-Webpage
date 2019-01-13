@@ -209,7 +209,7 @@
                       echo '>';
                     }
                 echo '<div class="btn">
-                        <input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">
+                        <input class="myButton view_data" title="Click to view book preview" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">
                       </div>
                       <form method="post" action="http://localhost/student_new_form2.php?action=add&id='.$row['BId'].'">
                             <input type="hidden" name="Title" value="'.$row['Title'].'"/>
