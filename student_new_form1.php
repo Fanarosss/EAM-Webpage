@@ -200,7 +200,7 @@
           echo '<div class="panel panel-default">
                 <div class="panel-heading" style="margin-top: 2em;">
                   <h4 class="panel-title">
-                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h3><b>Winter Period:</b></h3></button>
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h3><b>My Department:</b></h3></button>
                   </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">';
@@ -211,12 +211,12 @@
             if (!$result) die($conn->error);
             echo '<div class="panel panel-default">
                   <div class="panel-heading" style="margin-top: 2em;">
-                    <h4 class="panel-title">
+                    <h4 class="panel-title" style="margin-left: 20px;">
                       <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsew1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
                     </h4>
                   </div>
                   <div id="collapsew1'.$semid.'" class="panel-collapse collapse in">
-                  <div class="cart-container">';
+                  <div class="cart-container" style="margin-left: 20px;">';
             if (mysqli_num_rows($result) > 0) {
               while($row = $result->fetch_assoc()){
                 echo '<div class="myshop-item"';
@@ -230,7 +230,7 @@
                       echo '>';
                     }
                 echo  '<div class="btn">
-                      <input class="myButton view_info" title="Click for class description" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
+                      <input class="myButton view_info" title="Click for class description" type="submit" data-toggle="modal" data-target="dataModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
                       </div>
                       <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
                       <input type="hidden" name="Name" value="'.$row['Name'].'"/>
@@ -247,23 +247,6 @@
             echo '</div>';
             echo '</div>';
             echo '</div>';
-            echo '<!-- Modal -->
-                  <div class="modal fade" id="dataModal" role="dialog">
-                    <div class="modal-dialog">
-
-                      <!-- Modal content-->
-                      <div class="modal-content">
-                        <div class="modal-header" id="class_header">
-                        </div>
-                        <div class="modal-body" id="class_details">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>';
           }
           echo '</div>';
           echo '</div>';
@@ -273,7 +256,7 @@
           echo '<div class="panel panel-default">
                 <div class="panel-heading" style="margin-top: 2em;">
                   <h4 class="panel-title">
-                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h3><b>Summer Period:</b></h3></button>
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h3><b>My Department:</b></h3></button>
                   </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse in">';
@@ -284,12 +267,12 @@
             if (!$result) die($conn->error);
             echo '<div class="panel panel-default">
                   <div class="panel-heading" style="margin-top: 2em;">
-                    <h4 class="panel-title">
+                    <h4 class="panel-title" style="margin-left: 20px;">
                       <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapses1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
                     </h4>
                   </div>
                   <div id="collapses1'.$semid.'" class="panel-collapse collapse in">
-                  <div class="cart-container">';
+                  <div class="cart-container" style="margin-left: 20px;">';
             if (mysqli_num_rows($result) > 0) {
               while($row = $result->fetch_assoc()){
                 echo '<div class="myshop-item"';
@@ -303,7 +286,7 @@
                       echo '>';
                     }
                 echo '<div class="btn">
-                        <input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
+                        <input class="myButton view_info" type="submit" data-toggle="modal" data-target="dataModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
                       </div>
                       <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
                       <input type="hidden" name="Name" value="'.$row['Name'].'">
@@ -319,31 +302,196 @@
             echo '</div>';
             echo '</div>';
             echo '</div>';
-            echo '<!-- Modal -->
-                  <div class="modal fade" id="dataModal" role="dialog">
-                    <div class="modal-dialog">
-
-                      <!-- Modal content-->
-                      <div class="modal-content">
-                        <div class="modal-header" id="class_header">
-                        </div>
-                        <div class="modal-body" id="class_details">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>';
           }
           echo '</div>';
           echo '</div>';
         }
+
+        //other departmets!!
+
+        if (isset($_SESSION['Period']) && ($_SESSION['Period'] == 'Winter')){
+          echo '<div class="panel-group" id="accordion" style="display:grid;">';
+          echo '<div class="panel panel-default">
+                <div class="panel-heading" style="margin-top: 2em;">
+                  <h4 class="panel-title">
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse3"><h3><b>Other Departments:</b></h3></button>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse in">';
+          $query2 = "SELECT DISTINCT d1.Id, d1.Name, d1.University_id FROM department d1, department d2, university, student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = d2.Id
+                    and d2.University_id = d1.University_id AND d1.Id != student.Department_id ORDER BY d1.Name ASC";
+          $result2 = $conn->query($query2);
+          if (!$result2) die($conn->error);
+          while($row2 = $result2->fetch_assoc()){
+            echo '<div class="panel panel-default">
+                  <div class="panel-heading" style="margin-top: 2em;">
+                    <h4 class="panel-title" style="margin-left: 20px;">
+                      <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsed1'.$row2['Id'].'"><h3><b>'.$row2['Name'].':</b></h3></button>
+                    </h4>
+                  </div>
+                  <div id="collapsed1'.$row2['Id'].'" class="panel-collapse collapse in">';
+            for ($semid = 1; $semid <=7; $semid+=2) {
+              $query = "SELECT * FROM class WHERE class.Department_id = '".$row2['Id']."'
+                        AND Period = 'Winter' AND Semester='".$semid."' ORDER BY class.Name ASC";
+              $result = $conn->query($query);
+              if (!$result) die($conn->error);
+              echo '<div class="panel panel-default">
+                    <div class="panel-heading" style="margin-top: 2em;">
+                      <h4 class="panel-title" style="margin-left: 40px;">
+                        <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsec1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                      </h4>
+                    </div>
+                    <div id="collapsec1'.$semid.'" class="panel-collapse collapse in">
+                    <div class="cart-container" style="margin-left: 40px;">';
+              if (mysqli_num_rows($result) > 0) {
+                while($row = $result->fetch_assoc()){
+                  echo '<div class="myshop-item"';
+                        if(isset($_SESSION['selected_class'])){
+                          if (in_array($row['Id'], $_SESSION['class_ids'])) {
+                            echo ' style="background-color: #eee;"><i class="fas fa-check-circle" style="color: #2ea0c9"></i>';
+                        }else{
+                          echo '>';
+                        }
+                      }else{
+                        echo '>';
+                      }
+                  echo  '<div class="btn">
+                        <input class="myButton view_info" title="Click for class description" type="submit" data-toggle="modal" data-target="dataModal3" id="'.$row['Id'].'" value="'.$row['Name'].'">
+                        </div>
+                        <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
+                        <input type="hidden" name="Name" value="'.$row['Name'].'"/>
+                        <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
+                        <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
+                        <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
+                        </form>
+                        </div>';
+                }
+              }else{
+                echo '<p>No classes available.<p>';
+              }
+              echo '</div>';
+              echo '</div>';
+              echo '</div>';
+
+            }
+            echo '</div>';
+            echo '</div>';
+
+          }
+          echo '</div>';
+          echo '</div>';
+
+        }
+
+        if (isset($_SESSION['Period']) && ($_SESSION['Period'] == 'Summer')){
+          echo '<div class="panel-group" id="accordion" style="display:grid;">';
+          echo '<div class="panel panel-default">
+                <div class="panel-heading" style="margin-top: 2em;">
+                  <h4 class="panel-title">
+                    <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse3"><h3><b>Other Departments:</b></h3></button>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse in">';
+          $query2 = "SELECT DISTINCT d1.Id, d1.Name, d1.University_id FROM department d1, department d2, university, student WHERE student.Username = '".$_SESSION['Username']."' AND student.Department_id = d2.Id
+                    and d2.University_id = d1.University_id AND d1.Id != student.Department_id ORDER BY d1.Name ASC";
+          $result2 = $conn->query($query2);
+          if (!$result2) die($conn->error);
+          while($row2 = $result2->fetch_assoc()){
+            echo '<div class="panel panel-default">
+                  <div class="panel-heading" style="margin-top: 2em;">
+                    <h4 class="panel-title" style="margin-left: 20px;">
+                      <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsed1'.$row2['Id'].'"><h3><b>'.$row2['Name'].':</b></h3></button>
+                    </h4>
+                  </div>
+                  <div id="collapsed1'.$row2['Id'].'" class="panel-collapse collapse in">';
+            for ($semid = 2; $semid <=8; $semid+=2) {
+              $query = "SELECT * FROM class WHERE class.Department_id = '".$row2['Id']."'
+                        AND Period = 'Winter' AND Semester='".$semid."' ORDER BY class.Name ASC";
+              $result = $conn->query($query);
+              if (!$result) die($conn->error);
+              echo '<div class="panel panel-default">
+                    <div class="panel-heading" style="margin-top: 2em;">
+                      <h4 class="panel-title" style="margin-left: 40px;">
+                        <button class="btn btn-outline-primary" data-toggle="collapse" data-parent="#accordion" href="#collapsec1'.$semid.'"><h3><b>Semester '.$semid.':</b></h3></button>
+                      </h4>
+                    </div>
+                    <div id="collapsec1'.$semid.'" class="panel-collapse collapse in">
+                    <div class="cart-container" style="margin-left: 40px;">';
+              if (mysqli_num_rows($result) > 0) {
+                while($row = $result->fetch_assoc()){
+                  echo '<div class="myshop-item"';
+                        if(isset($_SESSION['selected_class'])){
+                          if (in_array($row['Id'], $_SESSION['class_ids'])) {
+                            echo ' style="background-color: #eee;"><i class="fas fa-check-circle" style="color: #2ea0c9"></i>';
+                        }else{
+                          echo '>';
+                        }
+                      }else{
+                        echo '>';
+                      }
+                  echo  '<div class="btn">
+                        <input class="myButton view_info" title="Click for class description" type="submit" data-toggle="modal" data-target="dataModal3" id="'.$row['Id'].'" value="'.$row['Name'].'">
+                        </div>
+                        <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
+                        <input type="hidden" name="Name" value="'.$row['Name'].'"/>
+                        <input type="hidden" name="Professor" value="'.$row['Professor'].'"/>
+                        <input type="hidden" name="Semester" value="'.$row['Semester'].'"/>
+                        <input type="submit" name="add_to_selected" class="button-hover-addcart button" value="Add to selected"/>
+                        </form>
+                        </div>';
+
+                }
+              }else{
+                echo '<p>No classes available.<p>';
+              }
+              echo '</div>';
+              echo '</div>';
+              echo '</div>';
+            }
+            echo '</div>';
+            echo '</div>';
+          }
+          echo '</div>';
+          echo '</div>';
+        }
+        echo '<!-- Modal -->
+              <div class="modal fade" id="dataModal" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header" id="class_header">
+                    </div>
+                    <div class="modal-body" id="class_details">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>';
+        echo '<!-- Modal -->
+              <div class="modal fade" id="dataModal3" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header" id="class_header">
+                    </div>
+                    <div class="modal-body" id="class_details">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>';
         echo '</div>';
         ?>
       </div>
-      <div class="button-row" style="max-height: ;">
+      <div class="button-row">
         <form method="post" action="http://localhost/student_book_sel.php">
           <a role="button" class="btn btn-primary btn-lg <?php if(!isset($_SESSION['selected_class'])){
           echo 'disabled';
