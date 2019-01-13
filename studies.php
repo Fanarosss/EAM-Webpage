@@ -55,9 +55,16 @@
                     echo '<a href="http://localhost/login.php?id=5">Professor</a>';
                   echo '</div>';
                 echo '</div>';
-                echo '<a href="http://localhost/signup.php">';
-                  echo '<button class="dropbtn" style="margin-left: 10px; width: 110px;">Sign Up</button>';
-                echo '</a>';
+                echo '<div class="mydropdown" style="margin-left:10px">';
+                  echo '<button class="dropbtn" style="width: 110px;">Sign Up</button>';
+                  echo '<div class="mydropdown-content" style="width: 110px;">';
+                    echo '<a href="http://localhost/signup.php?id=1">Student</a>';
+                    echo '<a href="http://localhost/signup.php?id=2">Publisher</a>';
+                    echo '<a href="http://localhost/signup.php?id=3">Secretary</a>';
+                    echo '<a href="http://localhost/signup.php?id=4">Distributor</a>';
+                    echo '<a href="http://localhost/signup.php?id=5">Professor</a>';
+                  echo '</div>';
+                echo '</div>';
               }else{
                 echo '<a href="http://localhost/logout.php">';
                   echo '<button class="dropbtn">Logout</button>';
