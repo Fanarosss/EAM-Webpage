@@ -130,14 +130,28 @@
     <div class="bs-grid">
       <!-- Item 1 on grid -->
       <div class="bs-item3">
-        <div class="jumbotron">
-          <h1 class="display-3">Book distribution!</h1>
-          <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
+        <div class="jumbotron" style="margin-bottom: 10px;">
+          <div class="splitter">
+            <div class="split1">
+              <h1 class="display-3">Book distribution!</h1>
+              <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
+            </div>
+            <div class="split2" style="padding: 2em;">
+              <a role="button" class="btn btn-outline-primary btn-lg" style="color: black" href="http://localhost/studies.php"><h3>Browser for all departments.</h3></a>
+            </div>
+          </div>
           <hr class="my-4">
-          <p>Appropriate management and fast distribution throughout greece.</p>
-          <p class="lead">
-            <a class="btn btn-primary btn-lg" href="http://localhost/about.php" role="button">Learn more</a>
-          </p>
+          <div class="splitter">
+            <div class="split1">
+              <p>Appropriate management and fast distribution throughout greece.</p>
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="http://localhost/about.php" role="button">Learn more</a>
+              </p>
+            </div>
+            <div class="split2" style="padding-left: 2em;">
+              <a role="button" class="btn btn-outline-primary btn-lg" style="color: black" href="http://localhost/book_database.php"><h3>Search Engine.</h3></a>
+            </div>
+          </div>
         </div>
       </div>
       <!-- Item 2 on grid -->

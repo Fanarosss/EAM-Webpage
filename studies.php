@@ -149,7 +149,7 @@
               <option disabled selected value="">-- Choose Department --</option>
             </select>
           </div>
-          <div class="search-bn-container">
+          <div class="search-bn-container" style="text-align: center;">
             <button type="submit" name="submit-options" class="btn btn-primary btn-lg">Search</button>
           </div>
         </form>
@@ -162,33 +162,55 @@
           $query = "SELECT * FROM class WHERE class.Department_id='".$dep_id."'";
           $result = $conn->query($query);
           echo '<div class="fancy-header">
+                  <p style="text-align: center;"><a href="http://localhost/images/'.$dep_id.'.pdf">Link for the curiculum<a> of your Department</p>
                   <h1>Classes:</h1>
                 </div>';
           if (mysqli_num_rows($result) > 0) {
-            echo '<div class="book-row">';
+            echo '<div class="class-row">';
+            echo '<div class="panel-group" id="accordion" style="display: grid; grid-template-columns: 33% 33% 33%;">';
             while($row = $result->fetch_assoc()){
-              echo '<div class="btn">';
-              echo '<input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">';
-              echo '</div>';
-              echo '<!-- Modal -->
-                    <div class="modal fade" id="dataModal" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header" id="class_header">
-                          </div>
-                          <div class="modal-body" id="class_details">
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>';
+              echo '<div class="panel panel-default">
+                    <div class="panel-heading" style="margin-top: 2em;">
+                      <h4 class="panel-title">
+                        <button class="myButton" data-toggle="collapse" data-parent="#accordion" href="#collapse1'.$row['Id'].'">'.$row['Id'].' | '.$row['Name'].'</button>
+                      </h4>
+                    </div>
+                    <div id="collapse1'.$row['Id'].'" class="panel-collapse collapse in">
+                    <div class="cart-container" style="display: grid; grid-template-columns: 50% 50%">';
+              $query2 = "SELECT * FROM book,class_has_choice WHERE class_has_choice.Class_id='".$row['Id']."' AND book.Id = class_has_choice.Book_id";
+              $result2 = $conn->query($query2);
+              if (mysqli_num_rows($result) > 0) {
+                while($row2 = $result2->fetch_assoc()){
+                  echo '<div class="btn2" >';
+                  echo '<input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row2['ISBN'].'" value="'.$row2['Title'].'">';
+                  echo '</div>';
+                  }
+                }else{
+                  echo 'No books listed for this class';
+                }
+              echo '</div>
+                  </div>
+                </div>';
             }
-            echo '</div>';
+            echo '<!-- Modal -->
+                  <div class="modal fade" id="dataModal" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header" id="book_header">
+                        </div>
+                        <div class="modal-body" id="book_details">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>';
+            echo '</div>
+                  </div>';
           }else{
             echo "There are no results matching your search.";
           }
