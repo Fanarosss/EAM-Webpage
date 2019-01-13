@@ -3,8 +3,14 @@
    include('./src/config.php');
 
    if (filter_input(INPUT_GET, 'action') == 'delete'){
-     foreach($_SESSION['selected_class'] as $key => $book){
-       if ($book['id'] == filter_input(INPUT_GET, 'id')){
+     foreach($_SESSION['selected_class'] as $key => $class){
+       if ($class['id'] == filter_input(INPUT_GET, 'id')){
+         foreach($_SESSION['selected_books'] as $key2 => $book){
+           if($book['for_class'] == $class['id']){
+             unset($_SESSION['selected_books'][$key2]);
+             $_SESSION['selected_books'] = array_values($_SESSION['selected_books']);
+           }
+         }
          unset($_SESSION['selected_class'][$key]);
        }
      }
