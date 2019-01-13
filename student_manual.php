@@ -110,18 +110,30 @@
             <p class="lead"><b>Personal instructions:</b></p>
             <hr class="my-2">
             <p class="lead"><i>Home:</i></p>
-            <p>At home screen user can see and access his info. Go to user settings and also check the deadlines.</p>
+            <p>Student's Home Page presents all registration info which consists of Full Name, Username, Address, E-mail, Phone, University, Department and Registration Date.
+            Below those characteristics there is a "Settings" button, where you can change your Password, E-mail and Phone. All other info
+            is handled strictly by University secretaries and can only be changed in certain occasions after personal request. Moreover, in the right side of the page
+            there is a table where you can keep track of the deadline until which you can obtain your books.</p>
             <hr class="my-1">
             <p class="lead"><i>Book Selection:</i></p>
-            <p>At book selection user can create a new form, or edit the current. See all the old forms as well as the books he chose in every each one of them.
-            In a new form, in order to select the books he wants he has to complete 4 steps. STEP 1: Select the classes for which he wants to take books. STEP 2: For every class select the books he wants.
-            STEP 3: Select pickup points, either from a ditribution center, or a fellow student. STEP 4: Confirm his selection, preview his book choices, and see details for the pick up point.</p>
+            <p>This is where you will find all the forms that you have submitted in Eudoxus in order to obtain your books. Here you can either create/edit your
+            current form or inspect the previous forms you have submitted. The process of form submition is divided into 4 simple steps. In the first step you have
+            to select the classes that you are about to attend in this semester either from your department or from other departments of your University. You can
+            edit the books you have selected from the tab "Selected Classes" in the upper right corner. In the second step you are obliged to select one (and only one) book
+            for every class that you will be attending from the choices given. Every book comes with a minor description. Selected books will be marked with a sign in the
+            upper left corner. You can edit the books you have selected from the tab "Selected Books" in the upper right corner. In the third step you have to select the
+            way you are going to receive each and every one of your books. The choices are either from distributors or from a colleague. Finally, when everything is done,
+            you proceed in fourth and final step where you can see a review of your selected classes, books and pickup points and decide whether you want to confirm it or not.
+            Once you have created your first form, you can then edit it as many times as you want until the deadline expires.</p>
             <hr class="my-1">
             <p class="lead"><i>Book List:</i></p>
-            <p>Book List provides to the student all the books he has picked up from a distribution point or a student. It doesn't include books he has selected but not picked up yet.</p>
+            <p>Book List presents all the books that you have picked up from a distribution point or a student. It refers to all your former forms that have been submitted
+            and conducted successfully. Every book can be selected so as to view its description. This list does not include books you have selected in your current form.</p>
             <hr class="my-1">
             <p class="lead"><i>FAQ:</i></p>
-            <p>In here he can find various questions and answers that he might find helpful.</p>
+            <p>Frequently Asked Questions and their answers can be found here to help you with your experience in the site of Eudoxus. Every box corresponds
+            to a single question. If you are not able to find your answer in this section, you can always contact us throught contact form which is available
+            in the Navigation Bar under the title of "Contact".</p>
             <hr class="my-1">
           </div>
         </div>
