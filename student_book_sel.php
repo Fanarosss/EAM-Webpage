@@ -12,7 +12,7 @@
      $year = date('Y');
      $date = date('Y-m-d h:i:sa');
      $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
-     $period = $_SESSION['Period'];
+     $period = mysqli_real_escape_string($conn, $_SESSION['Period']);
      $query = "INSERT INTO form (User_id, Semester, Year, LastEdit, Ended) VALUES ('.$username.','.$period.','.$year.','.$date.',0)";
      $conn->query($query);
      $query2 = "SELECT * FROM form WHERE User_id = '".$_SESSION['Username']."' AND Ended = 0";
