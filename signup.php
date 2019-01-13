@@ -93,9 +93,9 @@
               <div class="mydropdown-content" style="width: 110px;">
                 <a href="http://localhost/login.php?id=1">Student</a>
                 <a href="http://localhost/login.php?id=2">Publisher</a>
-                <a href="http://localhost/login.php?id=3">Secretary</a>
-                <a href="http://localhost/login.php?id=4">Distributor</a>
-                <a href="http://localhost/login.php?id=5">Professor</a>
+                <a href="">Secretary</a>
+                <a href="">Distributor</a>
+                <a href="">Professor</a>
               </div>
             </div>
             <div class="mydropdown" style="margin-left:10px">
@@ -103,9 +103,9 @@
               <div class="mydropdown-content" style="width: 110px;">
                 <a href="http://localhost/signup.php?id=1">Student</a>
                 <a href="http://localhost/signup.php?id=2">Publisher</a>
-                <a href="http://localhost/signup.php?id=3">Secretary</a>
-                <a href="http://localhost/signup.php?id=4">Distributor</a>
-                <a href="http://localhost/signup.php?id=5">Professor</a>
+                <a href="">Secretary</a>
+                <a href="">Distributor</a>
+                <a href="">Professor</a>
               </div>
             </div>
           </div>

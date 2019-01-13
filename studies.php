@@ -50,9 +50,9 @@
                   echo '<div class="mydropdown-content" style="width: 110px;">';
                     echo '<a href="http://localhost/login.php?id=1">Student</a>';
                     echo '<a href="http://localhost/login.php?id=2">Publisher</a>';
-                    echo '<a href="http://localhost/login.php?id=3">Secretary</a>';
-                    echo '<a href="http://localhost/login.php?id=4">Distributor</a>';
-                    echo '<a href="http://localhost/login.php?id=5">Professor</a>';
+                    echo '<a href="">Secretary</a>';
+                    echo '<a href="">Distributor</a>';
+                    echo '<a href="">Professor</a>';
                   echo '</div>';
                 echo '</div>';
                 echo '<div class="mydropdown" style="margin-left:10px">';
@@ -60,9 +60,9 @@
                   echo '<div class="mydropdown-content" style="width: 110px;">';
                     echo '<a href="http://localhost/signup.php?id=1">Student</a>';
                     echo '<a href="http://localhost/signup.php?id=2">Publisher</a>';
-                    echo '<a href="http://localhost/signup.php?id=3">Secretary</a>';
-                    echo '<a href="http://localhost/signup.php?id=4">Distributor</a>';
-                    echo '<a href="http://localhost/signup.php?id=5">Professor</a>';
+                    echo '<a href="">Secretary</a>';
+                    echo '<a href="">Distributor</a>';
+                    echo '<a href="">Professor</a>';
                   echo '</div>';
                 echo '</div>';
               }else{

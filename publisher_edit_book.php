@@ -56,18 +56,6 @@
       }else{
         $img4 = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
       }
-      // $img2 = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
-      // if(empty($img2)){
-      //   $img2 = $book['BPage'];
-      // }
-      // $img3 = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
-      // if(empty($img3)){
-      //   $img3 = $book['Contents'];
-      // }
-      // $img4 = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
-      // if(empty($img4)){
-      //   $img4 = $book['Extract'];
-      // }
       $book_check_query = "SELECT * FROM book WHERE ISBN!='$ISBN' AND Title='$title'";
       $check_result = $conn->query($book_check_query);
       $check = mysqli_fetch_assoc($check_result);
