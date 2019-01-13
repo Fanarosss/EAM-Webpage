@@ -110,16 +110,18 @@
             <p class="lead"><b>Personal instructions:</b></p>
             <hr class="my-2">
             <p class="lead"><i>Home:</i></p>
-            <p>HERE</p>
+            <p>At home screen user can see and access his info. Go to user settings and also check the deadlines.</p>
             <hr class="my-1">
             <p class="lead"><i>Book Selection:</i></p>
-            <p>HERE</p>
+            <p>At book selection user can create a new form, or edit the current. See all the old forms as well as the books he chose in every each one of them.
+            In a new form, in order to select the books he wants he has to complete 4 steps. STEP 1: Select the classes for which he wants to take books. STEP 2: For every class select the books he wants.
+            STEP 3: Select pickup points, either from a ditribution center, or a fellow student. STEP 4: Confirm his selection, preview his book choices, and see details for the pick up point.</p>
             <hr class="my-1">
             <p class="lead"><i>Book List:</i></p>
-            <p>HERE</p>
+            <p>Book List provides to the student all the books he has picked up from a distribution point or a student. It doesn't include books he has selected but not picked up yet.</p>
             <hr class="my-1">
             <p class="lead"><i>FAQ:</i></p>
-            <p>HERE</p>
+            <p>In here he can find various questions and answers that he might find helpful.</p>
             <hr class="my-1">
           </div>
         </div>
