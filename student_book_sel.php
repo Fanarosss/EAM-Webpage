@@ -10,17 +10,18 @@
        $conn->query($query5);
      }
      $year = date('Y');
-     $date = date('Y-m-d h:i:sa');
+     $date = date('Y-m-d h:i:s');
+	   $ended = 0;
      $username = mysqli_real_escape_string($conn, $_SESSION['Username']);
      $period = mysqli_real_escape_string($conn, $_SESSION['Period']);
-     $query = "INSERT INTO form (User_id, Semester, Year, LastEdit, Ended) VALUES ('.$username.','.$period.','.$year.','.$date.',0)";
+     $query = "INSERT INTO form (User_id, Semester, Year, LastEdit, Ended) VALUES ('$username','$period','$year','$date','$ended')";
      $conn->query($query);
-     $query2 = "SELECT * FROM form WHERE User_id = '".$_SESSION['Username']."' AND Ended = 0";
+     $query2 = "SELECT * FROM form WHERE User_id = '$username' AND Ended = 0";
      $result = $conn->query($query2);
      $row = $result->fetch_assoc();
      $formid = $row['Id'];
      foreach($_SESSION['selected_books'] as $key => $book){
-       $query = "INSERT INTO `form_has_book`(`Form_id`, `Book_id`, `Class_id`) VALUES ('".$formid."','".$book['id']."','".$book['for_class']."')";
+       $query = "INSERT INTO form_has_book (Form_id, Book_id, Class_id) VALUES ('".$formid."','".$book['id']."','".$book['for_class']."')";
        $conn->query($query);
      }
      $form_completed = 1;
