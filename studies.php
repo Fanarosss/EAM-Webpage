@@ -149,6 +149,30 @@
               <option disabled selected value="">-- Choose Department --</option>
             </select>
           </div>
+          <div class="form-group2" style="display: grid; grid-template-columns: 48% 4% 48%">
+            <label for="period">Period</label>
+            <h2></h2>
+            <label for="semester">Semester</label>
+          </div>
+          <div class="form-group2" style="display: grid; grid-template-columns: 48% 4% 48%; margin-bottom: 2em;">
+            <select class="form-control" id="period" name="period">
+              <option selected value="">-- Any --</option>
+              <option value="Winter">Winter</option>
+              <option value="Summer">Summer</option>
+            </select>
+            <h2></h2>
+            <select class="form-control" id="semester" name="semester">
+              <option selected value="">-- Any --</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div>
           <div class="search-bn-container" style="text-align: center;">
             <button type="submit" name="submit-options" class="btn btn-primary btn-lg">Search</button>
           </div>
@@ -159,10 +183,22 @@
         <?php
         if (isset($_POST['submit-options'])){
           $dep_id = mysqli_real_escape_string($conn, $_POST['department']);
-          $query = "SELECT * FROM class WHERE class.Department_id='".$dep_id."'";
+          if (!empty($_POST['period']) && !empty($_POST['semester'])){
+            $period = mysqli_real_escape_string($conn, $_POST['period']);
+            $semester = mysqli_real_escape_string($conn, $_POST['semester']);
+            $query = "SELECT * FROM class WHERE class.Department_id='".$dep_id."' AND class.Period = '".$period."' AND class.Semester = '".$semester."'";
+          }else if (!empty($_POST['period'])){
+            $period = mysqli_real_escape_string($conn, $_POST['period']);
+            $query = "SELECT * FROM class WHERE class.Department_id='".$dep_id."' AND class.Period = '".$period."'";
+          }else if (!empty($_POST['semester'])){
+            $semester = mysqli_real_escape_string($conn, $_POST['semester']);
+            $query = "SELECT * FROM class WHERE class.Department_id='".$dep_id."' AND class.Semester = '".$semester."'";
+          }else {
+            $query = "SELECT * FROM class WHERE class.Department_id='".$dep_id."'";
+          }
           $result = $conn->query($query);
           echo '<div class="fancy-header">
-                  <p style="text-align: center;"><a href="http://localhost/images/'.$dep_id.'.pdf">Link for the curiculum<a> of your Department</p>
+                  <p style="text-align: center;"><a href="curriculum.php">Link for the curriculum<a> of your Department</p>
                   <h1>Classes:</h1>
                 </div>';
           if (mysqli_num_rows($result) > 0) {
@@ -176,13 +212,16 @@
                       </h4>
                     </div>
                     <div id="collapse1'.$row['Id'].'" class="panel-collapse collapse in">
+                    <div class="class-info">
+                      <input class="btn btn-outline-dark view_info" style="min-width: 200px;" type="submit" data-toggle="modal" data-target="#dataModal1" id="'.$row['Id'].'" value="Class Info">
+                    </div>
                     <div class="cart-container" style="display: grid; grid-template-columns: 50% 50%">';
               $query2 = "SELECT * FROM book,class_has_choice WHERE class_has_choice.Class_id='".$row['Id']."' AND book.Id = class_has_choice.Book_id";
               $result2 = $conn->query($query2);
               if (mysqli_num_rows($result) > 0) {
                 while($row2 = $result2->fetch_assoc()){
                   echo '<div class="btn2" >';
-                  echo '<input class="myButton view_data" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row2['ISBN'].'" value="'.$row2['Title'].'">';
+                  echo '<input class="myButton view_data" type="submit" data-toggle="modal" data-target="#dataModal2" id="'.$row2['ISBN'].'" value="'.$row2['Title'].'">';
                   echo '</div>';
                   }
                 }else{
@@ -193,7 +232,7 @@
                 </div>';
             }
             echo '<!-- Modal -->
-                  <div class="modal fade" id="dataModal" role="dialog">
+                  <div class="modal fade" id="dataModal2" role="dialog">
                     <div class="modal-dialog">
 
                       <!-- Modal content-->
@@ -210,6 +249,23 @@
                     </div>
                   </div>';
             echo '</div>
+                  </div>';
+            echo '<!-- Modal -->
+                  <div class="modal fade" id="dataModal1" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header" id="class_header">
+                        </div>
+                        <div class="modal-body" id="class_details">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>';
           }else{
             echo "There are no results matching your search.";
