@@ -110,16 +110,29 @@
             <p class="lead"><b>Personal instructions:</b></p>
             <hr class="my-2">
             <p class="lead"><i>Home:</i></p>
-            <p>HERE</p>
+            <p>Publisher's Home Page presents all registration info which consists of Full Name, Username, Address, E-mail, Phone and Registration Date.
+            Below those characteristics there is a "Settings" button, where you can change your Password, Address, E-mail and Phone. All other info
+            is handled strictly by us and can only be changed in certain occasions after personal request. Moreover, in the right side of the page
+            there is a table where you can keep track of your collaboration with Eudoxus and choose whether or not to collaborate with Eudoxus this year.</p>
             <hr class="my-1">
             <p class="lead"><i>Book Management:</i></p>
-            <p>HERE</p>
+            <p>This is where you will find all the books that you have registered in Eudoxus database. Every book's info is presented in the table
+            under the column with the appropriate header (ID, Title, Author, ISBN, Pages, Dimensions, Costing). In the right column with title "Actions"
+            there are two buttons, where you can "Edit" or "Delete" this precise book. There is, also, a search bar so as to find certain books by ID, Title,
+            Author and ISBN. In the upper side of the table there is a button named "Add Book" where the process of registering a book begins.
+            The first step of the process is ISBN check in order to prevent registering an already registered book. In the second step is where you have to
+            add all the necessary info (ID, Title, Author, ISBN, Pages, Dimensions, Costing). After this form is completed correctly, you can proceed in the
+            third step, where you can upload files for your book (Front Page, Back Page, Contents, Extract). Finally, when everything is done, you proceed in
+            fourth and final step where you can see a review of your book and decide whether you want to add it or not. Every change in books (Add, Edit, Delete)
+            leads to Book Management with the equivalent message to inform you about the success of your action.</p>
             <hr class="my-1">
             <p class="lead"><i>Courier Service:</i></p>
-            <p>HERE</p>
+            <p>Under Construction</p>
             <hr class="my-1">
             <p class="lead"><i>FAQ:</i></p>
-            <p>HERE</p>
+            <p>Frequently Asked Questions and their answers can be found here to help you with your experience in the site of Eudoxus. Every box corresponds
+            to a single question. If you are not able to find your answer in this section, you can always contact us throught contact form which is available
+            in the Navigation Bar under the title of "Contact".</p>
             <hr class="my-1">
           </div>
         </div>

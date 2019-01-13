@@ -135,112 +135,114 @@
         <div class="list-group">
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">New Extra Time for Declaration and Distribution of books</h5>
+              <small>09/01/2019</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>By command of Ministry of Education, Research and Religious Affairs, the time of
+              Declaration and Distribution of books is further extended until Friday 18 January 2019 for
+              Declaration and Friday 1 February 2019 for Distribution.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">Extra Time for Declaration and Distribution of books</h5>
+              <small>20/12/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>By command of Ministry of Education, Research and Religious Affairs, the time of
+              Declaration and Distribution of books is extended until Friday 11 January 2019 for
+              Declaration and Friday 25 January 2019 for Distribution.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">Problem for Publishers using Mozilla Firefox</h5>
+              <small>01/11/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>We inform you that due to the latest update of Mozilla Firefox browser, Eudoxus
+              site has some stability issues. We are currently dealing with this issue and we suggest
+              the use of some other browser until then. We are sorry for any inconvinience.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">Start of Declaration and Distribution of books</h5>
+              <small>23/10/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>By command of Ministry of Education, Research and Religious Affairs, the
+              Declaration and Distribution of books is officially starting. Declarations will be
+              available from Wednesday 24 October 2018 until Friday 21 December 2018. Distribution will be
+              available from Wednesday 24 October 2018 until Friday 11 January 2019.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">Extra Time for Registration of Book Directories</h5>
+              <small>12/09/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>Time of Registration of Book Directories is extended until Friday 28 September 2018.
+              After expiration of deadline, no further registrations will be accepted.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">Extra Time for Post of Educational Books of Academic Year 2018-2019</h5>
+              <small>27/07/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>Time of Post of Educational Books is extended until Friday 10 August 2018.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">Post of Educational Books of Academic Year 2018-2019</h5>
+              <small>20/06/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>By request of Ministry of Education, Research and Religious Affairs, Distributors who are
+              willing to provide educational books for academic year 2018-2019 are obliged to register their Books
+              of choice from Thursday 21 June 2018 until Friday 27 July 2018.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1"> New Extra Time for Distribution of Books</h5>
+              <small>31/05/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>Time of Distribution of Books is extended until Friday 8 June 2018.</p>
             </details>
           </div>
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
+              <h5 class="mb-1">Scheduled Maintenance 16/05/2018</h5>
+              <small>11/05/2018</small>
             </div>
             <details>
               <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-            </details>
-          </div>
-          <div class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
-            </div>
-            <details>
-              <summary>Read More</summary>
-              <p> - by Refsnes Data. All Rights Reserved.</p>
-              <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+              <br>
+              <p>Due to maintenance, it is possible for our site to be down from 09:00 to 13:00 on
+              Wednesday 16/05/2018. We are sorry for any inconvinience.</p>
             </details>
           </div>
         </div>
