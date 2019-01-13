@@ -74,6 +74,11 @@
         <a class="nav-link" href="https://eudoxus.gr/files/ManualPublishersUpdateBooks.pdf" target="_blank">Manual</a>
       </li>
     </ul>
+    <div class="bs-item3">
+      <div class="jumbotron2">
+        <img src="images/UnderCon.jpg" alt="Under Construction!" style="display: block;margin-left: auto;margin-right: auto;width:500px;">
+      </div>
+    </div>
   </div>
 </body>
 </html>
