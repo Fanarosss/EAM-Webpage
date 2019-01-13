@@ -190,6 +190,7 @@
 
         <div class="Settfield">
           <h4><b>Phone</b></h4>
+          <span class="error"><?php echo $phoneErr;?></span>
           <div class="form-group">
             <input class="form-control" type="text" name="Phone" id="Phone" placeholder="<?php echo $_SESSION['Phone'];?>">
             <button type="save" name="save-phone" class="btn btn-primary btn" style="margin-top:10px">Save</button></b>

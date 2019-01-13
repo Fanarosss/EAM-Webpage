@@ -121,11 +121,26 @@
         <h5 style="margin-bottom: 0.5em;"><b>Current Semester Form:</b></h5>
         <a href="http://localhost/student_new_form1.php" class="list-group-item list-group-item-action flex-column align-items-start active">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Book Selection for Semester.</h5>
-            <small>Last Edit.</small>
-          </div>
-          <p class="mb-1">Book Selection for Semester.</p>
-          <small>Click here to create or modify your choices.</small>
+            <?php
+            include('./src/config.php');
+            $query2 = "SELECT form.Id, form.Semester, form.Year, form.LastEdit FROM user, form WHERE user.Username = '".$_SESSION['Username']."' AND user.Username = form.User_id AND form.Ended = 0";
+            $result2 = $conn->query($query2);
+            if (!$result2) die($conn->error);
+            if (mysqli_num_rows($result2) > 0) {
+              $row2 = $result2->fetch_assoc();
+              echo '<h5 class="mb-1">Book Selection for Semester.</h5>
+                    <small>'.$row2['LastEdit'].'.</small>
+                  </div>
+                  <p class="mb-1">'.$row2['Semester'].' Book Selection.</p>
+                  <small>Click here to modify your choices.</small>';
+            }else{
+              echo '<h5 class="mb-1">Create new form.</h5>
+                    <small>No edit.</small>
+                  </div>
+                  <p class="mb-1">Book Selection.</p>
+                  <small>Click here to create a new form.</small>';
+            }
+            ?>
         </a>
       </div>
       <div class="OldForm">

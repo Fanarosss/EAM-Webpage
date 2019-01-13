@@ -230,7 +230,7 @@
                       echo '>';
                     }
                 echo  '<div class="btn">
-                      <input class="myButton view_info" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
+                      <input class="myButton view_info" title="Click for class description" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['Id'].'" value="'.$row['Name'].'">
                       </div>
                       <form method="post" action="http://localhost/student_new_form1.php?action=add&id='.$row['Id'].'">
                       <input type="hidden" name="Name" value="'.$row['Name'].'"/>
