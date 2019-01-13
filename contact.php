@@ -98,7 +98,7 @@
             <a class="nav-link" href="http://localhost/student_faq.php">FAQ</a>
           </li>
           <li class="nav-item" style="padding-bottom:2em">
-            <a class="nav-link" href="https://eudoxus.gr/Files/User%20Manual%20Foitites.pdf" target="_blank">Manual</a>
+            <a class="nav-link" href="http://localhost/student_manual.php" target="_blank">Manual</a>
           </li>
         </ul>';
       }else if ($_SESSION['Id'] == 2){
@@ -117,7 +117,7 @@
             <a class="nav-link" href="http://localhost/publisher_faq.php">FAQ</a>
           </li>
           <li class="nav-item" style="padding-bottom:2em">
-            <a class="nav-link" href="https://eudoxus.gr/files/ManualPublishersUpdateBooks.pdf" target="_blank">Manual</a>
+            <a class="nav-link" href="http://localhost/publisher_manual.php" target="_blank">Manual</a>
           </li>
         </ul>';
       }
