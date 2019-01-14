@@ -1,23 +1,28 @@
 <?php
-   include('./src/session.php');
+   include('../src/session.php');
+   include('../src/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="icon" type="image/png" href="http://localhost/images/icon.png">
     <title>Eudoxus</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/foundation.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/scripts.js"></script>
 </head>
 
 <body>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
-      <a href="index.php"><img src="images/eudoxus.png"/></a>
+      <a href="http://localhost/index.php"><img src="http://localhost/images/eudoxus.png"/></a>
     </div>
     <div class="bs-grid">
       <!-- Item 1 on grid -->
@@ -28,7 +33,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="http://localhost/general/announcements.php">Announcements</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="http://localhost/general/book_database.php">Book Database</a>
               </li>
               <li class="nav-item">
@@ -72,7 +77,8 @@
       <!-- Item 2 on grid -->
       <div class="bs-item2">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active">Home</li>
+          <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
+          <li class="breadcrumb-item active">Book Database</li>
         </ol>
       </div>
     </div>
@@ -128,46 +134,93 @@
     ?>
     <!-- Item 2 on grid2 -->
     <div class="bs-grid">
-      <!-- Item 1 on grid -->
-      <div class="bs-item3">
-        <div class="jumbotron" style="margin-bottom: 10px;">
-          <h1 class="display-3">Book distribution!</h1>
-          <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
-          <hr class="my-4">
-          <div class="splitter">
-            <div class="split1">
-              <p>Appropriate management and fast distribution throughout greece.</p>
-              <p class="lead">
-                <a class="btn btn-primary btn-lg" href="http://localhost/general/about.php" role="button">Learn more</a>
-              </p>
-            </div>
-            <div class="split2" style="padding-left: 2em;">
-              <a role="button" class="btn btn-outline-primary btn-lg" href="http://localhost/general/studies.php"><h3>Browser for all departments.</h3></a>
-            </div>
-            <div class="split3" style="padding-left: 2em;">
-              <a role="button" class="btn btn-outline-primary btn-lg" href="http://localhost/general/book_database.php"><h3>Search engine for all books.</h3></a>
-            </div>
+      <!-- Item 3 on grid -->
+      <h1 style="text-align:center">Search for book in Eudoxus database</h1>
+      <!-- Item 4 on grid -->
+      <div class="container">
+        <form action="http://localhost/general/book_database.php" method="POST">
+          <div class="form-group">
+            <input type="text" name="search" class="form-control" id="search" placeholder="Search" aria-describedby="search">
+            <small id="emailHelp" class="form-text text-muted">Search books by author, title, publications, isbn.</small>
+            <small id="emailHelp" class="form-text text-muted">Example search: Algo -> Results: Introduction to Algorithms. Kleidarithmos -> Results: All books of Kleidarithmos publications</small>
           </div>
-        </div>
+          <div class="search-bn-container">
+            <button type="submit" name="submit-search" class="btn btn-primary btn-lg">Search</button>
+          </div>
+        </form>
       </div>
-      <!-- Item 2 on grid -->
-      <h2>Are you?</h2>
-      <div class="button-row">
-        <a href="http://localhost/general/login.php?id=1">
-          <input class="myButton" type="submit" value="Student">
-        </a>
-        <a href="http://localhost/general/login.php?id=2">
-          <input class="myButton" type="submit" value="Publisher">
-        </a>
-        <a href="">
-          <input class="myButton" type="submit" value="Secretary">
-        </a>
-        <a href="">
-          <input class="myButton" type="submit" value="Distributor">
-        </a>
-        <a href="">
-          <input class="myButton" type="submit" value="Professor">
-        </a>
+      <!-- Item 5 on grid -->
+      <div class="results-container">
+        <?php
+        if (isset($_POST['submit-search'])){
+          $search = mysqli_real_escape_string($conn, $_POST['search']);
+          $query = "SELECT * FROM book WHERE Title LIKE '%$search%' OR Author LIKE '%$search%'
+                    OR ISBN LIKE '%$search%' OR Publications LIKE '%$search%'";
+          $result = $conn->query($query);
+          if ($result){
+            if (!empty($_POST['search'])){
+              echo '<h1>Results</h1>';
+            }else{
+              echo '<h1>All books</h1>';
+            }
+            echo '<div class="book-row">';
+            while($row = $result->fetch_assoc()){
+              echo '<div class="btn">';
+              echo '<input class="myButton view_data" title="Click to view book preview" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">';
+              echo '</div>';
+              echo '<!-- Modal -->
+                    <div class="modal fade" id="dataModal" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header" id="book_header">
+                          </div>
+                          <div class="modal-body" id="book_details">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>';
+            }
+            echo '</div>';
+          }else{
+            echo "<h1>There are no results matching your search.</h1>";
+          }
+        } else {
+          $query = "SELECT * FROM book";
+          $result = $conn->query($query);
+          if (!$result) die($conn->error);
+          echo '<h1>All books</h1>';
+          echo '<div class="book-row">';
+          while($row = $result->fetch_assoc()){
+            echo '<div class="btn">';
+            echo '<input class="myButton view_data" title="Click to view book preview" type="submit" data-toggle="modal" data-target="#myModal" id="'.$row['ISBN'].'" value="'.$row['Title'].'">';
+            echo '</div>';
+            echo '<!-- Modal -->
+                  <div class="modal fade" id="dataModal" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header" id="book_header">
+                        </div>
+                        <div class="modal-body" id="book_details">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>';
+          }
+          echo '</div>';
+        }
+        ?>
       </div>
     </div>
   </div>

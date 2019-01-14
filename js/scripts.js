@@ -2,7 +2,7 @@ $(document).ready(function() {
   $('.view_data').click(function(){
      var book_id = $(this).attr("id");
      $.ajax({
-          url:"show_header.php",
+          url:"http://localhost/src/book_header.php",
           method:"post",
           data:{book_id:book_id},
           success:function(data){
@@ -11,7 +11,7 @@ $(document).ready(function() {
           }
      });
      $.ajax({
-          url:"show_details.php",
+          url:"http://localhost/src/book_details.php",
           method:"post",
           data:{book_id:book_id},
           success:function(data){
@@ -23,7 +23,7 @@ $(document).ready(function() {
    $('.view_info').click(function(){
       var class_id = $(this).attr("id");
       $.ajax({
-           url:"show_class_header.php",
+           url:"http://localhost/src/class_header.php",
            method:"post",
            data:{class_id:class_id},
            success:function(data){
@@ -32,7 +32,7 @@ $(document).ready(function() {
            }
       });
       $.ajax({
-           url:"show_class_details.php",
+           url:"http://localhost/src/class_details.php",
            method:"post",
            data:{class_id:class_id},
            success:function(data){

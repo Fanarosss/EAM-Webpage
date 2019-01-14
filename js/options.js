@@ -1,6 +1,6 @@
 function getDepartments(val){
      $.ajax({
-          url:"load_options.php",
+          url:"http://localhost/src/load_options.php",
           method:"post",
           data: {uid:val},
           success:function(data){

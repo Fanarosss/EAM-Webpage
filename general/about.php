@@ -1,23 +1,26 @@
 <?php
-   include('./src/session.php');
+   include('../src/session.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="icon" type="image/png" href="http://localhost/images/icon.png">
     <title>Eudoxus</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/foundation.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
 </head>
 
 <body>
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
-      <a href="index.php"><img src="images/eudoxus.png"/></a>
+      <a href="http://localhost/index.php"><img src="http://localhost/images/eudoxus.png"/></a>
     </div>
     <div class="bs-grid">
       <!-- Item 1 on grid -->
@@ -72,7 +75,8 @@
       <!-- Item 2 on grid -->
       <div class="bs-item2">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active">Home</li>
+          <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
+          <li class="breadcrumb-item active">About</li>
         </ol>
       </div>
     </div>
@@ -130,44 +134,87 @@
     <div class="bs-grid">
       <!-- Item 1 on grid -->
       <div class="bs-item3">
-        <div class="jumbotron" style="margin-bottom: 10px;">
-          <h1 class="display-3">Book distribution!</h1>
-          <p class="lead">Now with eudoxus book distribution at universities became easy.</p>
-          <hr class="my-4">
-          <div class="splitter">
-            <div class="split1">
-              <p>Appropriate management and fast distribution throughout greece.</p>
-              <p class="lead">
-                <a class="btn btn-primary btn-lg" href="http://localhost/general/about.php" role="button">Learn more</a>
+        <div class="timeline" style="background-color:#008cba">
+
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              <span class="fas fa-anchor" style="padding:17px"></span>
+            </div>
+            <div class="timeline-content">
+              <p class="timeline-content-date">2010</h2>
+              <p>
+                <a href="http://localhost/index.php" target="_blank">Eudoxus</a>
+                is launched and now all students can now benefit from this tool. Gathered information for all books and all classes. Both AEI and TEI can use and benefit from Eudoxus.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              <span class="fas fa-book-reader" style="padding:17px"></span>
+            </div>
+            <div class="timeline-content right">
+              <p class="timeline-content-date">Students</h2>
+              <p>All students that are before their n+2 year of their studies, can have up to 40 free books for their classes.
+                They can choose a book from the selections of the teacher, using all information necesary (front page, author, title, publications).
+                They can only choose book for the classes that they actually attend this semester. In case They don't want a new book, or they don't have enough points
+                they can always trade a book with another colleague. For more info click <a href="https://eudoxus.gr/Files/Terms_and_Conditions_Plus.pdf" target="_blank">here</a>.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              <span class="fas fa-book" style="padding:17px"></span>
+            </div>
+            <div class="timeline-content">
+              <p class="timeline-content-date">Publishers</h2>
+              <p>
+                 Every publisher in order to use the platform must sign up first and get authentication from our team.
+                 Then he will be able to upload in our database all of his books, so that the universities can pick them as choices for their students.
+                 Also, additional to the books, publisher will have to add all of their distributors (if any). Every book should have at least one point of distribution,
+                 even the publications themselves. For more info click <a href="https://eudoxus.gr/Files/Terms_and_Conditions_v1.pdf" target="_blank">here</a>.
               </p>
             </div>
-            <div class="split2" style="padding-left: 2em;">
-              <a role="button" class="btn btn-outline-primary btn-lg" href="http://localhost/general/studies.php"><h3>Browser for all departments.</h3></a>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              <span class="fas fa-building" style="padding:17px"></span>
             </div>
-            <div class="split3" style="padding-left: 2em;">
-              <a role="button" class="btn btn-outline-primary btn-lg" href="http://localhost/general/book_database.php"><h3>Search engine for all books.</h3></a>
+            <div class="timeline-content right">
+              <p class="timeline-content-date">Distributors</h2>
+              <p>
+                Distribution point must be signed up, so that they can make deals with the publisher and distribute their books.
+                The distributors are those who take the books from the publications and then the students go and pick them up from there.
+                The position of the distribution points on map are very important!
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              <span class="fas fa-feather-alt" style="padding:17px"></span>
+            </div>
+            <div class="timeline-content">
+              <p class="timeline-content-date">Secretaries</p>
+              <p>
+                For every university and department the secretary must be signed up and authenticated to Eudoxus platform, so that they can pick
+                the books for their students, provide the carriculations. For every semester the book selection must be repeated.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              <span class="fas fa-file-pdf" style="padding:17px"></span>
+            </div>
+            <div class="timeline-content right">
+              <p class="timeline-content-date">Professors</h2>
+              <p>
+                For those who provide with free books and tips there is a place here to upload them. Sign up is obligatory.
+              </p>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Item 2 on grid -->
-      <h2>Are you?</h2>
-      <div class="button-row">
-        <a href="http://localhost/general/login.php?id=1">
-          <input class="myButton" type="submit" value="Student">
-        </a>
-        <a href="http://localhost/general/login.php?id=2">
-          <input class="myButton" type="submit" value="Publisher">
-        </a>
-        <a href="">
-          <input class="myButton" type="submit" value="Secretary">
-        </a>
-        <a href="">
-          <input class="myButton" type="submit" value="Distributor">
-        </a>
-        <a href="">
-          <input class="myButton" type="submit" value="Professor">
-        </a>
       </div>
     </div>
   </div>
