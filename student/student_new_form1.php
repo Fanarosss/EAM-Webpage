@@ -34,7 +34,7 @@
           'publications' => $row3['Publications'],
           'for_class' => $row2['Id']
         );
-        $_SESSION['selected_distrib'][$count2] = $row['PPoint'];
+        $_SESSION['selected_distrib'][$count2] = $row2['PPoint'];
 
         $count2++;
       }

@@ -127,7 +127,7 @@
                     <td><fieldset class="form-group">
                           <div class="form-check">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="0"'; if(isset($_SESSION['selected_distrib'])){if($_SESSION['selected_distrib'][$count] == 0){echo "checked";}}else{echo "checked";} echo'>
+                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="0"'; if(isset($_SESSION['selected_distrib'][$count])){if($_SESSION['selected_distrib'][$count] == 0){echo "checked";}}else{echo "checked";} echo'>
                             Select this to pick up a new book from the closest distributor.
                             </label>
                           </div>
@@ -136,7 +136,7 @@
                     <td><fieldset class="form-group">
                           <div class="form-check">
                             <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="1"'; if(isset($_SESSION['selected_distrib'])){if($_SESSION['selected_distrib'][$count] == 1){echo "checked";}} echo'>
+                            <input type="radio" class="form-check-input" name="optionsRadios'.$count.'" id="optionsRadios'.$count.'" value="1"'; if(isset($_SESSION['selected_distrib'][$count])){if($_SESSION['selected_distrib'][$count] == 1){echo "checked";}} echo'>
                             Select this to take the book from a fellow student.
                             </label>
                           </div>

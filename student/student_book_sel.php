@@ -36,6 +36,7 @@
      unset($_SESSION['Editing_Form']);
      unset($_SESSION['selected_class']);
      unset($_SESSION['selected_books']);
+     unset($_SESSION['selected_distrib']);
    }
 ?>
 <!DOCTYPE html>
