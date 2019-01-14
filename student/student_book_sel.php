@@ -20,9 +20,11 @@
      $result = $conn->query($query2);
      $row = $result->fetch_assoc();
      $formid = $row['Id'];
+     $count = 0;
      foreach($_SESSION['selected_books'] as $key => $book){
-       $query = "INSERT INTO form_has_book (Form_id, Book_id, Class_id) VALUES ('".$formid."','".$book['id']."','".$book['for_class']."')";
+       $query = "INSERT INTO form_has_book (Form_id, Book_id, Class_id, PPoint) VALUES ('".$formid."','".$book['id']."','".$book['for_class']."', '".$_SESSION['selected_distrib'][$count]."')";
        $conn->query($query);
+       $count++;
      }
      $form_completed = 1;
      unset($_POST['checkout']);

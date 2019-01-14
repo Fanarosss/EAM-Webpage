@@ -1,5 +1,6 @@
 <?php
    include('../src/session.php');
+   include('../src/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://localhost/js/options.js"></script>
   <?php
-    include('./src/config.php');
     $passwordErr = 0;
     $usernameErr = 0;
     $emailErr = 0;
@@ -67,7 +67,7 @@
   <!-- grid class containing all items -->
   <div class="grid">
     <div class="logo">
-      <a href="http://localhost/index.php"><img src="images/eudoxus.png"/></a>
+      <a href="http://localhost/index.php"><img src="http://localhost/images/eudoxus.png"/></a>
     </div>
     <div class="bs-grid">
       <!-- Item 1 on grid -->
