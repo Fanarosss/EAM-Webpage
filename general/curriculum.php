@@ -22,7 +22,7 @@
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
-      <a href="index.php"><img src="http://localhost/images/eudoxus.png"/></a>
+      <a href="http://localhost/index.php"><img src="http://localhost/images/eudoxus.png"/></a>
     </div>
     <div class="bs-grid">
       <!-- Item 1 on grid -->
