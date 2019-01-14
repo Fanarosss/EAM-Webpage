@@ -16,6 +16,8 @@
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   <?php
     $IdErr = 0;
     $TitleErr = 0;
@@ -142,11 +144,13 @@
       </ul>
       <div class="jumbotron2">
         <?php
-        if ($success == 1) {
-          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>--Book info has been registered successfully!--</strong> Click <a href="http://localhost/publisher/publisher_add_book_3.php" class="alert-link">here</a> to proceed.
-                </div>';
+        if(isset($success)){
+          if ($success == 1) {
+            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Book info has been registered successfully!--</strong> Click <a href="http://localhost/publisher/publisher_add_book_3.php" class="alert-link">here</a> to proceed.
+                  </div>';
+          }
         }
         ?>
         <p class="lead">Please enter book's info below:</p>

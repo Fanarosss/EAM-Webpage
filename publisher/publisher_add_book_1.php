@@ -115,18 +115,20 @@
       </ul>
       <div class="jumbotron2">
       <?php
-        if ($success == -1) {
-          echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <strong>--Check Fail--</strong> This ISBN was found in another book that you have already registered!
-                </div>';
-        }else if ($success == 1){
-          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>--Check Success--</strong> This ISBN is ready to be registered! Click <a href="http://localhost/publisher/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
-                </div>';
+        if(isset($success)){
+          if ($success == -1) {
+            echo '<div class="alert alert-dismissible alert-danger" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>--Check Fail--</strong> This ISBN was found in another book that you have already registered!
+                  </div>';
+          }else if ($success == 1){
+            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Check Success--</strong> This ISBN is ready to be registered! Click <a href="http://localhost/publisher/publisher_add_book_2.php" class="alert-link">here</a> to proceed.
+                  </div>';
+          }
         }
       ?>
         <h1 class="display-3">Check ISBN</h1>
@@ -135,7 +137,7 @@
         <form action="http://localhost/publisher/publisher_add_book_1.php" method="POST">
           <fieldset>
             <div class="form-group">
-              <input type="text" class="form-control" name="ISBN" placeholder="ISBN" value="<?php echo isset($_POST['ISBN']) ? $_POST['ISBN'] : $_SESSION['ISBN'] ?>" required>
+              <input type="text" class="form-control" name="ISBN" placeholder="ISBN" value="<?php if(isset($_POST['ISBN'])){echo $_POST['ISBN'];}?>" required>
             </div>
             <button type="submit" class="btn btn-primary" name="submit-check">Check</button>
           </fieldset>

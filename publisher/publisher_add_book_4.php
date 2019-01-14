@@ -182,9 +182,9 @@
           </div>
         </div>
         <hr class="my-4">
-        <form action="http://localhost/publisher/publisher_add_book_3.php" method="POST" enctype="multipart/form-data">
+        <form action="http://localhost/publisher/publisher_add_book_4.php" method="POST" enctype="multipart/form-data">
           <button type="submit" formaction="http://localhost/publisher/publisher_add_book_4.php?action=confirm" class="btn btn-primary" name="submit-check">Confirm</button>
-          <button type="submit" formaction="http://localhost/publisher/publisher_add_book_4.php?action=cancel" formnovalidate class="btn btn-primary" name="cancel">Cancel</button>
+          <button type="submit" formaction="http://localhost/publisher/publisher_add_book_4.php?action=cancel" formnovalidate class="btn btn-danger" name="cancel">Cancel</button>
         </form>
       </div>
     </div>

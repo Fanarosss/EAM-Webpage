@@ -16,14 +16,19 @@
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
       if ($_GET['action'] == 'submit'){
         $ISBN = $_SESSION['ISBN'];
         $_SESSION['img1'] = addslashes(file_get_contents($_FILES['FPage']['tmp_name']));
-        $_SESSION['img2'] = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
-        $_SESSION['img3'] = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
-        $_SESSION['img4'] = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
+        if(!empty($_FILES['BPage']['tmp_name']))
+          $_SESSION['img2'] = addslashes(file_get_contents($_FILES['BPage']['tmp_name']));
+        if(!empty($_FILES['Contents']['tmp_name']))
+          $_SESSION['img3'] = addslashes(file_get_contents($_FILES['Contents']['tmp_name']));
+        if(!empty($_FILES['Extract']['tmp_name']))
+          $_SESSION['img4'] = addslashes(file_get_contents($_FILES['Extract']['tmp_name']));
         $_SESSION['p_add3'] = 1;
         // $book_insert_query = "UPDATE book SET FPage = '$f1', BPage = '$f2', Contents = '$f3', Extract = '$f4' WHERE ISBN = '$ISBN'";
         // $conn->query($book_insert_query);
@@ -114,11 +119,13 @@
       </ul>
       <div class="jumbotron2">
         <?php
-        if ($_SESSION['p_add3'] == 1) {
-          echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>--Book files have been registered successfully!--</strong> Click <a href="http://localhost/publisher/publisher_add_book_4.php" class="alert-link">here</a> to proceed.
-                </div>';
+        if(isset($_SESSION['p_add3'])){
+          if ($_SESSION['p_add3'] == 1) {
+            echo '<div class="alert alert-dismissible alert-success" style="margin-top: 20px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>--Book files have been registered successfully!--</strong> Click <a href="http://localhost/publisher/publisher_add_book_4.php" class="alert-link">here</a> to proceed.
+                  </div>';
+          }
         }
         ?>
         <p class="lead">Please enter book's files below:</p>
