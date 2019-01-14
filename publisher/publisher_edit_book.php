@@ -1,16 +1,17 @@
 <?php
-   include('./src/session.php');
+   include('../src/session.php');
+   include('../src/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="icon" type="image/png" href="http://localhost/images/icon.png">
     <title>Eudoxus</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/foundation.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
 
@@ -19,9 +20,8 @@
 <body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="./js/scripts.js"></script>
+  <script type="text/javascript" src="http://localhost/js/scripts.js"></script>
   <?php
-    include('./src/config.php');
     $ISBN = filter_input(INPUT_GET, 'ISBN');
     $publications = $_SESSION['Username'];
     $book_find_query = "SELECT * FROM book WHERE ISBN = '$ISBN'";
@@ -80,7 +80,7 @@
   <!-- grid class containing all items -->
   <div class="bs1-grid">
     <div class="logo">
-      <a href="index.php"><img src="images/eudoxus.png"/></a>
+      <a href="http://localhost/index.php"><img src="http://localhost/images/eudoxus.png"/></a>
     </div>
     <div class="bs-grid">
       <!-- Item 1 on grid -->
@@ -89,19 +89,19 @@
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/announcements.php">Announcements</a>
+                <a class="nav-link" href="http://localhost/general/announcements.php">Announcements</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/book_database.php">Book Database</a>
+                <a class="nav-link" href="http://localhost/general/book_database.php">Book Database</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/studies.php">Studies</a>
+                <a class="nav-link" href="http://localhost/general/studies.php">Studies</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/contact.php">Contact</a>
+                <a class="nav-link" href="http://localhost/general/contact.php">Contact</a>
               </li>
             </ul>
-            <a href="http://localhost/logout.php">
+            <a href="http://localhost/general/logout.php">
               <button class="dropbtn">Logout</button>
             </a>
           </div>
@@ -111,8 +111,8 @@
       <div class="bs-item2">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="http://localhost/index.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="http://localhost/publisher_home.php">Publisher</a></li>
-          <li class="breadcrumb-item"><a href="http://localhost/publisher_book_man.php">Book Management</a></li>
+          <li class="breadcrumb-item"><a href="http://localhost/publisher/publisher_home.php">Publisher</a></li>
+          <li class="breadcrumb-item"><a href="http://localhost/publisher/publisher_book_man.php">Book Management</a></li>
           <li class="breadcrumb-item active">Edit Book</li>
         </ol>
       </div>
@@ -122,19 +122,19 @@
     <!-- item 1 on bs2 grid - side bar -->
     <ul class="nav nav-pills flex-column">
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/publisher_home.php">Home</a>
+        <a class="nav-link" href="http://localhost/publisher/publisher_home.php">Home</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link active" href="http://localhost/publisher_book_man.php">Book Management</a>
+        <a class="nav-link active" href="http://localhost/publisher/publisher_book_man.php">Book Management</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/publisher_courier.php">Courier Service</a>
+        <a class="nav-link" href="http://localhost/publisher/publisher_courier.php">Courier Service</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/publisher_faq.php">FAQ</a>
+        <a class="nav-link" href="http://localhost/publisher/publisher_faq.php">FAQ</a>
       </li>
       <li class="nav-item" style="padding-bottom:2em">
-        <a class="nav-link" href="http://localhost/publisher_manual.php">Manual</a>
+        <a class="nav-link" href="http://localhost/publisher/publisher_manual.php">Manual</a>
       </li>
     </ul>
     <!-- item2 on bs2 grid-->
@@ -142,7 +142,7 @@
       <div class="jumbotron2">
         <h1 class="display-3">Edit Book</h1>
         <hr class="my-4">
-        <form action="publisher_edit_book.php?ISBN=<?php echo $_GET['ISBN'];?>" method="POST" enctype="multipart/form-data">
+        <form action="http://localhost/publisher/publisher_edit_book.php?ISBN=<?php echo $_GET['ISBN'];?>" method="POST" enctype="multipart/form-data">
           <fieldset>
             <div class="form-group">
               <label for="Id">Id</label>
@@ -246,7 +246,7 @@
             </div>
             <hr class="my-4">
             <button type="submit" class="btn btn-primary" name="submit-check">Edit</button>
-            <a class="btn btn-primary" name="submit-check" href="http://localhost/publisher_book_man.php">Cancel</a>
+            <a class="btn btn-primary" name="submit-check" href="http://localhost/publisher/publisher_book_man.php">Cancel</a>
           </fieldset>
         </form>
       </div>
