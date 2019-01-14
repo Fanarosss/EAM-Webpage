@@ -27,19 +27,19 @@
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/student/announcements.php">Announcements</a>
+                <a class="nav-link" href="http://localhost/general/announcements.php">Announcements</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/student/book_database.php">Book Database</a>
+                <a class="nav-link" href="http://localhost/general/book_database.php">Book Database</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/student/studies.php">Studies</a>
+                <a class="nav-link" href="http://localhost/general/studies.php">Studies</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="http://localhost/student/contact.php">Contact</a>
+                <a class="nav-link" href="http://localhost/general/contact.php">Contact</a>
               </li>
             </ul>
-            <a href="http://localhost/student/logout.php">
+            <a href="http://localhost/general/logout.php">
               <button class="dropbtn">Logout</button>
             </a>
           </div>
